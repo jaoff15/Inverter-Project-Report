@@ -1,10 +1,5 @@
 \subsection{Communication between PL and PS}
-% The communication between the hardware logic and the processing system is done through block RAM. The RAM is divided into fixed size chunks that is used for communication in both directions.
-
-% The chunks are divided into 4 byte chunks. 
-
-
-
+Sending thresholds from the processing system to the PWM low-level modules are done through a piece of block RAM.
 
 \begin{figure}[H]
 	\centering
@@ -13,4 +8,9 @@
 	\label{fig:com_pl_to_ps}
 \end{figure}
 
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{pictures/software/com_pl.png}
+	\caption{The data flow in the PL from the block RAM to the PWM generators.}
+	\label{fig:com_pl}
+\end{figure}

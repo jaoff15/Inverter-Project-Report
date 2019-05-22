@@ -99,6 +99,8 @@ On figure \ref{fig:ConductionLoss} the relationship between conduction power los
 		\label{fig:ConductionLoss}
 	\end{figure} 
 
+For this the peak current, $I$, is set to $300 A$, and the Drain-Source on resistance, $R_{DSon}$, is set to ${1.9 m \Omega}$, which is value at $80 \degree C$. \todo{ref to data sheet}
+
 \paragraph{Switching loss}
 The other cause of power loss in the MOSFETs is the switching power loss. The switching power losses is caused by the period, when switching, where both the voltage over and the current through the MOSFET is not zero. This is called hard switching. Soft switching is when the MOSFET switching on or off without the voltage and current overlaps. This will not cost any power loss. This is illustrated on figure \ref{fig:HardSoftSwitch}.
 
@@ -115,7 +117,14 @@ The switching power is calculated as the area under the green line on figure \re
 
     \begin{equation}
         P_{sw/MOSFET} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw}
+        \label{eq:sw_loss_MOSFET}
     \end{equation}
 
+Where $V_{batt}$ is the battery voltage, 
+Equation \ref{eq:sw_loss_MOSFET} is the switching power loss per MOSFET. To get the switching power loss for all of the MOSFETs in the inverter, this has to be multiplied with the number of parallel MOSFETs, two to take both the high- and low-side into to acount, and the number of phases, which is three.
 
+    \begin{equation}
+        P_{sw} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw} \cdot N \cdot 2 \cdot 3
+        \label{eq:sw_loss}
+    \end{equation}
 
