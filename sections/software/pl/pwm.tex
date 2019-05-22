@@ -56,7 +56,7 @@ With the additional prescaler the PWM module outputs PWM signals with a frequenc
 \subsubsection*{PWM}
 
 
-To handle the high-side and low-side PWMs each have a threshold and the output signal changes from high to low or opposite when the counter crosses the threshold as can be seen in figure \ref{fig:counter_with_pwm}. The two thresholds are spaced out with a static dead time between them which is discussed later in this section. The dead time on figure \ref{fig:counter_with_pwm} has been exaggerated to make it more visible.
+To handle both a high-side PWM and low-side PWM each of the signals have a threshold and the output signal changes from high to low or opposite when the counter crosses the threshold as can be seen in figure \ref{fig:counter_with_pwm}. The two thresholds are spaced out with a static dead time between them which is discussed later in this section. The dead time on figure \ref{fig:counter_with_pwm} has been exaggerated to make it more visible.
 
 \begin{figure}[H]
 	\centering
@@ -81,7 +81,7 @@ pwm_low  <= HIGH when (counter > threshold_low) else LOW;
     The VHDL code to control the PWM signals.
 \end{center}
 
-To avoid shorting the supply dead time is inserted between switching one signal off and the other on.
+To avoid shorting the supply a static amount of dead time is inserted between switching one signal off and the other on.
 To avoid compromising the required dead time at edge cases where one of the thresholds tries to move above $100 \%$ or  below $0 \%$ the thresholds are found in two different ways.
 
 When the high-side threshold is greater than the counter minimum plus half of the dead time then it is placed half of the dead time below the threshold.
@@ -96,11 +96,11 @@ When the high-side threshold is greater than the counter minimum plus half of th
 \end{equation}
 
 Otherwise the threshold is clamped to the counter bottom edge $th_{high} = counter_{min}$ which is possible because the PWM is switched when $th_{high} > counter$.
-If the threshold comes too close to the edge the threshold will be clamped and the PWM will not switch. Had the PWM being switched when $th_{high} \geq counter$ then this would not work but that is not the case.
+If the threshold comes too close to the edge the threshold will be clamped and the PWM will not switch. Had the PWM being switched when $th_{high} \geq counter$ then this would not have worked.
 
 
 
-The low-side threshold is below the counter maximum minus half of the dead time then it is placed half of the dead time above the threshold.
+The low-side threshold is placed half of the dead time above the threshold when the duty cycle is at least half of the dead time below the counter max.
 \begin{equation}
     th_{duty \ cycle}\leq counter_{max} - \frac{t_{dead \ time}}{2}
 \end{equation}
