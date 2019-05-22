@@ -99,4 +99,11 @@ To get the resistor values, first, the sink current must be calculated to draw t
         \item $N = 2$ is the number of parallel MOSFETs
     \end{itemize}
     
-    The diode parallel to the common resistor introduces a forward voltage drop of up to 900mV when draining the gate of charge. It should not be a problem
+    The diode parallel to the common resistor introduces a forward voltage drop of up to $900 mV$ when draining the gate of charge. It should not cause problems, since as Figure \ref{fig:mosfet_transfer_char} shows, the drain current of the MOSFET is insignificant in that region.
+    
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{pictures/hardware/Driver_Board/mosfet_transfer_char.png}
+	\caption{Typical transfer characteristics of a MOSFET}
+	\label{fig:mosfet_transfer_char}
+\end{figure}
