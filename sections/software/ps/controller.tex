@@ -1,0 +1,65 @@
+\subsection{Controller}
+
+The PI-controller is implemented in \textit{c} on the processing system in a object orientated way where each of the two controllers are defined together with their gains. When the system is booted up the controllers are initialized with the values and prepared for usage. The code for this can be seen in code sample \ref{code:pi_controller1}.
+
+\begin{lstlisting}[style=c, caption=Initialization of PI-controller., label=code:pi_controller1]
+/* Declare controllers */
+Controller cQ;
+Controller cD;
+const double kpQ = 1;
+const double kiQ = 1;
+const double kpD = 1;
+const double kiD = 1;
+
+void initControllers(){
+    /* Initialize controllers with gains */
+    initController(&cQ, kpQ, kiQ);
+    initController(&cD, kpD, kiD);
+}
+\end{lstlisting}
+
+When the motor is running the only thing needed to be done is to input the new value to the controller and get a new output as can be seen in code sample \ref{code:pi_controller2}. The function 'getOutput()' handles the controller gains, keeping track of the integrator part and integrator windup.
+
+\begin{lstlisting}[style=c, caption=Usage of PI-controller., label=code:pi_controller2]
+    /* Run controller */
+    double outD = getOutput(&cD, iD);
+    double outQ = getOutput(&cQ, iQ);
+\end{lstlisting}
+
+The implementation of the 'getOutput()' function can be seen in code sample \ref{code:pi_controller3}.
+First the controller data is collected. The data includes the gains \textit{kp} and \textit{ki}.
+
+The output of the controller is found with the following equation.
+\begin{equation}
+    out = kp \cdot input + ki \cdot integrator
+\end{equation}
+
+The control runs many times faster than the motor and therefore the integrator part of the control will experience integrator windup and a simple output limitation is implemented to avoid this.
+
+
+
+\begin{lstlisting}[style=c, caption=Implementation of PI-controller 'get output'-function., label=code:pi_controller3]
+/* Function to get the next output of a controller with a new input */
+double getOutput(Controller *c, double input){
+	// Collect controller data
+	const double kp  = getKp(c);
+	const double ki  = getKi(c);
+	addToIntegrator(c, input);
+	const integrator = getIntegrator(c);
+
+	// Calculate new output
+	f32 output =  (kp * input) + (ki * integrator);
+
+	// Anti integrator windup. Limit the output to within set limits
+	if(output > MAX_OUTPUT){          // Check upper limit
+		output = MAX_OUTPUT;            // Limit output
+	}
+	
+	if(output < MIN_OUTPUT){          // Check lower limit
+		output = MIN_OUTPUT;            // Limit output
+	}	
+	// Return new output
+	return output;
+}
+\end{lstlisting}
+

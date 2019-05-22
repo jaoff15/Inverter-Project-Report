@@ -1,0 +1,42 @@
+\subsubsection{Design}
+
+The $V_{DS}$ fall time (the MOSFET switch-in time) is slowed down to $\approx 250ns$ and the rise time (switch-off) is $\approx 50ns$. The required resistor values can be calculated using Equation \ref{eq:i_Gsink_per_fet_1} through Equation !!!. \\
+
+To get the resistor values, first, the sink current must be calculated for the required switch-off time for the individual MOSFETs.
+
+    \begin{equation}
+        i_{Gsink/FET} = \bigg( \frac{Q_{GD}}{t_{sw{\_}off}} \bigg)
+        \label{eq:i_Gsink_per_fet_1}
+    \end{equation}
+    
+    where
+    
+    \begin{itemize}
+        \item $i_{Gsink/FET}$ is the required switch-off current
+        \item $Q_{GD}$ is the gate-drain charge of the MOSFET
+        \item $t_{sw{\_}off}$ is the desired switch-off time
+    \end{itemize}
+    
+    \begin{equation}
+        i_{Gsink/FET} = \bigg( \frac{V_{Miller}}{R_{G{\_}FET} + R_{G{\_}FET{\_}int}} \bigg)
+        \label{eq:i_Gsink_per_fet_2}
+    \end{equation} \\
+    
+    Rearranging Equation \ref{eq:i_Gsink_per_fet_2} yields the following:
+    
+    \begin{equation}
+        R_{G{\_}FET} = \bigg( \frac{V_{Miller}}{i_{Gsink/FET}} - R_{G{\_}FET{\_}int} \bigg)
+        \label{eq:i_Gsink_per_fet_2}
+    \end{equation}
+    
+    where
+    
+    \begin{itemize}
+        \item $R_{G{\_}FET}$ is the resistor for the individual MOSFETs
+        \item $V_{Miller}$ is the Miller-plateau of the MOSFET
+        \item $R_{G{\_}FET{\_}int}$ is the internal gate-source resistance of the MOSFET
+    \end{itemize}
+    
+    Now the common resistance can be calculated, as this will further slow the switch-on transients.
+    
+    

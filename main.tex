@@ -1,0 +1,147 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2.5cm]{geometry}
+\headsep 50pt
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{gensymb}
+
+% styling for VHDL
+\usepackage{minted}
+
+% Vertical spacing between \split enviroments
+\setlength{\jot}{10pt}
+
+% Todo command definition
+\usepackage[bordercolor=white,backgroundcolor=gray!30,linecolor=black,colorinlistoftodos]{todonotes}
+\newcommand{\rework}[1]{\todo[color=yellow,inline]{Rework: #1}}
+
+% Colors
+\usepackage{xcolor,colortbl}
+\definecolor{program_color}{rgb}{0.83,0.47,0.13}
+\definecolor{comment}{rgb}{0,0.41,0.16}
+
+% Code styling
+\usepackage{listings}
+\lstdefinestyle{c}{
+    language=C, 
+    basicstyle=\scriptsize, 
+    frame=single,
+    keywordstyle=\color{program_color},
+    numbers=left,
+    tabsize=2,
+    breaklines=true,
+    captionpos=b,
+    commentstyle=\color{comment}\ttfamily,
+}
+
+% Page footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[bottom]{footmisc}
+\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+\pagestyle{fancy}
+
+% Import 'subsubsubsection' as 'paragraph'
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+% \usepackage[utf8]{inputenc} % Required for inputting international characters
+% \usepackage[T1]{fontenc} % Output font encoding for international characters
+
+% \usepackage{mathpazo} % Palatino font
+
+\setlength{\parindent}{0em}
+\title{Control of PMAC motor for an electrical kart}
+\author{University of Southern Denmark
+ \\ \\ Students: \\ Casper Busch Melchiorsen, 010395 \\ David Kis-Toth, 472504\\ Jacob Offersen, 311294 \\ Jonas Holmgren, \\ Peter Nielsen, \\ \\
+Supervisors: \\ 
+Karsten Holm Andersen: \href{mailto:kha@mci.sdu.dk}{\textit{kha@mci.sdu.dk}} \\
+Kurt Bloch Jessen: \href{mailto:kbj@mci.sdu.dk}{\textit{kbj@mci.sdu.dk}}}
+\date{Period: \\ 
+ February 2019 - June 2019 (F19)}
+
+
+
+
+\begin{document}
+	
+\maketitle
+
+
+
+% Front page
+\input{sections/general/frontpage.tex}
+
+\newpage
+% Signatures
+\input{sections/general/signatures.tex}
+
+% Abstract
+\input{sections/general/abstract.tex}
+
+
+% Preface
+\input{sections/general/preface.tex}
+
+% Reading guide
+\input{sections/general/reading_guide.tex}
+
+\newpage
+\tableofcontents
+\newpage
+% Introduction
+\input{sections/general/introduction.tex}
+
+% Analysis, Design & Implementation
+% Hardware
+\input{sections/hardware/hardware.tex}
+
+% Control
+\input{sections/control/control.tex}
+
+% Software
+\input{sections/software/software.tex}
+
+
+
+\newpage
+% Discussion
+\input{sections/general/discussion.tex}
+
+\newpage
+% Conclusion
+\input{sections/general/conclusion.tex}
+
+\newpage
+% Litterature
+
+\newpage
+% Symbol list
+\input{sections/general/symbol_list.tex}
+
+\newpage
+% Abbreviation list
+\input{sections/general/abbreviation_list.tex}
+
+\newpage
+% References
+\input{sections/general/References.tex}
+
+% Appendix
+
+
+
+\end{document}

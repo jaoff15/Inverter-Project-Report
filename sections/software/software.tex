@@ -1,0 +1,42 @@
+
+\section{Embedded system}
+The embedded system's task is to handle the control for the inverter.
+
+The section is divided into three subsections. First the overall system architecture, then the low-level drivers implemented in the FPGA part of the controller and lastly the processing system and interface with a computer. 
+
+
+
+
+% Software structure
+\input{sections/software/ps/software_structure.tex}
+
+%%%%%%%%%%%%%%%%%%%%% PL %%%%%%%%%%%%%%%%%%%%%
+\subsection{Programmable Logic (PL)}
+% PWM generator
+\input{sections/software/pl/pwm.tex}
+
+% Encoder
+\input{sections/software/pl/encoder.tex}
+
+%ADC
+\input{sections/software/pl/adc.tex}
+
+%%%%%%%%%%%%%%%%%%%%% PS %%%%%%%%%%%%%%%%%%%%%
+\subsection{Processing System (PS)}
+% Interrupt Service Routine ISR
+\input{sections/software/ps/ISR.tex}
+
+% Clarke Park
+\input{sections/software/ps/clarkepark.tex}
+
+% Controller
+\input{sections/software/ps/controller.tex}
+
+% Communication between PL and PS
+\input{sections/software/ps/communication_to_pl.tex}
+
+% Computer inteface
+\input{sections/software/ps/uart.tex}
+
+
+
