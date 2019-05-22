@@ -66,3 +66,24 @@ To get the resistor values, first, the sink current must be calculated to draw t
         R_{G{\_}common} = \frac{i_{Gsource/FET} \cdot N}{V_G - V_{Miller}} - R_{pullup} - \frac{R_{G{\_}FET} + R_{G{\_}FET{\_}int}}{N}
         \label{eq:R_G_common}
     \end{equation}
+    
+    It is easy to see that when $N = 2$, the total current to be supplied and drawn by the driver is double of the indivdual MOSFETs.
+    
+    The following variables and their values, obtained from their respective datasheets or calculated, were used:
+    
+    \begin{itemize}
+        \item $i_{Gsource/FET} = 136 mA$ is the required switch-on current per MOSFET
+        \item $i_{Gsink/FET} = 680 mA$ is the required switch-off current per MOSFET
+        \item $Q_{GD} = 34 nC$ is the gate-drain charge of the MOSFET
+        \item $t_{sw{\_}on} = 250 ns$ is the desired switch-on time
+        \item $V_G = 12V$ is the gate voltage applied
+        \item $V_{Miller} = 4.4 V$ is the Miller-plateau of the MOSFET
+        \item $R_{pullup} = 2.6 \ohm$ is the gate driver IC internal pullup resistance
+        \item $R_G = 25.34 \ohm$ is the equivalent resistance seen by the gate driver
+        \item $R_{G{\_}common} = 22.1 \ohm$ is the common resistance value
+        \item $R_{G{\_}FET} = 5.17$ is the resistor for the individual MOSFETs
+        \item $R_{G{\_}FET{\_}int} = 1.7 \ohm$ is the internal gate-source resistance of the MOSFET
+        \item $N = 2$ is the number of parallel MOSFETs
+    \end{itemize}
+    
+    The diode parallel to the common resistor 

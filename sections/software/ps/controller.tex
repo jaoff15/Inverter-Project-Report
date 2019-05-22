@@ -6,10 +6,10 @@ The PI-controller is implemented in \textit{c} on the processing system in a obj
 /* Declare controllers */
 Controller cQ;
 Controller cD;
-const double kpQ = 1;
-const double kiQ = 1;
-const double kpD = 1;
-const double kiD = 1;
+f32 kpQ = 1;
+f32 kiQ = 1;
+f32 kpD = 1;
+f32 kiD = 1;
 
 void initControllers(){
     /* Initialize controllers with gains */
@@ -22,30 +22,32 @@ When the motor is running the only thing needed to be done is to input the new v
 
 \begin{lstlisting}[style=c, caption=Usage of PI-controller., label=code:pi_controller2]
     /* Run controller */
-    double outD = getOutput(&cD, iD);
-    double outQ = getOutput(&cQ, iQ);
+    f32 outD = getOutput(&cD, iD);
+    f32 outQ = getOutput(&cQ, iQ);
 \end{lstlisting}
 
 The implementation of the 'getOutput()' function can be seen in code sample \ref{code:pi_controller3}.
-First the controller data is collected. The data includes the gains \textit{kp} and \textit{ki}.
+First the controller gains \textit{kp} and \textit{ki} are retrieved. Then the controller's integrator part is updated and then retrieved.
 
 The output of the controller is found with the following equation.
 \begin{equation}
-    out = kp \cdot input + ki \cdot integrator
+    u = k_p \cdot e + k_i \cdot int
 \end{equation}
 
-The control runs many times faster than the motor and therefore the integrator part of the control will experience integrator windup and a simple output limitation is implemented to avoid this.
+Where $u$ is the output, $e$ is the input to the controller, $int$ is the integrator part and $k_p$ and $k_i$ are the controller gains.
+
+The integral part of the controller might experience integrator windup because the control executing is much faster than the motor speed. To handle this a simple output limitation is implemented to limit the controller output.
 
 
 
 \begin{lstlisting}[style=c, caption=Implementation of PI-controller 'get output'-function., label=code:pi_controller3]
 /* Function to get the next output of a controller with a new input */
-double getOutput(Controller *c, double input){
+double getOutput(Controller *c, f32 input){
 	// Collect controller data
-	const double kp  = getKp(c);
-	const double ki  = getKi(c);
+	const f32 kp  = getKp(c);
+	const f32 ki  = getKi(c);
 	addToIntegrator(c, input);
-	const integrator = getIntegrator(c);
+	const f32 integrator = getIntegrator(c);
 
 	// Calculate new output
 	f32 output =  (kp * input) + (ki * integrator);
