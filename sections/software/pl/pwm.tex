@@ -81,56 +81,7 @@ pwm_low  <= HIGH when (counter > threshold_low) else LOW;
     The VHDL code to control the PWM signals.
 \end{center}
 
-To avoid shorting the supply a static amount of dead time is inserted between switching one signal off and the other on.
-To avoid compromising the required dead time at edge cases where one of the thresholds tries to move above $100 \%$ or  below $0 \%$ the thresholds are found in two different ways.
 
-When the high-side threshold is greater than the counter minimum plus half of the dead time then it is placed half of the dead time below the threshold.
-\begin{equation}
-    th_{duty \ cycle} \geq  counter_{min} + \frac{t_{dead \ time}}{2}
-\end{equation}
-\begin{center}
-    $\Downarrow$    
-\end{center}
-\begin{equation}
-   th_{high} = th_{duty \ cycle} - \frac{t_{dead \ time}}{2}  
-\end{equation}
-
-Otherwise the threshold is clamped to the counter bottom edge $th_{high} = counter_{min}$ which is possible because the PWM is switched when $th_{high} > counter$.
-If the threshold comes too close to the edge the threshold will be clamped and the PWM will not switch. Had the PWM being switched when $th_{high} \geq counter$ then this would not have worked.
-
-
-
-The low-side threshold is placed half of the dead time above the threshold when the duty cycle is at least half of the dead time below the counter max.
-\begin{equation}
-    th_{duty \ cycle}\leq counter_{max} - \frac{t_{dead \ time}}{2}
-\end{equation}
-\begin{center}
-    $\Downarrow$
-\end{center}
-\begin{equation}
-  th_{low} = th_{duty \ cycle} + \frac{t_{dead \ time}}{2}  
-\end{equation}
-Otherwise the threshold is clamped to the top counter edge.
-
-The VHDL code to find the two thresholds can be seen below. The variable \textit{duty\textunderscore cycle} is parsed into the PWM module from the higher level control. \textit{DEADTIME}, \textit{HALF\textunderscore DEADTIME}, \textit{COUNT\textunderscore MIN} and \textit{COUNT\textunderscore MAX} are all constants.
-
-\begin{minted}[frame=single,framesep=2mm,baselinestretch=1.2,linenos,fontsize=\footnotesize]{vhdl}
--- Get half of dead time
-HALF_DEADTIME(6 downto 0) <= DEADTIME(7 downto 1);
--- Find the threshold for the high-side PWM
-threshold_high <= duty_cycle - HALF_DEADTIME when 
-                (duty_cycle >= COUNT_MIN + HALF_DEADTIME) else COUNT_MIN;
--- Find the threshold for the low-side PWM
-threshold_low  <= duty_cycle + HALF_DEADTIME when 
-                (duty_cycle <= COUNT_MAX - HALF_DEADTIME) else COUNT_MAX;
-\end{minted}
-\begin{center}
-    The VHDL code to find the thresholds for the high and low side PWM signals.
-\end{center}
-
-
-    
-\subsubsection*{Dead time}
 To avoid shorting the supply dead time is inserted between turning off one transistor and turning on the other.
 
 On figure \ref{fig:turn_off_time1} the conducted current for each transistor is drawn next to the PWM signals with dead time being bigger than the transistor turn off time, $dead \ time > t_{turn \ off}$, which results in one transistor turning completely off before the other turns on. 
@@ -152,20 +103,89 @@ When both transistors conduct the supply is shorted which should be avoided espe
 	\label{fig:turn_off_time2}
 \end{figure}
 
-It is therefore important to choose the dead time big enough to avoid shorting but also not so big that the systems performance is reduced more than necessary.
+It is therefore important to choose the dead time big enough to avoid shorting but also not so big that the systems performance is unnecessarily reduced.
 
-The turn off times for the transistors used in the inverter are $50ns$ as discussed in section \todo{Refer to section}. The dead time resolution,$dt_{res}$, in this system is calculated with equation \ref{eq:minimum_deadtime_resolution}.
+To avoid compromising the required dead time at edge cases where one of the thresholds tries to move above $100 \%$ or  below $0 \%$ the thresholds are found in two different ways.
+
+
+
+
+
+When the high-side threshold is greater than the counter minimum plus half of the dead time it is placed half of the dead time below the threshold.
 \begin{equation}
-    dt_{res} = \frac{1}{10kHz \cdot 200} = 500 ns
-    \label{eq:minimum_deadtime_resolution}
+    th_{duty \ cycle} \geq  counter_{min} + \frac{t_{dead \ time}}{2}
+    \label{eq:threshold_high_condition}
+\end{equation}
+\begin{center}
+    $\Downarrow$    
+\end{center}
+\begin{equation}
+   th_{high} = th_{duty \ cycle} - \frac{t_{dead \ time}}{2}  
+   \label{eq:threshold_high_equation}
 \end{equation}
 
+Otherwise the threshold is clamped to the counter bottom edge $th_{high} = counter_{min}$ which is possible because the PWM is switched when $th_{high} > counter$.
+If the threshold comes too close to the edge the threshold will be clamped and the PWM will not switch. Had the PWM being switched when $th_{high} \geq counter$ this would not have worked.
 
+
+
+The low-side threshold is placed half of the dead time above the threshold when the duty cycle is at least half of the dead time below the counter max.
+\begin{equation}
+    th_{duty \ cycle}\leq counter_{max} - \frac{t_{dead \ time}}{2}
+    \label{eq:threshold_low_condition}
+\end{equation}
+\begin{center}
+    $\Downarrow$
+\end{center}
+\begin{equation}
+  th_{low} = th_{duty \ cycle} + \frac{t_{dead \ time}}{2}  
+  \label{eq:threshold_low_equation}
+\end{equation}
+Otherwise the threshold is clamped to the top counter edge.
+
+The VHDL code to find the two thresholds can be seen below. The variable \textit{duty\textunderscore cycle} is parsed into the PWM module from the higher level control. \textit{DEADTIME}, \textit{HALF\textunderscore DEADTIME}, \textit{COUNT\textunderscore MIN} and \textit{COUNT\textunderscore MAX} are all constants.
+
+\begin{minted}[frame=single,framesep=2mm,baselinestretch=1.2,linenos,fontsize=\footnotesize]{vhdl}
+-- Get half of dead time
+HALF_DEADTIME(6 downto 0) <= DEADTIME(7 downto 1);
+-- Find the threshold for the high-side PWM
+threshold_high <= duty_cycle - HALF_DEADTIME when 
+                (duty_cycle >= COUNT_MIN + HALF_DEADTIME) else COUNT_MIN;
+-- Find the threshold for the low-side PWM
+threshold_low  <= duty_cycle + HALF_DEADTIME when 
+                (duty_cycle <= COUNT_MAX - HALF_DEADTIME) else COUNT_MAX;
+\end{minted}
+\begin{center}
+    The VHDL code to find the thresholds for the high and low side PWM signals. The conditions and equations used are \ref{eq:threshold_high_condition}, \ref{eq:threshold_high_equation}, \ref{eq:threshold_low_condition} and \ref{eq:threshold_low_equation}.
+\end{center}
+
+
+
+The turn off times for the transistors used in the inverter are $50ns$ as discussed in section \todo{Refer to section}. 
+The way dead time is implemented it has to be defined as some even amount of ticks at the PWM frequency.
+The minimum dead time step, $dt_{res}$, in this system is calculated with equation \ref{eq:minimum_deadtime_resolution}.
+
+\begin{subequations}
+    \begin{align}
+        \begin{split}
+            dt_{res} = \frac{T}{2} \cdot \frac{dt_{min}}{counter_{max}}
+        \end{split} \\ 
+        \begin{split}
+             dt_{res} = \frac{2}{fs} \cdot \frac{dt_{min}}{counter_{max}}
+        \end{split} \\ 
+        \begin{split}
+             dt_{res} = \frac{2}{10kHz} \cdot \frac{2}{100} = 1\mu s
+        \end{split} 
+    \end{align}
+    \label{eq:minimum_deadtime_resolution}
+\end{subequations}
+
+Which gives the system a safety margin of $20$ on the dead time between the two PWM signals.
 
 
 \subsubsection*{ADC Pulses}
 
-To trigger the ADC the PWM generator module has a build-in pulse mechanism that outputs a pulse in the middle of each of the PWM periods as can be seen on figure \ref{fig:adc_pulses}. Only the pulse in the middle of the high-side PWM is used to trigger the ADC.
+To trigger a new reading by the ADC the PWM generator module has a build-in pulse mechanism that outputs a pulse in the middle of each of the PWM periods as can be seen on figure \ref{fig:adc_pulses}. The pulse in the middle of the high-side PWM is used to trigger the ADC.
 
 \begin{figure}[H]
 	\centering
@@ -174,8 +194,8 @@ To trigger the ADC the PWM generator module has a build-in pulse mechanism that 
 	\label{fig:adc_pulses}
 \end{figure}
 
-The code for evaluating the signal states can be seen below. The code utilizes the concurrent nature of VHDL which makes it very fast and robust.
-When the counter reaches its top edge the low pulse is set high and as soon as the counter starts going down again the signal is set low. The high pulse is controlled in the same way but this happens at the low counter edge instead.
+The code for evaluating the signal states can be seen below. The code utilizes the concurrent nature of VHDL which makes it fast and robust.
+When the counter reaches its bottom edge the high pulse is set high and as soon as the counter starts going up again the signal is set low. The low pulse is controlled in the same way but this happens at the high counter edge instead.
 
 \begin{minted}[frame=single,framesep=2mm,baselinestretch=1.2,linenos]{vhdl}
 -- Output a pulse in the middle of the high PWM signal
@@ -229,18 +249,21 @@ The PWM frequency can be found by measuring the time between the middle of two P
 \end{equation}
 With a precision of 6 decimals on the time period the frequency of the PWM signal turns out to be $10kHz$.
 
-The resulting sine is first found by applying a polynomial regression to the PWM signal which results in a sinusoidal curve. The frequency is then found from the inverse of the time period between two points exactly one period apart. 
+The resulting sine can be found by applying a polynomial regression to the PWM signal which results in a sinusoidal curve. The frequency is found from the inverse of the time period between two points exactly one period apart. 
 \begin{equation}
     sin_{freq} = \frac{1}{2.94 \cdot 10^{-3}} = 340 Hz
 \end{equation}
-The frequency of the sine turns out to be $340Hz$.
+The frequency of the sine is $340Hz$.
 
-On figure \ref{fig:one_phase} only one of the phases are shown. In reality the system outputs three phases and all can be seen on figure \ref{fig:three_phases}
+On figure \ref{fig:one_phase} only one of the phases are shown. In reality the system outputs three phases and all can be seen on figure \ref{fig:three_phases}. The periods in between the peak of the three phases are shown to determine the amount of phase shift. The time of one third of a period is calculated with \ref{eq:one_third_period}-
+\begin{equation}
+    \frac{1}{3} \cdot \frac{1}{340} = 0.9804ms
+    \label{eq:one_third_period}
+\end{equation}
+By comparing the theoretical and measured periods between the phases it is determined that the phases are phase shifted with approximately $120^o = 2 \pi / 3 \ rad$.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1 \textwidth]{pictures/software/three_phases.eps}
 	\caption{Testing of all three phases. The top graph shows the PWM signals. The bottom graph shows the resulting sine curves found with polynomial regressions.}
 	\label{fig:three_phases}
 \end{figure}
-
-

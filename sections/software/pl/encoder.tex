@@ -8,7 +8,7 @@ A driver module for the encoder on the motor was part of the material to get sta
 	\caption{The encoder driver module.}
 	\label{fig:encoder_module}
 \end{figure}
-The driver module, as seen on figure \ref{fig:encoder_module}, supports an 8-bit encoder and takes care of handling the returned signal from the encoder itself. The module outputs the current rotor angle at a frequency proportional to the PL clock and can be found with equation \ref{eq:encoder_frequency}
+The driver module, as seen on figure \ref{fig:encoder_module}, supports an 8-bit encoder and takes care of handling the returned signal from the encoder itself. The module outputs the current rotor angle at a frequency determined by the PL clock and can be found with equation \ref{eq:encoder_frequency}
 \begin{equation}
 encoder_{freq} = \frac{PL_{freq}}{6708} = \frac{125MHz}{6708} = 18.634kHz
 \label{eq:encoder_frequency}
@@ -43,7 +43,7 @@ res_{electric} = \frac{360^o}{2^6} = 5.625^o
 
 The rotor position is returned as an 8 bit value from the encoder module, and before the angle can be used in the control system it is first mapped from $0 \rightarrow 255$ to an actual angle going from $0^o \rightarrow 359^o$. The mapping is done with equation \ref{eq:angle_mapping}.
 \begin{equation}
-    angle = \frac{position \cdot 359}{255}
+    angle = \frac{359}{255} \cdot position
     \label{eq:angle_mapping}
 \end{equation}
 
@@ -52,7 +52,7 @@ The rotor position is returned as an 8 bit value from the encoder module, and be
 \begin{lstlisting}[style=c, caption=Function to read an angle from the encoder. The angle is returned in degrees., label=code:encoder_angle_function]
 f32 getRotorAngle(){
     u8 position = RM28MD_POSITION & 0x000000FF;     // Only the first byte is valid
-    f32 angle   = (position*359)/255;       	      // Map position (0->255) to 
+    f32 angle   = 359/255 * position;       	      // Map position (0->255) to 
                                                     // angle (0->359)
     return angle;                                   // Return angle
 }
@@ -60,8 +60,8 @@ f32 getRotorAngle(){
 
 
 \subsubsection{Improve angle accuracy with linear interpolation}
-
-To improve the angle of the rotor before it is used in the control an angle closer to the actual angle can be approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step.
+Low resolution and thereby big steps in the rotor angle results in uneven rotation of the motor. 
+To improve the angle before it is used in the control an angle closer to the actual angle is be approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step.
 
 \todo{Reference}
 % https://www.encyclopediaofmath.org/index.php/Linear_interpolation
@@ -117,7 +117,7 @@ The frequency is more than four times faster than the sampling frequency which m
 	\end{align}
 \end{subequations}
 
-When the rotor speed is less than $1185RPM$ then the system will sample at least $1$ time per encoder step.
+When the rotor speed is less than $1185RPM$ the system will sample at least $1$ time per encoder step.
 
 Equation \ref{eq:linear_interpolation2} can be further changed to fit the system.
 \begin{equation}
@@ -162,7 +162,7 @@ The finished interpolation algorithm can be seen in the code snippet \ref{code:i
 Line $5$ to $8$ handle the first time the interpolation is used and it updates the variable $t_1$ which is the left edge of the counter $n_{step}$. Line $10$ to $15$ handles the interpolation until the right edge of $n_{step}$ is updated, this is done with the variable $t_2$. For both the edges the value from the encoder is saved from the encoder to handle the step size in case a step is skipped.
 Line $17$ to $29$ handle the actual running algorithm. The sample counter is incremented. If a new step is reached the left edge is set the the last right edge, $t_1 = t_2$, and the new right edge is updated, $t_2 = angle$.
 
-Then the step width is calculated as well as the step size which results in all the variable ready to calculate the interpolated angle as per equation \ref{eq:linear_interpolation}.
+The step width is calculated as well as the step size which results in all the variable ready to calculate the interpolated angle as per equation \ref{eq:linear_interpolation}.
 
 \begin{lstlisting}[style=c, caption=Interpolation algorithm implemented on the embedded system., label=code:interpolation_algorithm]
 f32 interpolateAngle(f32 angle){

@@ -89,16 +89,18 @@ To calculate the conduction power loss for all the transistors, it is then multi
         P_{con} = \bigg( \frac{I}{N \cdot \sqrt{2}} \bigg) ^2 \cdot R_{DSon} \cdot N \cdot 2 \cdot 3
         \label{eq:ConductionLossTot}
     \end{equation}
-    
+
+On figure \ref{fig:ConductionLoss} the relationship between conduction power loss per MOSFET, equation \ref{eq:ConductionLossMOSFET}, and for all the MOSFETs, equation \ref{eq:ConductionLossTot}, is plotted as a function of the number of MOSFETs in parallel. 
+
 \begin{figure}[H]
 		\centering
-		\includegraphics[width=0.4\textwidth]{pictures/hardware/Power_Board/Conduction_loss.png}
+		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Conduction_loss.png}
 		\caption{Conduction power loss versus the number of parallel transistors in parallel per switch}
-		\label{fig:con}
+		\label{fig:ConductionLoss}
 	\end{figure} 
 
 \paragraph{Switching loss}
-
+The other cause of power loss in the MOSFETs is the switching loss. This means  
 
 \begin{equation}
     P_{sw/MOSFET} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw}
