@@ -14,7 +14,7 @@ Every time an interrupt is received the control loop is run and there is always 
 
 The unlikely case where the control takes more time than the time between two interrupts can be seen in figure \ref{fig:isr2}. For robustness the system should be able to handle this situation. 
 
-If the run command used by the ISR to trigger the control is a simple boolean variable set high by the ISR and reset as the first step in the control loop it is possible to get an interrupt while executing control.
+If the run command used by the ISR to trigger the control is a simple boolean variable set high by the ISR and reset as the first step in the control loop it is possible to get an interrupt while executing control. The running control will then finish and the new request will directly start executing.
 
 \begin{figure}[H]
 	\centering
@@ -40,6 +40,6 @@ Problems arise from this solution if multiple interrupts happen during the same 
 \end{figure}
 
 
-Executing every control task will result in the system handling old data that is not relevant anymore. By skipping a task (which is not ideal) the system is at least up to date with the current situation in the motor.
+Executing every control task will result in the system handling old data which is not relevant anymore. 
 
 Therefore the run command used by the ISR to trigger the control loop is a simple boolean variable.

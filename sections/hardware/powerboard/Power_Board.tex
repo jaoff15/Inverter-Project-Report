@@ -92,7 +92,7 @@ To calculate the conduction power loss for all the transistors, it is then multi
 
 On figure \ref{fig:ConductionLoss} the relationship between conduction power loss per MOSFET, equation \ref{eq:ConductionLossMOSFET}, and for all the MOSFETs, equation \ref{eq:ConductionLossTot}, is plotted as a function of the number of MOSFETs in parallel. 
 
-\begin{figure}[H]
+    \begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Conduction_loss.png}
 		\caption{Conduction power loss versus the number of parallel transistors in parallel per switch}
@@ -100,11 +100,21 @@ On figure \ref{fig:ConductionLoss} the relationship between conduction power los
 	\end{figure} 
 
 \paragraph{Switching loss}
-The other cause of power loss in the MOSFETs is the switching loss. This means  
+The other cause of power loss in the MOSFETs is the switching power loss. The switching power losses is caused by the period, when switching, where both the voltage over and the current through the MOSFET is not zero. This is called hard switching. Soft switching is when the MOSFET switching on or off without the voltage and current overlaps. This will not cost any power loss. This is illustrated on figure \ref{fig:HardSoftSwitch}.
 
-\begin{equation}
-    P_{sw/MOSFET} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw}
-\end{equation}
+    \begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Hard_soft_switching.PNG}
+		\caption{Illustration of hard and soft switching of MOSFET}
+		\label{fig:HardSoftSwitch}
+	\end{figure} 
+
+
+The switching power is calculated as the area under the green line on figure \ref{fig:HardSoftSwitch}. 
+
+    \begin{equation}
+        P_{sw/MOSFET} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw}
+    \end{equation}
 
 
 

@@ -1,0 +1,60 @@
+\section{Code Samples}
+\label{app:code_samples}
+% ************************** Clarke Transformation ***********************************
+\subsection{Clarke Transform}
+\label{app:clark}
+
+
+\begin{lstlisting}[style=c, caption=Embedded Clarke Transformation., label=app:code:clarke]
+/* The Clarke function */
+void clarke(f32 *iAlpha, f32 *iBeta, f32 iA, f32 iB, f32 iC){
+	*iAlpha = TWO_THIRDS * iA - ONE_THIRD * iB - ONE_THIRD * iC;
+	*iBeta  = ONE_OVER_SQRT_THREE * iB - ONE_OVER_SQRT_THREE * iC;
+}
+\end{lstlisting}
+
+% ************************** Park Transformation ***********************************
+\subsection{Park Transform}
+\label{app:park}
+
+\begin{lstlisting}[style=c, caption=Embedded Park Transformation., label=app:code:park]
+/* The Park function */
+void park(f32 *iD, f32 *iQ, f32 iAlpha, f32 iBeta, f32 angle){
+	const f32 cosAngle = fastCos(angle);
+	const f32 sinAngle = fastSin(angle);
+	*iD = cosAngle * iAlpha + sinAngle * iBeta;
+	*iQ = -sinAngle * iAlpha + cosAngle * iBeta;
+}
+\end{lstlisting}
+
+
+% ************************** Inverse Park Transformation ***********************************
+\subsection{Inverse Park Transform}
+\label{app:inverse_park}
+Equation \ref{eq:inverse_park_transformation} implemented in c.
+
+\begin{lstlisting}[style=c, caption=Embedded Inverse Park Transformation., label=app:code:inverse_park]
+/* The inverse Park function */
+void invPark(f32 *iAlpha, f32 *iBeta, f32 iD, f32 iQ, f32 angle){
+	const f32 cosAngle = fastCos(angle);
+	const f32 sinAngle = fastSin(angle);
+	*iAlpha = cosAngle * iD - sinAngle * iQ;
+	*iBeta  = sinAngle * iD + cosAngle * iQ;
+}
+\end{lstlisting}
+
+
+
+% ************************** Inverse Clarke Transformation ***********************************
+\subsection{Inverse Clarke Transform}
+\label{app:inverse_clarke}
+Equation \ref{eq:inverse_clarke_transformation} implemented in c.
+
+\begin{lstlisting}[style=c, caption=Embedded Inverse Clarke Transformation., label=app:code:inverse_clarke]
+/* The inverse Clarke function */
+void invClarke(f32 *iA, f32 *iB, f32 *iC, f32 iAlpha, f32 iBeta){
+	*iA = iAlpha;
+	*iB = -HALF * iAlpha + SQRT_THREE_OVER_TWO * iBeta;
+	*iC = -HALF * iAlpha - SQRT_THREE_OVER_TWO * iBeta;
+}
+\end{lstlisting}
