@@ -69,11 +69,24 @@ To get the resistor values, first, the sink current must be calculated to draw t
     
     It is easy to see that when $N = 2$, the total current to be supplied and drawn by the driver is double of the indivdual MOSFETs.
     
+    
+    \begin{equation}
+        i_{Gsource{\_}total} = i_{Gsource/FET} \cdot 2
+        \label{eq:i_G_source_total}
+    \end{equation}
+    
+    \begin{equation}
+        i_{Gsink{\_}total} = i_{Gsink/FET} \cdot 2
+        \label{eq:i_G_sink_total}
+    \end{equation}
+    
     The following variables and their values, obtained from their respective datasheets or calculated, were used:
     
     \begin{itemize}
         \item $i_{Gsource/FET} = 136 mA$ is the required switch-on current per MOSFET
+        \item $i_{Gsource{\_}total} = 272 mA$ is the required total switch-on current
         \item $i_{Gsink/FET} = 680 mA$ is the required switch-off current per MOSFET
+        \item $i_{Gsink{\_}total} = 1.36 A$ is the required total switch-off current
         \item $Q_{GD} = 34 nC$ is the gate-drain charge of the MOSFET
         \item $t_{sw{\_}on} = 250 ns$ is the desired switch-on time
         \item $V_G = 12V$ is the gate voltage applied
@@ -86,4 +99,4 @@ To get the resistor values, first, the sink current must be calculated to draw t
         \item $N = 2$ is the number of parallel MOSFETs
     \end{itemize}
     
-    The diode parallel to the common resistor 
+    The diode parallel to the common resistor introduces a forward voltage drop of up to 900mV when draining the gate of charge. It should not be a problem
