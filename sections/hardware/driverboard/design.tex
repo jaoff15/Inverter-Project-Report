@@ -2,7 +2,7 @@
 
 The $V_{DS}$ fall time (the MOSFET switch-in time) is slowed down to $\approx 250ns$ and the rise time (switch-off) is $\approx 50ns$. The required resistor values can be calculated using Equation \ref{eq:i_Gsink_per_fet_1} through Equation !!!. \\
 
-To get the resistor values, first, the sink current must be calculated for the required switch-off time for the individual MOSFETs.
+To get the resistor values, first, the sink current must be calculated to draw the gate charge in the required switch-off time for the individual MOSFETs. 
 
     \begin{equation}
         i_{Gsink/FET} = \bigg( \frac{Q_{GD}}{t_{sw{\_}off}} \bigg)
@@ -37,23 +37,32 @@ To get the resistor values, first, the sink current must be calculated for the r
         \item $R_{G{\_}FET{\_}int}$ is the internal gate-source resistance of the MOSFET
     \end{itemize}
     
-    Now the common resistance can be calculated:
+    Now the switch-on current and common resistance can be calculated:
+    
+    Taking after Equation \ref{eq:i_Gsink_per_fet_1}:
+
+    \begin{equation}
+        i_{Gsource/FET} = \bigg( \frac{Q_{GD}}{t_{sw{\_}on}} \bigg)
+        \label{eq:i_Gsource_per_fet_1}
+    \end{equation}    
+    
+    
     
     \begin{equation}
         i_{Gsource/FET} = \frac{\frac{V_G - V_{Miller}}{R_{pullup} + R_G}}{N}
-        \label{eq:i_Gsoursce_per_fet_1}
+        \label{eq:i_Gsoursce_per_fet_2}
     \end{equation}
     
-    where
-    
-        \begin{equation}
-        i_{Gsource/FET} = \frac{\frac{V_G - V_{Miller}}{R_{pullup} + R_G}}{N}
-        \label{eq:i_Gsoursce_per_fet_1}
-    \end{equation}
-    
-    Rearranging Equation \ref{eq:i_Gsoursce_per_fet_1} yields the following:
+    and
     
     \begin{equation}
-        i_{Gsource/FET} = \frac{\frac{V_G - V_{Miller}}{R_{pullup} + R_G}}{N}
-        \label{eq:i_Gsoursce_per_fet_1}
+        R_G = R_{G{\_}common} + \frac{R_{G{\_}FET} + R_{G{\_}FET{\_}int}}{N}
+        \label{eq:R_G}
+    \end{equation}
+    
+    Substituting Equation \ref{eq:R_G} into Equation \ref{eq:i_Gsoursce_per_fet_2} and rearranging them yields the following:
+    
+    \begin{equation}
+        R_{G{\_}common} = \frac{i_{Gsource/FET} \cdot N}{V_G - V_{Miller}} - R_{pullup} - \frac{R_{G{\_}FET} + R_{G{\_}FET{\_}int}}{N}
+        \label{eq:R_G_common}
     \end{equation}

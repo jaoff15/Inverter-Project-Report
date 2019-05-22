@@ -1,11 +1,10 @@
 \subsection{Clarke Transformation and Park Transformation}
+The control type chosen for the system is vector control also called field-oriented control and this requires Clarke/Park transformations as well as their inverse counterparts.
+The transformations are implemented in the processing system and to limit the amount of calculations needed for each transformation all constants are defined beforehand.
 
-% ************************** Clarke Transformation ***********************************
+% ******* Clarke Transformation ***********************************
 \subsubsection*{Clarke Transform}
 
-The control type chosen for the system is vector control also called field-oriented control and this requires Clarke/Park transformations as well as their inverse counterparts.
-
-The transformations are implemented in the processing system and to limit the amount of calculations needed for each transformation all constants are defined beforehand.
 
 The embedded implementation of the Clark transformation as per equation \ref{eq:clarke_transformation} can be seen in code sample \ref{code:clarke}. The function creates two results and therefore instead of returning the values, the variables are declared outside the function calls and a pointer to the variables are parsed into the function.
 
@@ -17,7 +16,7 @@ void clarke(f32 *iAlpha, f32 *iBeta, f32 iA, f32 iB, f32 iC){
 }
 \end{lstlisting}
 
-% ************************** Park Transformation ***********************************
+% ************** Park Transformation ***********************************
 \subsubsection*{Park Transform}
 The embedded implementation of the Park transformation as per equation \ref{eq:park_transformation} can be seen in code sample \ref{code:park}. The transformation involves calculating the sine and cosine of the angle. These two functions are implemented by using look-up tables and are discussed in section \ref{sec:sine_cosine}.
 
@@ -49,7 +48,8 @@ The largest error is where the sine/cosine has the largest numerical slope, and 
 \end{figure}
 
 
-\begin{lstlisting}[style=c, caption=Implementation lookup tables., label=code:lookup_table]
+
+\begin{lstlisting}[style=c, caption=Sine and cosine implemented with look-up tables., label=code:lookup_table]
 /* Sine lookup table */
 #define SIN_N 		360	 // Number of data points in the sine constant array
 const f32 sineValues[] = {0,0.0174524064372835,0.0348994967025010,...};

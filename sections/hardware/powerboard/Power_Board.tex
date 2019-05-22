@@ -109,7 +109,8 @@ The other cause of power loss in the MOSFETs is the switching power loss. The sw
 		\label{fig:HardSoftSwitch}
 	\end{figure} 
 
-
+When running the motor, the motor current has a positive and a negative half cycle. During the positive half period the current going into the motor, and in the negative half period the current going from the motor into the inverter. In the positive half period the low-side switch gets soft turned on and the high-side switch gets hard turned on 
+One transistor will only hard switch $50 \%$ of the time 
 The switching power is calculated as the area under the green line on figure \ref{fig:HardSoftSwitch}. 
 
     \begin{equation}
