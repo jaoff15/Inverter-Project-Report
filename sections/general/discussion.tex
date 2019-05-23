@@ -1,26 +1,53 @@
 \section{Discussion}
 \label{sec:discussion}
-Discuss results
+\rework{Discuss results}
  
-What has been made? How do the results compare to theory?
- 
-Are there any potential problems with the power board?
-If yes, how could they be fixed
 
-Are there any potential problems with the driver board?
-If yes, how could they be fixed.
- 
-Are there any problems with the component choice?
-What would be something to look for in other components?
+\rework{What has been made? How do the results compare to theory?}
 
-Are there any problems with the control?
-If yes, how could they be fixed?
+\subsection{Components}
+\rework{Are there any problems with the component choice?}
+\rework{What would be something to look for in other components?}
 
-How does the thermal analysis look? Could something be made better?
+\subsection{Power board}
+\rework{Are there any potential problems with the power board?}
+\rework{If yes, how could they be fixed}
 
-Mechanical problems. Construction problems. Others?
+\subsection{Driver board}
+\rework{Are there any potential problems with the driver board?}
+\rework{If yes, how could they be fixed.}
 
-Is there any problems or missing features in the embedded software. What would be some potential things to correct
+\subsection{Control}
+\rework{Are there any problems with the control?}
+\rework{If yes, how could they be fixed?}
+
+\subsection{Thermal characteristics}
+\rework{How does the thermal analysis look? Could something be made better?}
+
+
+\subsection{Construction}
+% Mechanical problems. Construction problems. Others?
+Constructing the inverter in the intended way might turn out difficult. While mounting the bus bars across all three phase PCB's and mounting the capacitors directly on top of the bus bar might be a good idea electrically, it can turn out to be near impossible in practice.
+
+The bus bars are made of solid cobber which have a high thermal conductivity and therefore soldering anything directly to the bars is difficult. Heating up all the PCB's and the bus bar in an oven or heating plate is the only option. 
+Getting all phase PCB's to align and solder correctly to the bus bars requires high precision and it might not be feasibly to use the same PCB's for a round two if something goes wrong.
+On top of mounting the bus bars to the PCB's the capacitors has to be mounted at the same time. 
+
+A compromise with a bit worse electrical characteristics but better construction might need to be used.
+
+\subsection{Embedded software}
+\rework{Is there any problems or missing features in the embedded software. What would be some potential things to correct}
+
+\subsubsection{Dead time in PWM module}
+
+The dead time between the high-side and low-side PWM's are $\sim 53$ times longer than the turn off time of the transistors used. The dead time is mainly limited by the resolution of the internal counter in the PWM module. By increasing the counter limits to $1000$ instead of $100$ the resolution would become $10$ times higher. The dead time resolution would also become $10$ times higher which would bring the minimum dead time down to $400ns$ only $\sim 5.3$ times larger than necessary.
+
+
+\subsubsection{Linear interpolation}
+The linear interpolation has compromises and it is difficult to quantify the expected benefit from having it. As shown in section \ref{sec:linear_interpolation} a more precise rotor angle can be achieved for speeds less than $1185RPM$ for moments with low to no acceleration or deceleration. The error caused by acceleration and deceleration is not analyzed, only a static simulation has been made. To precisely determine how big of an advantage or disadvantage the interpolation can have in a real scenario, the algorithm would need to be dynamically tested.
+
+
+
 
  
  

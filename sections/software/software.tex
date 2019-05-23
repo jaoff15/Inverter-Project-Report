@@ -13,6 +13,8 @@ The section is divided into three subsections. First the overall system architec
 
 %%%%%%%%%%%%%%%%%%%%% PL %%%%%%%%%%%%%%%%%%%%%
 \subsection{Programmable Logic (PL)}
+To take advantage of the parallel and super fast nature of FPGA logic all the low-level drivers are placed in logic. The section will go through the development and use of the modules used which includes a PWM module, an encoder module and an ADC module.
+
 % PWM generator
 \input{sections/software/pl/pwm.tex}
 
@@ -22,8 +24,14 @@ The section is divided into three subsections. First the overall system architec
 %ADC
 \input{sections/software/pl/adc.tex}
 
+\subsubsection*{Subconclusions}
+A dual PWM module is developed that can produce two individual and inverted PWM signals with dead time and ADC trigger pulses. Tests show that three of these modules can be used at the same time phase shifted $120\circ$. The encoder module IP is included and a higher level algorithm is developed to improve the readings. Lastly the ADCs in the Zynq is imported and configured.
+
 %%%%%%%%%%%%%%%%%%%%% PS %%%%%%%%%%%%%%%%%%%%%
 \subsection{Processing System (PS)}
+All the high level control and communication is placed on the processing system to get the benefit of higher abstraction on a processor. The section is structured in the same way as data is processed. First the ISR and how the PL triggers the PS, then the control and lastly how the result is transferred back to the PL. The section will end with the communication interface between the embedded system and a computer.
+
+
 % Interrupt Service Routine ISR
 \input{sections/software/ps/ISR.tex}
 
@@ -39,5 +47,6 @@ The section is divided into three subsections. First the overall system architec
 % Computer inteface
 \input{sections/software/ps/uart.tex}
 
-
+\subsubsection*{Subconclusions}
+A short ISR is developed to simply trigger the actual control loop in the processor. When the control is triggered it runs Clarke and Park Transformations, angle interpolation, and two PI controllers. The controller output is then converted back into PWM thresholds with an Inverse Park and Inverse Clarke transformation and the result is put into block RAM for the PL to use.
 

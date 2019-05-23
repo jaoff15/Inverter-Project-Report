@@ -1,9 +1,21 @@
 \section{Hardware}
 \label{sec:hardware}
+
+\subsection{Main interface board}
+
+\subsubsection{Encoder}
+
+On the motor is an \textit{AM256} magnetic 8 bit encoder mounted. The encoder is supplied from the main interface board and the signal are routed from the encoder to the Zybo. 
+
+The decoding and translation of the encoder signal are done in the Zybo which is discussed in section \ref{sec:encoder}.
+
+\todo{Insert reference}
+
+
 \input{sections/hardware/analogboard/Analog_Interface_Board.tex}
 
 \subsection{Power board}
-The inverter is divided into to PCB boards, one for the high power part, the Power board and one for the driver part, the Driver board. In this section is it described how the Power board for the inverters is designed and what considerations have been made. It will be described what kind of PCB and which components has been used and why. The layout of the inverter power board will also be described and which choices has been made doing that.
+The inverter is divided into two PC boards, one for the high power part, the Power board and one for the driver part, the Driver board. In this section is it described how the Power board for the inverters is designed and what considerations have been made. It will be described what kind of PCB and which components has been used and why. The layout of the inverter power board will also be described and which choices has been made doing that.
 \input{sections/hardware/powerboard/Power_Board.tex}
 % \input{sections/hardware/powerboard/design.tex}
 % \input{sections/hardware/powerboard/implementation.tex}
@@ -12,4 +24,6 @@ The inverter is divided into to PCB boards, one for the high power part, the Pow
 This section describes the theoretical background, the design considerations taken and the implementation of the driver circuit and the PCB.
 \input{sections/hardware/driverboard/analysis.tex}
 \input{sections/hardware/driverboard/design.tex}
-\input{sections/hardware/driverboard/implementation.tex}
+
+\subsection{Power and Driver board layout}
+\input{sections/hardware/driverboard/layout.tex}

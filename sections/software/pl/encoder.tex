@@ -1,6 +1,7 @@
 \subsection{Encoder}
+\label{sec:encoder}
 
-A driver module for the encoder on the motor was part of the material to get started on this project. \todo{Insert reference}
+A driver module for the encoder on the motor was part of the material to get started on this project. \cite{encoder_module}
 
 \begin{figure}[H]
 	\centering
@@ -10,7 +11,7 @@ A driver module for the encoder on the motor was part of the material to get sta
 \end{figure}
 The driver module, as seen on figure \ref{fig:encoder_module}, supports an 8-bit encoder and takes care of handling the returned signal from the encoder itself. The module outputs the current rotor angle at a frequency determined by the PL clock and can be found with equation \ref{eq:encoder_frequency}
 \begin{equation}
-encoder_{freq} = \frac{PL_{freq}}{6708} = \frac{125MHz}{6708} = 18.634kHz
+encoder_{freq} = \frac{f_{pl}}{6708} = \frac{125MHz}{6708} = 18.634kHz
 \label{eq:encoder_frequency}
 \end{equation}
 The system runs at $10kHz$ which means the control loop will always have a new encoder angle at every cycle.
@@ -60,11 +61,10 @@ f32 getRotorAngle(){
 
 
 \subsubsection{Improve angle accuracy with linear interpolation}
+\label{sec:linear_interpolation}
 Low resolution and thereby big steps in the rotor angle results in uneven rotation of the motor especially at low speeds.
-To improve the angle before it is used in the control the real angle is approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step. This assumption is not completely correct because it would mean the motor does not change speed. The rotor acceleration and deceleration is assumed slow enough compared to the encoder frequency to not result in big errors.
+To improve the angle before it is used in the control the real angle is approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step. This assumption is not completely correct because it would mean the motor does not change speed. The rotor acceleration and deceleration is assumed slow enough compared to the encoder frequency to not result in big errors \cite{lin_interpol}.
 
-\todo{Reference}
-% https://www.encyclopediaofmath.org/index.php/Linear_interpolation
 
 The formula for linear interpolation can be seen in equation \ref{eq:linear_interpolation1}. On figure \ref{fig:angle_interpolation1} this would mean that the real angle, at point $p_2$, can be found from the measured angle, $p_1$, if $x_1$,$x_2$,$y_1$ and $y_2$ are known.
 \begin{equation}
@@ -74,11 +74,6 @@ The formula for linear interpolation can be seen in equation \ref{eq:linear_inte
 
 The equation can be converted to fit the system by setting the two $y$ values equal to the amount of change between the current and last step $\Delta a = y_2 - y_1$ and setting the $x$ values to be the step width $x_{step} = x_2 - x_1$. Assuming that the speed is approximately the same for the current step as it was on the last. Which results in equation \ref{eq:linear_interpolation2}.
 
-% $\Delta a = y_2 - y_1$
-
-% $x_{step} = x_2 - x_1$
-
-% $\Delta x = x - x_1$
 \begin{equation}
     y =  \frac{\Delta a}{x_{step}} \Delta x+y_1
     \label{eq:linear_interpolation2}

@@ -1,6 +1,6 @@
 \subsection{Analog-to-Digital Converter (ADC)}
 
-To measure the phase currents once per PWM cycle an ADC is used. The Zynq has two 12 bit ADCs which enables it to sample two signals simultaneously. It is important to sample the input signals same time to avoid distortion by having a small time delay between current samples. 
+To measure the phase currents once per PWM cycle and also the torque reference from the torque pedal an ADC is used. The Zynq has two 12 bit ADCs which enables it to sample two signals simultaneously. It is important to sample the phase current same time to avoid distortion by having a small time delay between current samples. 
 
 Due to the symmetry between the three phases only two of the phases needs to be measured and the last can be caltulated with equation \ref{eq:third_phase}.
 \begin{equation}
@@ -20,7 +20,7 @@ To control the ADC the IP block \textit{XADC} is used which can be seen on figur
 
 The block is configured to be triggered by an external signal which is connected to one of the ADC pulses produced by a PWM module.
 
-The signal end-of-sequence, \textit{eos\textunderscore out}, outputs a pulse when a conversion has ended. The signal is used to trigger the interrupt on the processing system as can be seen on figure \ref{fig:adc_block_diagram}.
+While the phase currents are measured the torque pedal position is also measured. When all signals are measured the signal end-of-sequence, \textit{eos\textunderscore out}, outputs a pulse. The \textit{eos} signal is used to trigger the interrupt on the processing system as can be seen on figure \ref{fig:adc_block_diagram}.
 
 \begin{figure}[H]
 	\centering

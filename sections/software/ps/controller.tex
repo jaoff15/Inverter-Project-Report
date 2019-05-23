@@ -18,12 +18,12 @@ void initControllers(){
 }
 \end{lstlisting}
 
-When the motor is running the only thing needed to be done is to input the new value to the controller and get a new output as can be seen in code sample \ref{code:pi_controller2}. The function 'getOutput()' handles the controller gains, keeping track of the integrator part and integrator windup.
+When the motor is running the only thing needed to be done is to input the reference value and the current measured value to the controller and get a new output as can be seen in code sample \ref{code:pi_controller2}. The function 'getOutput()' handles the controller gains, keeping track of the integrator part and integrator windup.
 
 \begin{lstlisting}[style=c, caption=Usage of PI-controller., label=code:pi_controller2]
     /* Run controller */
-    f32 outD = getOutput(&cD, iD);
-    f32 outQ = getOutput(&cQ, iQ);
+	f32 outD = getOutput(&cD, 0, iD);
+	f32 outQ = getOutput(&cQ, getTargetTorque(), iQ);
 \end{lstlisting}
 
 The implementation of the 'getOutput()' function can be seen in code sample \ref{code:pi_controller3}.
@@ -34,7 +34,9 @@ The output of the controller is found with the following equation.
     u = k_p \cdot e + k_i \cdot int
 \end{equation}
 
-Where $u$ is the output, $e$ is the input to the controller, $int$ is the integrator part and $k_p$ and $k_i$ are the controller gains.
+Where $u$ is the output, $e$ is the error which is the target minus the input, 
+
+$e = target - input$, $int$ is the integrator part and $k_p$ and $k_i$ are the controller gains.
 
 The integral part of the controller might experience integrator windup because the control executing is much faster than the motor speed. To handle this a simple output limitation is implemented to limit the controller output.
 
@@ -42,26 +44,25 @@ The integral part of the controller might experience integrator windup because t
 
 \begin{lstlisting}[style=c, caption=Implementation of PI-controller 'get output'-function., label=code:pi_controller3]
 /* Function to get the next output of a controller with a new input */
-double getOutput(Controller *c, f32 input){
+f32 getOutput(Controller *c, f32 target, f32 input){
+	f32 error = target - input;                         // Calculate error
+	
 	// Collect controller data
 	const f32 kp  = getKp(c);
 	const f32 ki  = getKi(c);
-	addToIntegrator(c, input);
+	addToIntegrator(c, error);
 	const f32 integrator = getIntegrator(c);
 
-	// Calculate new output
-	f32 output =  (kp * input) + (ki * integrator);
-
-	// Anti integrator windup. Limit the output to within set limits
-	if(output > MAX_OUTPUT){          // Check upper limit
-		output = MAX_OUTPUT;            // Limit output
-	}
+	f32 output =  (kp * error) + (ki * integrator);     // Calculate new output
 	
-	if(output < MIN_OUTPUT){          // Check lower limit
-		output = MIN_OUTPUT;            // Limit output
+	// Anti integrator windup. Limit the output to within set limits
+	if(output > MAX_OUTPUT){                            // Check upper limit
+		output = MAX_OUTPUT;                              // Limit output
+	}
+	if(output < MIN_OUTPUT){                            // Check lower limit
+		output = MIN_OUTPUT;                              // Limit output
 	}	
-	// Return new output
-	return output;
+	return output;                                      // Return new output
 }
 \end{lstlisting}
 

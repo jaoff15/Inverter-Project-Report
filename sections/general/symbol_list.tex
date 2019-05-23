@@ -1,22 +1,113 @@
 \section{Symbol list}
 \label{sec:symbol_list}
 
-\begin{center}
-\begin{tabular}{|c|c|c|} \cline{1-3}
-\textbf{Symbol name} & \textbf{Symbol} & \textbf{Unit} \\ \cline{1-3}
-\textbf{Unitless} & \dots & \dots \\ \cline{1-3}
-\textbf{Danish krones} & $dkk$ & \textit{kroner} \\ \cline{1-3}
-\textbf{Voltage} & $V$ & \textit{Volts} \\ \cline{1-3}
-\textbf{Ampere} & $A$ & \textit{Amps} \\ \cline{1-3}
-\textbf{Resistance} & $\Omega$ & \textit{Ohms} \\ \cline{1-3}
-\textbf{Coil} & $L$ & \textit{Henry} \\ \cline{1-3}
-\textbf{Capacitor} & $C$ & \textit{Farad} \\ \cline{1-3}
-\textbf{Frequency} & $f$ & $Hz$\\ \cline{1-3} 
-\textbf{Rotational speed} & $N$ & \textit{RMP}\\ \cline{1-3}
-\textbf{Pole pair} & $P$ & \dots \\ \cline{1-3}
-\textbf{Time} & $s$ & \textit{seconds} \\ \cline{1-3}
-\textbf{Electrical degrees} & $\circ$ & \textit{Degrees} \\ \cline{1-3}
-\end{tabular} \\
-\caption{Symbol list}\label{Symbollist}
-\label{tab:variable_ids}
-\end{center}
+% \begin{center}
+% \begin{tabular}{|c|c|c|} \cline{1-3}
+% \textbf{Symbol name}        & \textbf{Symbol} & \textbf{Unit} \\ \cline{1-3}
+% \textbf{Unitless}           & \dots & \dots \\ \cline{1-3}
+% \textbf{Danish krones}      & $dkk$ & \textit{kroner} \\ \cline{1-3}
+% \textbf{Voltage}            & $V$ & \textit{Volts} \\ \cline{1-3}
+% % \textbf{Ampere}             & $A$ & \textit{Amps} \\ \cline{1-3}
+% \textbf{Resistance}         & $\Omega$ & \textit{Ohms} \\ \cline{1-3}
+% \textbf{Coil}               & $L$ & \textit{Henry} \\ \cline{1-3}
+% \textbf{Capacitor}          & $C$ & \textit{Farad} \\ \cline{1-3}
+% \textbf{Frequency}          & $f$ & $Hz$\\ \cline{1-3} 
+% \textbf{Rotational speed}   & $N$ & \textit{RMP}\\ \cline{1-3}
+% \textbf{Pole pair}          & $P$ & \dots \\ \cline{1-3}
+% \textbf{Time}               & $s$ & \textit{seconds} \\ \cline{1-3}
+% \textbf{Electrical degrees} & $\circ$ & \textit{Degrees} \\ \cline{1-3}
+% \end{tabular} \\
+% \caption{Symbol list}\label{Symbollist}
+% \label{tab:variable_ids}
+% \end{center}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Symbol}      & \textbf{Meaning}                               \\ \hline
+$\Delta a$           & Angle difference                               \\ \hline
+$a$                  & Current Rotor Angle                            \\ \hline
+$a_i$                & Interpolated Rotor Angle                       \\ \hline
+$C_{GD}$             & Gate-Drain Capacitance                         \\ \hline
+$c_{steps}$          & PWM counter steps                              \\ \hline
+$dt_{res}$           & Dead Time Resolution                           \\ \hline
+$dt_{min}$           & Dead Time Minimum                              \\ \hline
+$encoder_{freq}$     & Encoder Frequency                              \\ \hline
+$e$                  & Error                                          \\ \hline
+$f_{s}$              & Switching Frequency                            \\ \hline
+$f_{pl}$             & FPGA Clock Frequency                           \\ \hline
+$G_{sw}$             & Switching Charge                               \\ \hline
+$I$                  & Current                                        \\ \hline
+$I_{D}$              & Drain Current                                  \\ \hline
+$I_{GSource}$        & Sourced Gate Current                           \\ \hline
+$I_{GSink}$          & Sinked Gate Current                            \\ \hline
+$I_{GSink/MOSFET}$   & Sinked Gate Current per MOSFET                 \\ \hline
+$I_{GSource/MOSFET}$ & Sourced Gate Current per MOSFET                \\ \hline
+$I_{Gsource_total}$  & Total switch ON current                        \\ \hline
+$I_{Gsink_total}$    & Total switch OFF current                       \\ \hline
+$i_a,i_b,i_c$        & A, B and C currents                            \\ \hline
+$i_\alpha, i_\beta$  & Alpha and Beta currents                        \\ \hline
+$i_d, i_q$           & D and Q currents                               \\ \hline
+$k_i$                & Integrator Gain                                \\ \hline
+$k_p$                & Proportional Gain                              \\ \hline
+$L_d$                & Inductance in D direction                      \\ \hline
+$L_q$                & Inductance in Q direction                      \\ \hline
+$\lambda _m$         & Self inductance                                \\ \hline
+$N$                  & Number of Transistors                          \\ \hline
+$\varphi$            & Angle                                          \\ \hline
+$P$                  & Pole pairs                                     \\ \hline
+$P_{con}$            & Conduction Power Loss for all MOSFET's         \\ \hline
+$P_{con/MOSFET}$     & Conduction Power Loss Per MOSFET               \\ \hline
+$P_{sw}$             & Switching Loss for all MOSFET's                \\ \hline
+$P_{sw/MOSFET}$      & Switch Loss per MOSFET                         \\ \hline
+$Q_{G}$              & Gate Charge                                    \\ \hline
+$Q_{GD}$             & Gate-Drain Charge                              \\ \hline
+$Q_{GS}$             & Gate-Source Charge                             \\ \hline
+$n_{step}$           & Sample count on encoder step                   \\ \hline
+$n_{samples}$        & Sample count on current step                   \\ \hline
+\end{tabular}
+\caption{Symbol list Part 1}
+\label{Symbollist}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Symbol}      & \textbf{Meaning}                               \\ \hline
+$r$                  & Read                                           \\ \hline
+$R$                  & Resistor (Generic)                             \\ \hline
+$R\#$                & Resistor Number $\#$                           \\ \hline
+$R_{pot}$            & Potmeter Resistance                            \\ \hline
+$R_{DS-ON}$          & Drain-Source ON Resistance                     \\ \hline
+$R_{G_common}$       & Common Gate Resistance                         \\ \hline
+$R_{G_FET_int}$      & Internal Gate-Source Resistance of a MOSFET    \\ \hline
+$R_{pullup}$         & Pull-up Resistor                               \\ \hline
+$R_s$                & Stator Resistance                              \\ \hline
+$res_{rotor}$        & Encoder resolution on the rotor angle          \\ \hline
+$res_{electric}$     & Encoder resolution on the electric field angle \\ \hline
+$sin_{freq}$         & Sine Frequency                                 \\ \hline
+$t_1, t_2$           & Specific Times                                 \\ \hline
+$t_{angle}$          & Time per angle                                 \\ \hline
+$t_{on}$             & Turn on time                                   \\ \hline
+$t_{off}$            & Turn off time                                  \\ \hline
+$th_{duty cycle}$    & Duty Cycle Threshold                           \\ \hline
+$th_{high}$          & High-side Threshold                            \\ \hline
+$th_{low}$           & Low-side Threshold                             \\ \hline
+$t_{dead time}$      & Dead time                                      \\ \hline
+$u$                  & Output                                         \\ \hline
+$V$                  & Voltage                                        \\ \hline
+$V_{batt}$           & Battery Voltage                                \\ \hline
+$V_{DC}$             & Supply Voltage                                 \\ \hline
+$V_{ref}$            & Reference Voltage                              \\ \hline
+$V_{Miller}$         & Miller-plateau of a MOSFET                     \\ \hline
+$v_{rpm}$            & Rotational speed in                            \\ \hline
+$w$                  & Write                                          \\ \hline
+$\Delta x$           & Difference in x                                \\ \hline
+$x_{step}$           & Encoder Step  Width                            \\ \hline
+\end{tabular}
+\caption{Symbol list Part 2}
+
+\end{table}
