@@ -2,4 +2,14 @@
 % As a SDU semester project, needs a go karts it motor driver replaced. With a new inverter with its own regulation, that is control with an Zynq FPGA, that can controls the go karts own motor. An inverter design has been achieved with an Infineon "IPB017N10N5" MOSFET, that has it own gate driver from Silicon Labs "SI8261BAC-C-IS[7]". It was decided not to build the inverter, but design to mechanical construction has been made and documented. All this is controlled through a Xilinx Zybo FPGA, controls the various aspect need to regulate the motor. The code has been test and it's able to drive an Elcon PM5100, as a test motor........
 
 The project goes through the steps needed to design and implement a three-phase inverter with motor controller needed to drive a Sevcon gen4 motor for an electric go kart. 
-The motor is a PMAC motor which have high torque, efficiency 
+% The motor is a PMAC motor which have high torque and efficiency but the control is more complex than other motor types.
+The inverter is designed to run a 4.5kW continuous and 14kW peak motor. The inverter hardware consist of 4 separate PCB's. A main interface board that was acquired as part of the get-started material for the project, an analog interface board that handles the analog signals, a power board for each phase handling the high power components needed to drive each phase and a driver board for each phase driving the components on the power board. 
+The inverter is controlled by a Xilinx Zybo Zynq-7000 ARM/FPGA Trainer Board. The controller measures rotor angle, phase currents and torque pedal position and performs the necessary control for the motor to output the requested torque. 
+
+
+
+
+
+
+
+

@@ -201,10 +201,22 @@ Where $R_{copper}$ is the thermal resistance of the copper layer, $R_{del}$ is t
 
 To calculate the thermal resistance of the thermal paste, equation \ref{Rthermal} is used as well. The thickness of the paste is estimated to be $0.1 mm$ and the thermal conduction constant of the paste is set to $3 \frac{W}{m \cdot K}$. This based on values for different thermal paste, and then a value close to the average of them was chosen.
 
-This results in, that the total temperature rise from the thermal paste to the MOSFET junction can be calculated with equation \ref{eq:tempMOSFET}.
+This results in, that the total temperature difference from the thermal paste to the MOSFET junction can be calculated with equation \ref{eq:tempMOSFET}.
 
     \begin{equation}
-        T_{JP} = P_{loss} \cdot (R_{JC} + R_{PCB})
+        T_{JP} = P_{loss/MOSFET} \cdot (R_{JC} + R_{PCB})
+        \label{eq:tempMOSFET}
     \end{equation}
     
-Where $R_{JC}$ is the internal
+Where $R_{JC}$ is the internal junction to case thermal resistance and $P_{loss}$ is the total power loss for one MOSFET. 
+
+To calculate the temperature difference over the heat sink, the average power loss is used instead of the maximum power loss. This is done because the heat sink has a higher thermal capacitance, and therefore is less reactive to changes in temperature. The average power loss is calculated in the same way as the maximum power loss, but instead of using the maximum current a average current is estimated. The average current is estimated to $75 A$.
+From this the temperature difference over the heat sink is calculated, with equation \ref{Theatsink} 
+
+    \begin{equation}
+        T_{HA} = P_{Avg} \cdot R_{HA}
+        \label{Theatsink}
+    \end{equation}
+
+The $P_{Avg}$ is the average power loss for all the MOSFETs and $R_{HA}$ is the thermal resistance of the heat sink. 
+
