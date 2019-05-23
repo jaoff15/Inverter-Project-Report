@@ -1,4 +1,4 @@
-\subsection{Encoder}
+\subsubsection{Encoder}
 \label{sec:encoder}
 
 A driver module for the encoder on the motor was part of the material to get started on this project. \cite{encoder_module}
@@ -60,7 +60,7 @@ f32 getRotorAngle(){
 \end{lstlisting}
 
 
-\subsubsection{Improve angle accuracy with linear interpolation}
+\paragraph{Improve angle accuracy with linear interpolation}
 \label{sec:linear_interpolation}
 Low resolution and thereby big steps in the rotor angle results in uneven rotation of the motor especially at low speeds.
 To improve the angle before it is used in the control the real angle is approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step. This assumption is not completely correct because it would mean the motor does not change speed. The rotor acceleration and deceleration is assumed slow enough compared to the encoder frequency to not result in big errors \cite{lin_interpol}.

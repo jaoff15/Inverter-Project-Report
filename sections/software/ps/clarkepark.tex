@@ -1,4 +1,4 @@
-\subsection{Clarke Transformation and Park Transformation}
+\subsubsection{Clarke Transformation and Park Transformation}
 The control type chosen for the system is vector control also called field-oriented control and this requires Clarke/Park transformations as well as their inverse counterparts.
 The transformations are implemented in the processing system and to limit the amount of calculations needed for each transformation all constants are defined beforehand.
 
@@ -33,7 +33,7 @@ void park(f32 *iD, f32 *iQ, f32 iAlpha, f32 iBeta, f32 angle){
 The inverse Clarke and inverse Park transformations can be found in appendix \ref{app:inverse_park} and \ref{app:inverse_clarke}.
 
 
-\subsubsection{Sine and Cosine}
+\paragraph{Sine and Cosine}
 \label{sec:sine_cosine}
 The trigonometric functions sine and cosine are implemented with a look-up table to improve performance. The sine function looks up a given angle in the table to find the output of the function. The cosine uses the sine function but offset the angle by $90 ^{\circ}$. 
 

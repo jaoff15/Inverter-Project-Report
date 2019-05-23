@@ -28,7 +28,7 @@ It is decided not to increase the switching frequency to more than $10 kHz$ to r
 \subsubsection{PCB selection}   \label{PCB_selection}
 Two types of PCB's has been considered, a ordinary multi-layer PCB and a single-layer aluminum PCB. There is of course pros and cons for both options. With the ordinary PCB there is better opportunities for conducting the heat away from the switch components. On the other hand it is not possible to use SMD components, due to the heat can not be transferred away from the components. The SMD components can result in a better and more compact layout. This is due to the SMD components is smaller and is available with multiple source legs, which minimize the common source for the switch components. The Use of SMD components will be possible with the aluminum PCB. Due to that the SMD components have a smaller area and the heat has the transferred through the aluminum PCB, the cooling of the components is a harder task. With the aluminum PCB it is not possible to use through hole components, which can have some cons when it comes to the mounting of the large capacitors for the DC-link. 
 
-The ordinary PCB has also the benefit, that is has multiple layers. This could make it easier to layout a good power board. On the other hand, due to the budget, it will not be possible to get a PCB with much more than 2 layers anyways, maybe 4 layers. It is of course better than the single layer on the aluminum PCB. It is possible to get the aluminum PCB with two layers, but it will result in a  too high thermal resistance and price.
+ The ordinary PCB has also the benefit, that is has multiple layers. This could make it easier to layout a good power board. On the other hand, due to the budget, it will not be possible to get a PCB with much more than 2 layers anyways, maybe 4 layers. It is of course better than the single layer on the aluminum PCB. It is possible to get the aluminum PCB with two layers, but it will result in a  too high thermal resistance and price.
 
 Based on these considerations it is chosen to use the aluminum PCB, because the benefits of the SMD components is weighted higher than the cons.
 
@@ -171,34 +171,24 @@ Then there is a thin layer of thermal paste to connect the PCB to the heat sink.
 	\end{figure}
 	
 The thermal resistance from the junction to the case of the MOSFET is stated to be $0.4 K/W$ in the data sheet for the MOSFET.\cite{mosfet}
-The thermal resistance of the copper layer, is calculated from equation \ref{Rcopper}
+The thermal resistance of the copper layer, is calculated from equation \ref{Rthermal}
 
     \begin{equation}
-        R_{copper} = \frac{t_{copper}}{A_{MOSFET} \cdot k_{copper}} 
-        \label{Rcopper}
+        R_{thermal} = \frac{t_{layer}}{A_{MOSFET} \cdot k_{material}} 
+        \label{Rthermal}
     \end{equation}
     
-Where $t_{copper}$ is the thickness of the copper layer in $m$, $A_{MOSFET}$ is the surface area of the MOSFET in $m^2$, and $k_{copper}$ is the thermal conduction constant for copper in $\frac{W}{m \cdot K}$.
-The thickness is known to be $1 oz/foot^2$ from 'pcbway.com', which is converted to $34 \cdot 10^{-6} m$ from the density of copper. The area of the surface area of the MOSFET is found in the data sheet to be $63 \cdot 10^{-6} m^2$.\cite{mosfet} The thermal conduction constant of copper is $401 \frac{W}{m \cdot K}$.\cite{toolbox}
+Where $t_{layer}$ is the thickness of the layer in $m$, $A_{MOSFET}$ is the surface area of the MOSFET in $m^2$, and $k_{material}$ is the thermal conduction constant for the layer material in $\frac{W}{m \cdot K}$.
 
-The thermal resistance of the dielectrical layer is calculated based on the same equation as \ref{Rcopper}.
+The thickness of the copper layer is known to be $1 oz/foot^2$ from 'pcbway.com', which is converted to $34 \cdot 10^{-6} m$ from the density of copper. The area of the surface area of the MOSFET is found in the data sheet to be $63 \cdot 10^{-6} m^2$.\cite{mosfet} The area of the MOSFET is used all the way down to the heat sink, because it is assumed that the heat will go straight through the PCB and the paste. This is most likely not the case but that will be the worst case.
+The thermal conduction constant of copper is $401 \frac{W}{m \cdot K}$.\cite{toolbox}
 
-    \begin{equation}
-        R_{del} = \frac{t_{del}}{A_{MOSFET} \cdot k_{del}} 
-        \label{Rdel}
-    \end{equation}
+The thermal resistance of the dielectrical layer is calculated based on the same equation as \ref{Rthermal}.
 
-Where $t_{del}$ is the thickness of the dielectrical layer in $m$, and $k_{del}$ is the thermal conduction constant for the dielectrical layer in $\frac{W}{m \cdot K}$.
-The thickness of the dielectrical layer is stated by the manufactore, pcbway.com, to be $100 \mu m$. The thermal conduction constant is chosen to be $1 \frac{W}{m \cdot K}$. The manufacture offers also the aluminum PCB with a dielectrical layer with a thermal conduction constant of $2 \frac{W}{m \cdot K}$, but due to price this was not chosen.
+Where the thickness of the dielectrical layer is $100 \mu m$, which is stated by the manufactore, pcbway.com. The thermal conduction constant is chosen to be $1 \frac{W}{m \cdot K}$. The manufacture offers also the aluminum PCB with a dielectrical layer with a thermal conduction constant of $2 \frac{W}{m \cdot K}$, but due to price this was not chosen.
 
-The same equation is used again for calculating the thermal resistance of the aluminum layer of the PCB.
-
-    \begin{equation}
-        R_{alu} = \frac{t_{alu}}{A_{MOSFET} \cdot k_{alu}} 
-        \label{Ralu}
-    \end{equation}
-    
-The thickness of the aluminum layer, $t_{alu}$, is the chosen PCB thickness of $0.8 mm$ minus the thickness of the two other layers. The thickness of $0.8 mm$ is chosen because that is the thinnest option without getting the PCB more expensive. The thermal conduction constant for aluminum, $k_{alu}$, is $236 \frac{W}{m \cdot K}$.\cite{toolbox}
+Equation \ref{Rthermal} is used again for calculating the thermal resistance of the aluminum layer of the PCB.
+Where the he thickness of the aluminum layer is the chosen PCB thickness of $0.8 mm$ minus the thickness of the two other layers. The thickness of $0.8 mm$ is chosen because that is the thinnest option without getting the PCB more expensive. The thermal conduction constant for aluminum is $236 \frac{W}{m \cdot K}$.\cite{toolbox}
 
 The thermal resistance for the total PCB is then:
 
@@ -207,3 +197,14 @@ The thermal resistance for the total PCB is then:
         \label{RPCB}
     \end{equation}
 
+Where $R_{copper}$ is the thermal resistance of the copper layer, $R_{del}$ is the thermal resistance of the dielectrical layer, and $R_{alu}$ is the thermal resistance of the aluminum layer.
+
+To calculate the thermal resistance of the thermal paste, equation \ref{Rthermal} is used as well. The thickness of the paste is estimated to be $0.1 mm$ and the thermal conduction constant of the paste is set to $3 \frac{W}{m \cdot K}$. This based on values for different thermal paste, and then a value close to the average of them was chosen.
+
+This results in, that the total temperature rise from the thermal paste to the MOSFET junction can be calculated with equation \ref{eq:tempMOSFET}.
+
+    \begin{equation}
+        T_{JP} = P_{loss} \cdot (R_{JC} + R_{PCB})
+    \end{equation}
+    
+Where $R_{JC}$ is the internal
