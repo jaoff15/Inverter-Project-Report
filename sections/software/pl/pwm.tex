@@ -1,5 +1,5 @@
 \subsubsection{PWM module}
-
+\label{sec:pwm}
 Each phase of the inverter is controlled by a PWM signal for its high-side leg and one for its low-side leg. 
 
 The module shown on figure \ref{fig:pwm_module} is made to control both the high-side and low-side transistors of a leg in the inverter. Three instances of the module is used to control all three phases.
@@ -190,7 +190,7 @@ To trigger a new reading by the ADC the PWM generator module has a build-in puls
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8 \textwidth]{pictures/software/adc_pulses.eps}
-	\caption{}
+	\caption{The top graph shows the high and low side PWM signals. The bottom graph shows the ADC pulses triggered in the middle of each PWM signal.}
 	\label{fig:adc_pulses}
 \end{figure}
 

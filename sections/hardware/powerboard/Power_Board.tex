@@ -72,7 +72,7 @@ When looking at the parameters, a couple of things need to be considered. From t
 \subsubsection{Power and heat dissipation in the transistors}
 There are two types of power losses in the transistors. One is conduction losses, which is caused by the intern resistance in MOSFET between the Drain and the Source, when the MOSFET is conducting. The other one is switching losses, which is caused then the MOSFETs is turning on and off. Based on the power loss calculations the expected heat increase of the MOSFETs can be estimated, which will be used to decide how many MOSFETs in parallel is needed.
 
-\paragraph{Conduction loss}
+\paragraph{Conduction power loss}
 When a MOSFET is conducting there will be a power dissipation due to the intern Drain-Source on resistance in the MOSFET. Thus the conduction power loss in the MOSFETs is calculated in the same way as the power loss in a resistor. Equation \ref{eq:ConductionLossMOSFET} describes the conduction power loss for one MOSFET, $P_{con/MOSFET}$.
 
     \begin{equation}
@@ -99,9 +99,11 @@ On figure \ref{fig:ConductionLoss} the relationship between conduction power los
 		\label{fig:ConductionLoss}
 	\end{figure} 
 
-For this the peak current, $I$, is set to $300 A$, and the Drain-Source on resistance, $R_{DSon}$, is set to ${1.9 m \Omega}$, which is value at $80 \degree C$. \todo{ref to data sheet}
+For figure \ref{fig:ConductionLoss} the peak current, $I$, is set to $300 A$, and the Drain-Source on resistance, $R_{DSon}$, is set to ${1.9 m \Omega}$, which is value at $80 \degree C$. \todo{ref to data sheet}
 
-\paragraph{Switching loss}
+On figure \ref{fig:ConductionLoss} it can be seen that the more MOSFETs there are placed in parallel per switch, the conduction power losses reduces exponentially, for both each MOSFET and for the hole inverter.
+
+\paragraph{Switching power loss}
 The other cause of power loss in the MOSFETs is the switching power loss. The switching power losses is caused by the period, when switching, where both the voltage over and the current through the MOSFET is not zero. This is called hard switching. Soft switching is when the MOSFET switching on or off without the voltage and current overlaps. This will not cost any power loss. This is illustrated on figure \ref{fig:HardSoftSwitch}.
 
     \begin{figure}[H]
@@ -120,11 +122,34 @@ The switching power is calculated as the area under the green line on figure \re
         \label{eq:sw_loss_MOSFET}
     \end{equation}
 
-Where $V_{batt}$ is the battery voltage, 
-Equation \ref{eq:sw_loss_MOSFET} is the switching power loss per MOSFET. To get the switching power loss for all of the MOSFETs in the inverter, this has to be multiplied with the number of parallel MOSFETs, two to take both the high- and low-side into to acount, and the number of phases, which is three.
+Where $V_{batt}$ is the battery voltage, $t_{on}$ is the turn on time, $t_{off}$ is the torn off time, and $f_{sw}$ is the switching frequency of the transistors.
+Equation \ref{eq:sw_loss_MOSFET} is the switching power loss per MOSFET. To get the switching power loss for all of the MOSFETs in the inverter, this has to be multiplied with the number of parallel MOSFETs, two to take both the high- and low-side into to account, and the number of phases, which is three.
 
     \begin{equation}
         P_{sw} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw} \cdot N \cdot 2 \cdot 3
         \label{eq:sw_loss}
     \end{equation}
+    
+From this equation, a curve of the switching power loss in one MOSFET and in all the MOSFETs versus the number of the parallel MOSFETs, is made.
 
+    \begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Switch_loss.png}
+		\caption{Conduction power loss versus the number of parallel transistors in parallel per switch}
+		\label{fig:sw_loss}
+	\end{figure}
+	
+Again is the peak current, $I$, is set to $300 A$. The battery voltage, $V_{batt}$, is set to $57.6 V$ and the switching frequency is set to the chosen frequency: $10 kHz$. The turn on time, $t_{on}$, and the turn off time, $t_{off}$, is calculated with the following equations.
+
+    \begin{equation}
+        t_{on} = \frac{Q_{sw}}{I_{GSource}}
+    \end{equation}
+    
+    \begin{equation}
+        t_{off} = \frac{Q_{sw}}{I_{GSink}}
+    \end{equation}
+    
+Where $Q_{sw}$ is the switching charge of the MOSFET, which is stated in the Data sheet. \todo{ref to data sheet}
+$I_{GSource}$ and $I_{GSink}$ is respectively the current the driver deliverers to the Gate of the MOSFET when turning the MOSFET on and off. These are calculated in section \ref{sec:DriverDesign}. skriv noget om det kunne gå hurtigere men det ikke er foretrukket.
+
+On figure \ref{fig:sw_loss} it can be seen that the switching power loss of each MOSFET is reduced with number of parallel MOSFETs, but the over all power loss of the inverter is the same independent of the number of parallel MOSFETs.

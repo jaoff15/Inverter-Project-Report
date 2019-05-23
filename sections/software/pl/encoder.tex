@@ -196,7 +196,7 @@ f32 interpolateAngle(f32 angle){
 			t2v = angle;				               // Update value of t2 to current angle
 			nSamples = 0;				               // Reset number of samples on step
 		}
-% 		u32 nStep = t2 - t1;				       // Get time on last step (approximation)
+ 		u32 nStep = t2 - t1;				         // Get time on last step (approximation)
 		f32 angleStep = t2v-t1v;	           // Get angle step
 		angleInterpolated = nSamples/nStep * angleStep + angle; // Calculate new angle
 	}
