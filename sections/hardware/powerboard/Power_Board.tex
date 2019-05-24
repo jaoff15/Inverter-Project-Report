@@ -220,3 +220,12 @@ From this the temperature difference over the heat sink is calculated, with equa
 
 The $P_{Avg}$ is the average power loss for all the MOSFETs and $R_{HA}$ is the thermal resistance of the heat sink. 
 
+The final temperature difference from ambient to the junction of one MOSFET is then:
+
+    \begin{equation}
+        T_{J} = T_A + T_{HA} + T_{JP}
+        \label{Theatsink}
+    \end{equation}
+    
+Where the $T_A$ is the ambient temperature. It has to be notices that the temperature difference for the heat sink is depending on the total power loss and the temperature difference from the paste to the junction of a MOSFET is depending on the power loss for one MOSFET. This is due to that the thermal resistance of the heat sink is common for all MOSFETs and there is a parallel thermal resistance for each MOSFET from the paste to the junction.
+

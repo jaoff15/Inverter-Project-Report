@@ -39,12 +39,12 @@ A compromise with a bit worse electrical characteristics but better construction
 \subsection{Embedded software}
 \rework{Is there any problems or missing features in the embedded software. What would be some potential things to correct}
 
-\subsubsection{Dead time in PWM module}
+\subsubsection{Minimizing the dead time in the PWM module}
 
 The dead time between the high-side and low-side PWM's are $\sim 53$ times longer than the turn off time of the transistors used. The dead time is mainly limited by the resolution of the internal counter in the PWM module. By increasing the counter limits to $1000$ instead of $100$ the resolution would become $10$ times higher. The dead time resolution would also become $10$ times higher which would bring the minimum dead time down to $400ns$ only $\sim 5.3$ times larger than necessary.
 
 
-\subsubsection{Linear interpolation}
+\subsubsection{Quantifying the benefit from the linear interpolation}
 The linear interpolation has compromises and it is difficult to quantify the expected benefit from having it. As shown in section \ref{sec:linear_interpolation} a more precise rotor angle can be achieved for speeds less than $1185RPM$ for moments with low to no acceleration or deceleration. The error caused by acceleration and deceleration is not analyzed, only a static simulation has been made. To precisely determine how big of an advantage or disadvantage the interpolation can have in a real scenario, the algorithm would need to be dynamically tested.
 
 
