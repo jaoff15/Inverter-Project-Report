@@ -9,7 +9,7 @@ The module shown on figure \ref{fig:pwm_module} is made to control both the high
 	\caption{The PWM module made to control both high-side and low-side transistors of a leg in the inverter.}
 	\label{fig:pwm_module}
 \end{figure}
-
+The module takes in a clock signal and a target duty cycle. The module then outputs two PWM signals inverse of each other and two pulse signals each sending out a pulse in the middle of their respective PWM signal.
 
 
 \subsubsection*{Counter}
@@ -22,7 +22,7 @@ A counter is used for implementing the PWM. For every rising edge of the input c
 	\label{fig:counter}
 \end{figure}
 
-The resolution of the PWM duty cycle is $1\%$ which means the counter should take $100$ steps from minimum to maximum. The PWM is made as a phase correct PWM and therefore the counter counts both up and down per period this results in $200$ steps per period. 
+The resolution of the PWM duty cycle is chosen to be $1\%$ which means the counter takes $100$ steps from minimum to maximum. The PWM is made as a phase correct PWM to keep the phase. Therefore the counter counts both up and down per period which results in $200$ steps per period. 
 
 The signal out of the PWM generator should be the same frequency as the inverter components are designed for in the earlier sections which is $10kHz$. The input clock is already prescaling the output frequency by the number of counter steps but this is not enough and therefore in order for the PWM to have the correct frequency an additional prescaler is added. The prescaler value is found with equation \ref{eq:additional_prescaler}.
 
@@ -60,7 +60,7 @@ To handle both a high-side PWM and low-side PWM each of the signals have a thres
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8 \textwidth]{pictures/software/counter_with_pwm.eps}
+	\includegraphics[width=0.85 \textwidth]{pictures/software/counter_with_pwm.eps}
 	\caption{The top shows the target duty-cycle together with the thresholds compared to the PWM counter. The bottom shows the output PWM signals. The dead time is exaggerated to make it more visible.}
 	\label{fig:counter_with_pwm}
 \end{figure}
@@ -104,6 +104,8 @@ When both transistors conduct the supply is shorted which should be avoided espe
 \end{figure}
 
 It is therefore important to choose the dead time big enough to avoid shorting but also not so big that the systems performance is unnecessarily reduced.
+\bigskip
+
 
 To avoid compromising the required dead time at edge cases where one of the thresholds tries to move above $100 \%$ or  below $0 \%$ the thresholds are found in two different ways.
 
@@ -194,7 +196,8 @@ To trigger a new reading by the ADC the PWM generator module has a build-in puls
 	\label{fig:adc_pulses}
 \end{figure}
 
-The code for evaluating the signal states can be seen below. The code utilizes the concurrent nature of VHDL which makes it fast and robust.
+The code for evaluating the signal states can be seen below. 
+% The code utilizes the concurrent nature of VHDL which makes it fast and robust.
 When the counter reaches its bottom edge the high pulse is set high and as soon as the counter starts going up again the signal is set low. The low pulse is controlled in the same way but this happens at the high counter edge instead.
 
 \begin{minted}[frame=single,framesep=2mm,baselinestretch=1.2,linenos]{vhdl}
@@ -257,7 +260,7 @@ The frequency of the sine is $340Hz$.
 
 On figure \ref{fig:one_phase} only one of the phases are shown. In reality the system outputs three phases and all can be seen on figure \ref{fig:three_phases}. The periods in between the peak of the three phases are shown to determine the amount of phase shift. The time of one third of a period is calculated with \ref{eq:one_third_period}.
 \begin{equation}
-    \frac{1}{3} \cdot \frac{1}{340} = 0.9804ms
+    \frac{1}{3} \cdot \frac{1}{340 Hz} = 0.9804ms
     \label{eq:one_third_period}
 \end{equation}
 By comparing the theoretical and measured periods between the phases it is determined that the phases are phase shifted with approximately $120^o = 2 \pi / 3 \ rad$.

@@ -9,15 +9,15 @@ A driver module for the encoder on the motor was part of the material to get sta
 	\caption{The encoder driver module.}
 	\label{fig:encoder_module}
 \end{figure}
-The driver module, as seen on figure \ref{fig:encoder_module}, supports an 8-bit encoder and takes care of handling the returned signal from the encoder itself. The module outputs the current rotor angle at a frequency determined by the PL clock and can be found with equation \ref{eq:encoder_frequency}
+The driver module, as seen on figure \ref{fig:encoder_module}, supports an 8-bit encoder and takes care of handling the returned signal from the encoder itself. The module outputs the current rotor angle at a frequency determined by the PL clock and can be found with equation \ref{eq:encoder_frequency}.
 \begin{equation}
-encoder_{freq} = \frac{f_{pl}}{6708} = \frac{125MHz}{6708} = 18.634kHz
+f_{encoder} = \frac{f_{pl}}{6708} = \frac{125MHz}{6708} = 18.634kHz
 \label{eq:encoder_frequency}
 \end{equation}
 The system runs at $10kHz$ which means the control loop will always have a new encoder angle at every cycle.
 
 
-The encoder is a 8 bit encoder which means it has a resolution of $2^8 = 255$ steps per revolution. The motor has $4$ pole pairs which means the electric field inside the motor turns $4$ times each time the rotor turns $1$ which means the resolution of the electric field angle is $1/4th$ of the mechanical rotor angle.
+The encoder is a 8 bit encoder which means it has a resolution of $2^8 = 255$ steps per revolution. The motor has $4$ pole pairs which means the electric field inside the motor turns $4$ times each time the rotor turns $1$ time which means the resolution of the electric field angle is $1/4th$ of the mechanical rotor angle.
 The two angles are both shown in figure \ref{fig:rotor_vs_electric_angle} where it can be seen that the electric angle moves 4 times faster than the rotor angle.
 
 \begin{figure}[H]
@@ -63,15 +63,16 @@ f32 getRotorAngle(){
 \paragraph{Improve angle accuracy with linear interpolation}
 \label{sec:linear_interpolation}
 Low resolution and thereby big steps in the rotor angle results in uneven rotation of the motor especially at low speeds.
-To improve the angle before it is used in the control the real angle is approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step. This assumption is not completely correct because it would mean the motor does not change speed. The rotor acceleration and deceleration is assumed slow enough compared to the encoder frequency to not result in big errors \cite{lin_interpol}.
+To improve the angle before it is used in the control the real angle is approximated with the use of linear interpolation. It is assumed that the rotor speed is approximately the same for each encoder value step. This assumption is not completely correct because it would mean the motor does not change speed. The rotor acceleration and deceleration is assumed slow enough compared to the encoder frequency to not result in big errors.
 
 
-The formula for linear interpolation can be seen in equation \ref{eq:linear_interpolation1}. On figure \ref{fig:angle_interpolation1} this would mean that the real angle, at point $p_2$, can be found from the measured angle, $p_1$, if $x_1$,$x_2$,$y_1$ and $y_2$ are known.
+The formula for linear interpolation \cite{lin_interpol} can be seen in equation \ref{eq:linear_interpolation1}. 
+
 \begin{equation}
     y = \Big( \frac{y_2-y_1}{x_2-x_1} \Big)(x-x_1)+y_1
     \label{eq:linear_interpolation1}
 \end{equation}
-
+Figure \ref{fig:angle_interpolation1} shows the scenario where the real angle, at point $p_2$, can be found from the measured angle, $p_1$, if $x_1$,$x_2$,$y_1$ and $y_2$ are known.
 The equation can be converted to fit the system by setting the two $y$ values equal to the amount of change between the current and last step $\Delta a = y_2 - y_1$ and setting the $x$ values to be the step width $x_{step} = x_2 - x_1$. Assuming that the speed is approximately the same for the current step as it was on the last. Which results in equation \ref{eq:linear_interpolation2}.
 
 \begin{equation}
@@ -86,14 +87,14 @@ The equation can be converted to fit the system by setting the two $y$ values eq
 	\label{fig:angle_interpolation1}
 \end{figure}
 
-The x-axis is discrete time and time will kept track of in relation to number of samples therefore $x = n$. To know how fast the encoder values change over time this frequency is calculated with equation \ref{eq:encoder_step_frequency}.
+The x-axis is discrete time and will be kept track of in relation to the number of samples passing and therefore $x$ will be denoted $n$. To know how fast the encoder values change over time this frequency is calculated with equation \ref{eq:encoder_step_frequency}.
 
 \begin{equation}
-    f = \frac{v_{[^o/s]}}{res_{rotor}} = 5000 [RPM] \cdot 6 \cdot \frac{360^o}{2^8} = 42,188Hz
+    f = \frac{v_{[^o/s]}}{res_{rotor}} = 5000 [RPM] \cdot 6 \cdot \frac{360^o}{2^8} = 42188Hz
     \label{eq:encoder_step_frequency}
 \end{equation}
 
-The frequency is more than four times faster than the sampling frequency which means that not every step will be sampled. The interpolation will only work if the is at least 2 samples on a step. To find the maximum speed where the interpolation works it is found where the encoder step frequency is lower than $10kHz$.
+The frequency is more than four times faster than the sampling frequency which means that not every encode value step will be sampled. The interpolation will only work if the is at least 2 samples on a step. To find the maximum speed where the interpolation works it is found where the encoder step frequency is lower than $10kHz$.
 
 \begin{subequations}
 	\begin{align}

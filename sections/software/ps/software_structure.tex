@@ -1,9 +1,9 @@
 \subsection{Software structure}
 The control is implemented on a Xilinx Zybo board which is a controller consisting of a FPGA part and a dual-core ARM Cortex-A9 processor.
 
-    Low-level drivers are implemented in the logic to allow the modules to run in parallel. The control of the inverter as well as interface to a PC is implemented on the processor which gives the possibility to have a higher abstraction. 
+Low-level drivers are implemented in the logic to allow the modules to run in parallel. The field orientated control as well as the interface to a PC is implemented on the processor which gives the possibility to have a higher abstraction. 
 
-An overview of the system can be seen on figure \ref{fig:embedded_overview}. In the top is the processing system (PS) with an Interrupt Service Routine (ISR) and the control loop. The control loop outputs its result into a piece of block RAM from where the programmable logic (PL) can read it. The processing system also manages the interface to the PC which is done through UART.
+An overview of the system can be seen on figure \ref{fig:embedded_overview}. In the top is the processing system (PS) with an Interrupt Service Routine (ISR) and the control loop. The control loop outputs its result into a piece of block RAM from where the programmable logic (PL) can access it. The processing system also manages the interface to the PC which is done through UART.
 
 \begin{figure}[H]
 	\centering
@@ -29,7 +29,7 @@ On figure \ref{fig:software_flow} the flowchart of the control loop implemented 
 	\label{fig:software_flow}
 \end{figure}
 
-When the run command is received it is first reset to get ready for the next command. Then the current measurements from the two ADC's are read into the system as well as the torque pedal position and the rotor angle from the encoder. A Clarke and a Park transformation is performed. Then the two PI controllers as discussed in section \ref{sec:control_system} perform the control. The result from the controllers are then transformed with an inverse Park and an inverse Clarke Transformation which produces three control signals. These signals are then linearly mapped to the range $0 \rightarrow 100$, which is what the PWM generators are compatible with. 
+When the run command is received it is first reset to get ready for the next command. Then the current measurements from the two ADC's are read into the system as well as the rotor angle from the encoder. A Clarke and a Park transformation is performed. The torque pedal position is read and the two PI controllers as discussed in section \ref{sec:control_system} perform the control. The result from the controllers are then transformed with an Inverse Park and an Inverse Clarke Transformation which produces three control signals. These signals are then linearly mapped to the range $0 \rightarrow 100$, which is what the PWM generators are compatible with. 
 The thresholds are then written to a piece of block RAM shared between the PS and the PL. The PS will then wait for the next run command.
 
 

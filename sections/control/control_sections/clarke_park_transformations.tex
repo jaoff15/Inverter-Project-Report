@@ -6,7 +6,16 @@
 
 % ************************** Clarke Transformation ***********************************
 \subsubsection{Clarke Transformation}
-Converts the three rotating phase currents to one rotating vector in the alpha-beta frame. 
+The Clarke transformation converts three rotating phase currents to one rotating vector in the alpha-beta frame. The Clarke transformation is performed by using the two equations \ref{eq:clarke_transformation}.
+
+\begin{equation}
+    i_{\alpha} = \frac{2}{3} \cdot i_a - \frac{1}{3} \cdot i_b - \frac{1}{3} \cdot i_c
+    , \hspace{1cm}
+    i_{\beta} = 0 \cdot i_a + \frac{1}{\sqrt{3}} \cdot i_b - \frac{1}{\sqrt{3}} \cdot i_c
+    \label{eq:clarke_transformation}
+\end{equation}
+
+It can also be written in matrix form as in equation \ref{eq:CtransMatrix}. 
 
 \begin{equation}
     \centering
@@ -24,20 +33,23 @@ Converts the three rotating phase currents to one rotating vector in the alpha-b
         i_{b} \\ 
         i_{c}
     \end{bmatrix}
-\end{equation}
-
-
-\begin{equation}
-    i_{\alpha} = \frac{2}{3} \cdot i_a - \frac{1}{3} \cdot i_b - \frac{1}{3} \cdot i_c
-    , \hspace{1cm}
-    i_{\beta} = 0 \cdot i_a + \frac{1}{\sqrt{3}} \cdot i_b - \frac{1}{\sqrt{3}} \cdot i_c
-    \label{eq:clarke_transformation}
+    \label{eq:CtransMatrix}
 \end{equation}
 
 
 % ************************** Park Transformation ***********************************
 \subsubsection{Park Transform}
-Converts the one rotating vector in the alpha-beta frame to a static vector in the rotating dp-frame. 
+To convert the one rotating vector in the alpha-beta frame to a static vector in the rotating dp-frame, the Park transformation is used. The park transformation is performed with equtation \ref{eq:park_transformation}.
+
+\begin{equation}
+    i_{d} = cos(\varphi) \cdot i_{\alpha} + sin(\varphi) \cdot i_{\beta}
+    , \hspace{1cm}
+    i_{q} = -sin(\varphi) \cdot i_{\alpha} + cos(\varphi) \cdot i_{\beta}
+    \label{eq:park_transformation}
+\end{equation}
+
+Where
+$\omega t = \varphi$
 
 \begin{equation}
     \centering
@@ -56,15 +68,8 @@ Converts the one rotating vector in the alpha-beta frame to a static vector in t
     \end{bmatrix}
 \end{equation}
 
-Where
-$\omega t = \varphi$
 
-\begin{equation}
-    i_{d} = cos(\varphi) \cdot i_{\alpha} + sin(\varphi) \cdot i_{\beta}
-    , \hspace{1cm}
-    i_{q} = -sin(\varphi) \cdot i_{\alpha} + cos(\varphi) \cdot i_{\beta}
-    \label{eq:park_transformation}
-\end{equation}
+
 
 
 % ************************** Inverse Park Transformation ***********************************

@@ -1,6 +1,6 @@
 \subsubsection{Analog-to-Digital Converter (ADC)}
 
-To measure the phase currents once per PWM cycle and also the torque reference from the torque pedal an ADC is used. The Zynq has two 12 bit ADCs which enables it to sample two signals simultaneously. It is important to sample the phase current same time to avoid distortion by having a small time delay between current samples. 
+To measure the phase currents once per PWM cycle and also the torque reference from the torque pedal an ADC is used. The Zynq has two 12 bit ADC's which enables it to sample two signals simultaneously. It is important to sample the phase currents at the same time to avoid distortion by having a small time delay between current samples. 
 
 Due to the symmetry between the three phases only two of the phases needs to be measured and the last can be caltulated with equation \ref{eq:third_phase}.
 \begin{equation}
