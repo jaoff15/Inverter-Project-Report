@@ -216,11 +216,11 @@ The thermal resistance for the total PCB is then:
         \label{RPCB}
     \end{equation}
 
-Where $R_{copper}$ is the thermal resistance of the copper layer, $R_{del}$ is the thermal resistance of the dielectrical layer, and $R_{alu}$ is the thermal resistance of the aluminum layer.
+Where $R_{copper}$ is the thermal resistance of the copper layer, $R_{del}$ is the thermal resistance of the dielectric layer, and $R_{alu}$ is the thermal resistance of the aluminum layer.
 
-To calculate the thermal resistance of the thermal paste, equation \ref{Rthermal} is used as well. The thickness of the paste is estimated to be $0.1 mm$ and the thermal conduction constant of the paste is set to $3 \frac{W}{m \cdot K}$. This based on values for different thermal paste, and then a value close to the average of them was chosen.
+To calculate the thermal resistance of the thermal paste, equation \ref{Rthermal} is used as well. The thickness of the paste is estimated to be $0.1 mm$ and the thermal conduction constant of the paste is set to $3 \frac{W}{m \cdot K}$. Based on the values for different thermal paste types, and a value close to the average of them was chosen.
 
-This results in, that the total temperature difference from the thermal paste to the MOSFET junction can be calculated with equation \ref{eq:tempMOSFET}.
+The results for the total temperature difference from the thermal paste to the MOSFET junction can be calculated with equation \ref{eq:tempMOSFET}.
 
     \begin{equation}
         T_{JP} = P_{loss/MOSFET} \cdot (R_{JC} + R_{PCB})
@@ -230,14 +230,14 @@ This results in, that the total temperature difference from the thermal paste to
 Where $R_{JC}$ is the internal junction to case thermal resistance and $P_{loss}$ is the total power loss for one MOSFET. 
 
 To calculate the temperature difference over the heat sink, the average power loss is used instead of the maximum power loss. This is done because the heat sink has a higher thermal capacitance, and therefore is less reactive to changes in temperature. The average power loss is calculated in the same way as the maximum power loss, but instead of using the maximum current a average current is estimated. The average current is estimated to $75 A$.
-From this the temperature difference over the heat sink is calculated, with equation \ref{Theatsink} 
+The temperature difference over the heat sink can then be calculated with equation \ref{Theatsink}.
 
     \begin{equation}
         T_{HA} = P_{Avg} \cdot R_{HA}
         \label{Theatsink}
     \end{equation}
 
-The $P_{Avg}$ is the average power loss for all the MOSFETs and $R_{HA}$ is the thermal resistance of the heat sink. 
+The $P_{Avg}$ is the average power loss for all the MOSFET's and $R_{HA}$ is the thermal resistance of the heat sink. 
 
 The final temperature difference from ambient to the junction of one MOSFET is then:
 
@@ -246,9 +246,10 @@ The final temperature difference from ambient to the junction of one MOSFET is t
         \label{Theatsink}
     \end{equation}
     
-Where the $T_A$ is the ambient temperature. It has to be notices that the temperature difference over the heat sink is depending on the total power loss, and the temperature difference from the paste to the junction of a MOSFET is depending on the power loss for one MOSFET. This is due to that the thermal resistance of the heat sink is common for all MOSFETs and there is a parallel thermal resistance for each MOSFET from the paste to the junction.
+Where the $T_A$ is the ambient temperature. It has to be noticed that the temperature difference over the heat sink is depending on the total power loss, and the temperature difference from the paste to the junction of a MOSFET is depending on the power loss for one MOSFET. 
+Due to the thermal resistance of the heat sink is common for all MOSFET's and there is a parallel thermal resistance for each MOSFET from the paste to the junction.
 
-On figure \ref{fig:junctionTemp} is the relationship between the junction temperature of the MOSFETs and the number of MOSFETs in parallel showed. 
+On figure \ref{fig:junctionTemp} is the relationship between the junction temperature of the MOSFET's and the number of MOSFET's in parallel showed. 
 
     \begin{figure}[H]
 		\centering
@@ -257,4 +258,4 @@ On figure \ref{fig:junctionTemp} is the relationship between the junction temper
 		\label{fig:junctionTemp}
 	\end{figure}
 
-Based on figure \ref{fig:junctionTemp} it is decided to use two MOSFETs in parallel per switch. Because the Power board only got one layer, it is preferred to have as few MOSFETs as possible, to avoid making the layout of the Power board to complicated. From figure \ref{fig:junctionTemp} it can be seen that the junction temperature of the MOSFETs are going to be $118 \degree C$. This is a bit high temperature, but considering that this will be the worst case, this is acceptable.
+Based on figure \ref{fig:junctionTemp} it is decided to use two MOSFETs in parallel per switch. Because the Power board only got one layer, it is preferred to have as few MOSFET's as possible, to avoid making the layout of the Power board too complicated. From figure \ref{fig:junctionTemp} it can be seen that the junction temperature of the MOSFET's are going to be $118 \degree C$ which is a bit high, but considering it being the worst case, this is determined acceptable.
