@@ -4,19 +4,21 @@
  
 
 \rework{What has been made? How do the results compare to theory?}
+A crucial factor of the project, is that testing wasn't an option due to time constrains. This leads to conclusion that theoretically the project should work, but not having test data to back it up. It could have lead to better understanding of 
+have the current setup, would behave to when implementing it in a physical environment. This could give information about what factors needed changing to optimize the motor driver. \\ 
 
 \subsection{Components}
 \rework{Are there any problems with the component choice?}
 \rework{What would be something to look for in other components?}
-When it come to any component the correct one isn't picked on first try. The pick for the transistor and the gate driver, was the fourth suggestion and need to be picked in order to continue work on the PCB design. Since the construction wasn't completed, more time could have been allocated, if an earlier decision had been made. 
+When it come to any component the correct one isn't picked on first try. The pick for the transistor and the gate driver, was the fourth suggestion and need to be picked in order to continue work on the PCB design. Since the construction and testing wasn't completed, more time could have been allocated, if an earlier decision had been made. \\
+
+To more precisely comment, a better way of compare the different components would have given a better result. Such a comparison could have been done in a Matlab script, that runs the choices through the same calculations, and puts out the important factors up against each others. \\
 
 \subsection{Power board}
-\rework{Are there any potential problems with the power board?}
-\rework{If yes, how could they be fixed}
+Placing bulk capacitors on the busbars is pretty difficult without burning the caps and reflowing the whole assembly. It should be substituted with a more prototype-friendly solution. We still have to find out if the capacitance built in is enough to smooth out everything it is supposed to.
 
 \subsection{Driver board}
-\rework{Are there any potential problems with the driver board?}
-\rework{If yes, how could they be fixed.}
+Due to miscommunication, only one of the split gate resistors was placed in the schematic. The ones closer to the gate should be placed, too. Using an SMD diode could also lead to a better layout. We wanted to spare money by usng what we have in the component stock.
 
 \subsection{Control}
 \rework{Are there any problems with the control?}
@@ -30,7 +32,7 @@ When it come to any component the correct one isn't picked on first try. The pic
 % Mechanical problems. Construction problems. Others?
 Constructing the inverter in the intended way might turn out difficult. While mounting the bus bars across all three phase PCB's and mounting the capacitors directly on top of the bus bar might be a good idea electrically, it can turn out to be near impossible in practice.
 
-The bus bars are made of solid cobber which have a high thermal conductivity and therefore soldering anything directly to the bars is difficult. Heating up all the PCB's and the bus bar in an oven or heating plate is the only option. 
+The bus bars are made of solid copper which have a high thermal conductivity and therefore soldering anything directly to the bars is difficult. Heating up all the PCB's and the bus bar in an oven or heating plate is the only option. 
 Getting all phase PCB's to align and solder correctly to the bus bars requires high precision and it might not be feasibly to use the same PCB's for a round two if something goes wrong.
 On top of mounting the bus bars to the PCB's the capacitors has to be mounted at the same time. 
 

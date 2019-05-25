@@ -1,5 +1,5 @@
 \\
-The objective is to design a two level three phase inverter to drive the go-carts PMSM motor. This basically consist of six switches and some capacitance on the DC-link. On figure \ref{fig:Sketch_PowerBoard} a simple model of the Power board is shown.
+The objective is to design a two level three phase inverter to drive the go karts PMSM motor. This basically consist of six switches and some capacitance on the DC-link. On figure \ref{fig:Sketch_PowerBoard} a simple model of the Power board is shown.
 
     \begin{figure}[H]
 		\centering
@@ -8,11 +8,10 @@ The objective is to design a two level three phase inverter to drive the go-cart
 		\label{fig:Sketch_PowerBoard}
 	\end{figure} 
 	
-This means that there have to be selected a switch component. The switch component has a great impact on the inverter design, due to that it is a big source of losses in the inverter. It is therefore important to choose a good transistor for switching. Besides the switch component, there has to be selected a type PCB board for the Power board.
+This means that a switch component needs to be selected. The switch component has a great impact on the inverter design, due to the fact that it's main source of losses in the inverter. It is therefore important to choose a good transistor for switching. Besides the transistor choice, a good PCB layout and design is needed, because of heat transmission from the transistors.
 
 \subsubsection{Switching frequency} \label{switching_frequency}
-When deciding a switching frequency for the inverters, the rotation frequency of the motor and the thus the frequency of the electrical field.
-It is known form the Data sheet of the motor, that the maximum rotation speed of the motor is $5000 rpm$ and it has 8 poles equal to 4 pole pairs. From this the maximum frequency of the electrical field be determined.
+When deciding a switching frequency for the inverter, the rotation frequency of the motor is need to ensure, a high enough frequency. It is known from the motor parameters \ref{Motor_parameters_list}, that the maximum rotation speed  is $5000 rpm$ and it has 8 poles that equals to 4 pole pairs. From this the maximum frequency of the electrical field be determined.
 
 \begin{equation}
     f = \frac{v_{rpm} \cdot P}{60}
@@ -21,20 +20,22 @@ It is known form the Data sheet of the motor, that the maximum rotation speed of
 
 Where $v_{rpm}$ is the rotational speed in $rpm$ and $P$ is the number of pole pairs in the motor.
 From equation \ref{eq:max_frequency} the maximum frequency of the electrical field is $333.3 Hz$.
-It is desired to have between 10 and 20 switch periods per period of the electrical field. 20 switch periods per electrical field period results in a switching frequency of $6666 Hz$. It is not necessary to switch faster than the $6666 Hz$, but it is decided to use a switching frequency of $10 kHz$. This is done to make the use of smaller capacitors possible and because already so low frequency it is not a problem to increase it a bit.
-It is decided not to increase the switching frequency to more than $10 kHz$ to reducing the switching losses.
+It is desired to have between 10 and 20 switch periods per period of the electrical field. 20 switch periods per electrical field period results in a switching frequency of $6666 Hz$. It is not necessary to switch faster than the $6666 Hz$, but it's decided to use a switching frequency of $10 kHz$. This choice gives the possibility of having smaller capacitors, a higher frequency would decrease the switching loss, but didn't seen necessary. 
+%This is done to make the use of smaller capacitors possible and because already so low frequency it is not a problem to increase it a bit. It is decided not to increase the switching frequency to more than $10 kHz$ to reducing the switching losses.
 
 
 \subsubsection{PCB selection}   \label{PCB_selection}
-Two types of PCB's has been considered, a ordinary multi-layer PCB and a single-layer aluminum PCB. There is of course pros and cons for both options. With the ordinary PCB there is better opportunities for conducting the heat away from the switch components. On the other hand it is not possible to use SMD components, due to the heat can not be transferred away from the components. The SMD components can result in a better and more compact layout. This is due to the SMD components is smaller and is available with multiple source legs, which minimize the common source for the switch components. The Use of SMD components will be possible with the aluminum PCB. Due to that the SMD components have a smaller area and the heat has the transferred through the aluminum PCB, the cooling of the components is a harder task. With the aluminum PCB it is not possible to use through hole components, which can have some cons when it comes to the mounting of the large capacitors for the DC-link. 
+Two types of PCB's has been considered, a ordinary multi-layer PCB and a single-layer aluminum PCB. There is of course pros and cons for both options. With the ordinary PCB there is better opportunities for conducting the heat away from the switch components. On the other hand it's not possible to use SMD components, due to the heat not being able to transfer away from the components. SMD components can result in a better and more compact layout. This is because SMD components are smaller and are available with multiple source legs, which minimize the common source for the switch components. The Use of SMD components will be possible with the aluminum PCB. Due to that the SMD components have a smaller area, and the heat has to transfer through the aluminum PCB, the cooling of the components is a harder task. With the aluminum PCB it is not possible to use through hole components, which can have some cons when it comes to the mounting of the large capacitors for the DC-link. 
 
- The ordinary PCB has also the benefit, that is has multiple layers. This could make it easier to layout a good power board. On the other hand, due to the budget, it will not be possible to get a PCB with much more than 2 layers anyways, maybe 4 layers. It is of course better than the single layer on the aluminum PCB. It is possible to get the aluminum PCB with two layers, but it will result in a  too high thermal resistance and price.
+The ordinary PCB has also the benefit, that is has multiple layers. This could make it easier to layout a good power board. On the other hand, due to the budget, it will not be possible to get a PCB with much more than 2 layers anyways, maybe 4 layers. It is of course better than the single layer on the aluminum PCB. It is possible to get the aluminum PCB with two layers, but it will result in a  too high thermal resistance and price.
 
-Based on these considerations it is chosen to use the aluminum PCB, because the benefits of the SMD components is weighted higher than the cons.
+Based on these considerations, an aluminum PCB has been choosen,
+%it is chosen to use the aluminum PCB, 
+because the benefits of the SMD components is weighted higher than the cons.
 
 
 \subsubsection{Transistor selection}
-Transistors selection is an important aspect in the design of the inverter. This due to that the transistors has great affect on the power loss in the system and thus the heat dissipation which set the limits of the design. Transistor selected is made from a couple of aspects. first of all the needed ratings necessary for the system. The Drain to Source current has to be rated for $300 A$ if no parallel devices is used. It is chosen that it has to have a rated Drain to Source voltage of $100 V$. This is due to the battery in the go-kart has a maximum voltage of $57.6$ plus some safety margin for voltage spikes. The maximum battery voltage is found based on the cell voltage of a $LiFePO_4$: $3.6 V$, multiplied with the number of cells, which is 16. The transistor has to have a fall time of less than $250ns$ and rise time of less than $50ns$. Besides that the transistor has to have a as low as possible on-resistance, to minimize conduction losses, which is very significance when conducting a current of $300A$.
+Transistor selection is an important aspect in the design of the inverter. This is because that the transistors has great affect on the power loss in the system and thus the heat dissipation which set limitations on design. Transistor selection is made from a couple of factors. First of all the needed ratings necessary for the system. The Drain to Source current has to be minimum rated for $300 A$ if no parallel devices is used. It is chosen that the rated Drain to Source voltage should be around $100 V$. This is due to the battery in the go kart has a maximum voltage of $57.6V$, plus some safety margin for voltage spikes. The maximum battery voltage is found based on the cell voltage of a $LiFePO_4$: $3.6 V$, multiplied with the number of cells, which is 16. The transistor has to have a fall time of less than $250ns$ and rise time of less than $50ns$. The transistor also has to have the lowest possible on-resistance, to minimize conduction losses, which is very significance when conducting a current of $300A$.
 
 The Transistor with these specifications and the lowest possible Drain-Source on resistance, to a affordable price, was a MOSFET. The MOSFET have the benefit of having a low current needed for turn on, the ability to handle high current needed for the motor and fast enough for the switching frequency. Since price is everything, when it comes to choice of components, then some sort of compromise will be made \\
 
@@ -67,14 +68,14 @@ The MOSFET chosen is an Infineon "IPB017N10N5". Some of the important specificat
 \caption{Transistor parameters taken from the "IPB017N10N5" datasheet}
 \end{table}
 
-When looking at the parameters, a couple of things need to be considered. From the top it can be seen that the Drain-Source voltage is $100 V$, so it is able to handle the kart's battery voltage. Next the  [$I_D$] is not $300 A$ or above, which leads to a design choice of having two or more in parallel. Having more transistors in parallel has the benefit of splits the current up between them, lowering the conduction power loss. Having lower power loss decreases the amount of heat generated, which leads to less risk of overheating. The gate charge is the amount of charge that needs to be delivered to the gate from the driver, in order to turn the transistor on. This parameter needs to be as low as possible same as the Drain-Source resistance, but normally with a low resistance comes higher gate charge and vise versa. In this case is it more important that the Drain-Source on resistance is low rather than the Gate charge is low. This is the case because speed of the turning on and off of the MOSFET is reduced anyway. Besides that the increased driver power losses will not be as significant compared to the increased power losses in a MOSFET with higher Drain-Source on resistance.\\ 
+When looking at the parameters, a couple of things need to be considered. From the top it can be seen that the Drain-Source voltage is $100 V$, so it is able to handle the kart's battery voltage with safety. Next the [$I_D$] is not $300 A$ or above, which leads to a design choice of having two or more in parallel. Having more transistors in parallel has the benefit of splits the current up between them, lowering the conduction power loss. Having lower power loss decreases the amount of heat generated, which leads to less risk of overheating. The gate charge is the amount of charge that needs to be delivered to the transistor gate from the driver circuit, in order to turn the transistor on. This parameter needs to be as low as possible, same as the Drain-Source resistance, but normally with a low resistance comes higher gate charge and vise versa. In this case is it more important that the Drain-Source on resistance is low rather than the Gate charge is low. This is the case because speed of the turning on and off of the MOSFET is reduced anyway. Looking at the increased in driver power losses, the loss will not be as significant as the increase in power losses in a MOSFET with higher Drain-Source on resistance.\\ 
 
 
 \subsubsection{Power and heat dissipation in the transistors}
-There are two types of power losses in the transistors. One is conduction losses, which is caused by the intern resistance in MOSFET between the Drain and the Source, when the MOSFET is conducting. The other one is switching losses, which is caused then the MOSFETs is turning on and off. Based on the power loss calculations the expected heat increase of the MOSFETs can be estimated, which will be used to decide how many MOSFETs in parallel is needed.
+There are two types of power losses in the transistors. One is conduction losses, which is caused by the intern resistance in MOSFET between the Drain and the Source, when the MOSFET is conducting. The other one is switching losses, which appears when the MOSFETs is turning on and off. Based on the power loss calculations the expected heat increase of the MOSFETs can be estimated, which will be used to decide, how many MOSFETs in parallel is needed.
 
 \paragraph{Conduction power loss}
-When a MOSFET is conducting there will be a power dissipation due to the intern Drain-Source on resistance in the MOSFET. Thus the conduction power loss in the MOSFETs is calculated in the same way as the power loss in a resistor. Equation \ref{eq:ConductionLossMOSFET} describes the conduction power loss for one MOSFET, $P_{con/MOSFET}$.
+When a MOSFET is conducting there will be a power dissipation due to the internal Drain-Source on resistance in the MOSFET. Thus the conduction power loss in the MOSFETs is calculated in the same way as the power loss in a resistor. Equation \ref{eq:ConductionLossMOSFET} describes the conduction power loss for one MOSFET, $P_{con/MOSFET}$.
 
     \begin{equation}
         P_{con/MOSFET} = \bigg( \frac{I}{N \cdot 2} \bigg) ^2 \cdot R_{DS-ON}
@@ -96,7 +97,7 @@ On figure \ref{fig:ConductionLoss} the relationship between conduction power los
     \begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Conduction_loss.png}
-		\caption{Conduction power loss versus the number of parallel transistors in parallel per switch}
+		\caption{Conduction power loss versus the number of parallel MOSFETs in parallel per switch. The blue curve describes the power loss per MOSFET and the red describes the total power loss}
 		\label{fig:ConductionLoss}
 	\end{figure} 
 
@@ -123,7 +124,7 @@ The switching power is calculated as the area under the green line on figure \re
         \label{eq:sw_loss_MOSFET}
     \end{equation}
 
-Where $V_{batt}$ is the battery voltage, $t_{on}$ is the turn on time, $t_{off}$ is the torn off time, and $f_{s}$ is the switching frequency of the transistors.
+Where $V_{batt}$ is the battery voltage, $t_{on}$ is the turn on time, $t_{off}$ is the turn off time and $f_{s}$ is the switching frequency of the transistors.
 Equation \ref{eq:sw_loss_MOSFET} is the switching power loss per MOSFET. To get the switching power loss for all of the MOSFETs in the inverter, this has to be multiplied with the number of parallel MOSFETs, two to take both the high- and low-side into to account, and the number of phases, which is three.
 
     \begin{equation}
@@ -136,7 +137,7 @@ From this equation, a curve of the switching power loss in one MOSFET and in all
     \begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Switch_loss.png}
-		\caption{Conduction power loss versus the number of parallel transistors in parallel per switch}
+		\caption{Switching power loss versus the number of parallel MOSFETs in parallel per switch. The blue curve describes power loss per MOSFET and the red describes the total power loss.}
 		\label{fig:sw_loss}
 	\end{figure}
 	
@@ -156,9 +157,9 @@ $I_{GSource}$ and $I_{GSink}$ is respectively the current the driver deliverers 
 On figure \ref{fig:sw_loss} it can be seen that the switching power loss of each MOSFET is reduced with number of parallel MOSFETs, but the over all power loss of the inverter is the same independent of the number of parallel MOSFETs.
 
 \paragraph{Heat dissipation}
-Now when the conduction power loss and switching power loss is determined compared to the number of MOSFETs, the total power losses is known. From the total power loss in the transistors the heat dissipation, depending on the number of MOSFETs, can be determined.
+When the conduction power loss and switching power loss is determined compared to the number of MOSFETs, the total power losses is known. From the total power loss in the transistors, the heat dissipation can depending on the number of MOSFETs, be determined.
 
-When determine the heat dissipation of the inverter, all the thermal resistances between the junction of the MOSFET and the ambient has to be specified.
+When determining the heat dissipation of the inverter, all the thermal resistances between the junction of the MOSFET and the ambient has to be specified.
 First of all there is the internal junction to case resistance for the MOSFET.
 When using the aluminum PCB with the SMD components, the heat has to be transferred through the PCB. This means this adds an extra thermal resistance to the system. The aluminum PCB is divided into three parts, the copper layer, a dielecrical layer for isolating the copper from the aluminum, and the aluminum layer.
 Then there is a thin layer of thermal paste to connect the PCB to the heat sink. And the last resistance before the ambient is the heat sink. This is illustrated on figure \ref{fig:thermal_overview}.
@@ -180,15 +181,15 @@ The thermal resistance of the copper layer, is calculated from equation \ref{Rth
     
 Where $t_{layer}$ is the thickness of the layer in $m$, $A_{MOSFET}$ is the surface area of the MOSFET in $m^2$, and $k_{material}$ is the thermal conduction constant for the layer material in $\frac{W}{m \cdot K}$.
 
-The thickness of the copper layer is known to be $1 oz/foot^2$ from 'pcbway.com', which is converted to $34 \cdot 10^{-6} m$ from the density of copper. The area of the surface area of the MOSFET is found in the data sheet to be $63 \cdot 10^{-6} m^2$.\cite{mosfet} The area of the MOSFET is used all the way down to the heat sink, because it is assumed that the heat will go straight through the PCB and the paste. This is most likely not the case but that will be the worst case.
+The thickness of the copper layer is known to be $1 oz/foot^2$ from 'pcbway.com', which is converted to $34 \cdot 10^{-6} m$ from the density of copper. The surface area of the MOSFET is found in the data sheet to be $63 \cdot 10^{-6} m^2$.\cite{mosfet} The area of the MOSFET is used all the way down to the heat sink, because it is assumed that the heat will go straight through the PCB and the paste. This is most likely not the case but that will be the worst case.
 The thermal conduction constant of copper is $401 \frac{W}{m \cdot K}$.\cite{toolbox}
 
 The thermal resistance of the dielectrical layer is calculated based on the same equation as \ref{Rthermal}.
 
-Where the thickness of the dielectrical layer is $100 \mu m$, which is stated by the manufactore, pcbway.com. The thermal conduction constant is chosen to be $1 \frac{W}{m \cdot K}$. The manufacture offers also the aluminum PCB with a dielectrical layer with a thermal conduction constant of $2 \frac{W}{m \cdot K}$, but due to price this was not chosen.
+Where the thickness of the dielectrical layer is $100 \mu m$, which is stated by the manufactore, pcbway.com. The thermal conduction constant is chosen to be $1 \frac{W}{m \cdot K}$. The manufacture also offers the aluminum PCB with a dielectrical layer with a thermal conduction constant of $2 \frac{W}{m \cdot K}$, but due to price this was not chosen.
 
 Equation \ref{Rthermal} is used again for calculating the thermal resistance of the aluminum layer of the PCB.
-Where the he thickness of the aluminum layer is the chosen PCB thickness of $0.8 mm$ minus the thickness of the two other layers. The thickness of $0.8 mm$ is chosen because that is the thinnest option without getting the PCB more expensive. The thermal conduction constant for aluminum is $236 \frac{W}{m \cdot K}$.\cite{toolbox}
+Where the he thickness of the aluminum layer is the chosen PCB thickness of $0.8 mm$ minus the thickness of the two other layers. The thickness of $0.8 mm$ is chosen because that is the thinnest option without getting the PCB to increase in price. The thermal conduction constant for aluminum is $236 \frac{W}{m \cdot K}$.\cite{toolbox}
 
 The thermal resistance for the total PCB is then:
 
@@ -227,5 +228,15 @@ The final temperature difference from ambient to the junction of one MOSFET is t
         \label{Theatsink}
     \end{equation}
     
-Where the $T_A$ is the ambient temperature. It has to be notices that the temperature difference for the heat sink is depending on the total power loss and the temperature difference from the paste to the junction of a MOSFET is depending on the power loss for one MOSFET. This is due to that the thermal resistance of the heat sink is common for all MOSFETs and there is a parallel thermal resistance for each MOSFET from the paste to the junction.
+Where the $T_A$ is the ambient temperature. It has to be notices that the temperature difference over the heat sink is depending on the total power loss, and the temperature difference from the paste to the junction of a MOSFET is depending on the power loss for one MOSFET. This is due to that the thermal resistance of the heat sink is common for all MOSFETs and there is a parallel thermal resistance for each MOSFET from the paste to the junction.
 
+On figure \ref{fig:junctionTemp} is the relationship between the junction temperature of the MOSFETs and the number of MOSFETs in parallel showed. 
+
+    \begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Juntion_temp.eps}
+		\caption{Junction temperature versus the number of transistors in parallel per switch}
+		\label{fig:junctionTemp}
+	\end{figure}
+
+Based on figure \ref{fig:junctionTemp} it is decided to use two MOSFETs in parallel per switch. Because the Power board only got one layer, it is preferred to have as few MOSFETs as possible, to avoid making the layout of the Power board to complicated. From figure \ref{fig:junctionTemp} it can be seen that the junction temperature of the MOSFETs are going to be $118 \degree C$. This is a bit high temperature, but considering that this will be the worst case, this is acceptable.
