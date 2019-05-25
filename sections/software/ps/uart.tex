@@ -1,5 +1,5 @@
 \subsubsection{Computer interface}
-An interface between the embedded controller and a computer is implemented to monitor the system, start the inverter and change the gains for the controllers. The interface is made in a simple low-level way with a predefined message structure and limited error handling. The structure can be seen in table \ref{tab:message_structure}. 
+An interface between the embedded controller and a computer is implemented to monitor the system, start the inverter and change the gains for the controllers. The interface is made in a simple low-level way by sending ASCII strings via UART to the embedded controller. The strings have a predefined structure and limited error handling. The string structure can be seen in table \ref{tab:message_structure}. 
 
 
 \begin{table}[H]
@@ -14,7 +14,7 @@ Valid Values & $0\rightarrow 9$ & 'r'/'w'  & \multicolumn{4}{c|}{$0\rightarrow 9
 \label{tab:message_structure}
 \end{table}
 
-The first character of the message contains an ID of the variable that the message is referring to. The IDs of all variables included can be seen in table \ref{tab:variable_ids}.
+The first character of the message contains an ID of the variable that the message is referring to. The ID's of all variables included can be seen in table \ref{tab:variable_ids}.
 
 The second character describes if the message is a read or write command.
 

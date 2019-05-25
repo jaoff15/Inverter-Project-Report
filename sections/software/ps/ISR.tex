@@ -9,7 +9,7 @@ Every time an interrupt is triggered the ISR is called which sends a run command
 	\label{fig:isr1}
 \end{figure}
 
-Every time an interrupt is received the control loop is run and there is always some time between each time the control is run where the processor is idle.
+Every time an interrupt is received the control loop is run and there is always some time between the control is run where the processor is idle.
 
 
 The unlikely case where the control takes more time than the time between two interrupts can be seen in figure \ref{fig:isr2}. For robustness the system should be able to handle this situation. 
@@ -23,7 +23,7 @@ If the run command used by the ISR to trigger the control is a simple boolean va
 	\label{fig:isr2}
 \end{figure}
 
-Problems arise from this solution if multiple interrupts happen during the same control loop cycle as can be seen on figure \ref{fig:isr4}. Every interrupt before the last will be overlooked. In some systems overseeing an interrupt can be catastrophic but in this case it will improve the performance of the system compared to the alternative of executing all control tasks as can be seen on figure \ref{fig:isr3}.
+Problems arise from this solution if the very unlikely event happen where multiple interrupts happen during the same control loop cycle as can be seen on figure \ref{fig:isr4}. Every interrupt before the last will be overlooked. In some systems overseeing an interrupt can be catastrophic but in this case it will improve the performance of the system compared to the alternative of executing all control tasks as can be seen on figure \ref{fig:isr3}.
 
 \begin{figure}[H]
 	\centering

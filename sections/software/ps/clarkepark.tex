@@ -39,7 +39,7 @@ The trigonometric functions sine and cosine are implemented with a look-up table
 
 To limit the amount of memory used only one value is saved per degree which results in $360$ saved values of type \textit{f32} which is based on the type \textit{float}. The variables are $4$ bytes resulting in $1440 bytes \sim 1.5kB$ used.
 The maximum error that can exist because of the quantization is the biggest step between two values in the data set. 
-The largest error is where the sine/cosine has the largest numerical slope, and this is where it crosses the x-axis. The error is positive when the slope is positive and negative when the slope is negative. The maximum error is $\pm 1.75 \%$ as can be seen on figure \ref{fig:sinus_lookup_error}. 
+The largest error is where the sine/cosine has the largest slope, and this is where it crosses 0 on the y-axis. The error is positive when the slope is positive and negative when the slope is negative. The maximum error is $\pm 1.75 \%$ as can be seen on figure \ref{fig:sinus_lookup_error}. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6 \textwidth]{pictures/software/sinus_lookup_error.eps}

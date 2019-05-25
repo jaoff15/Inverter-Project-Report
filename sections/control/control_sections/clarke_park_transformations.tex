@@ -39,17 +39,18 @@ It can also be written in matrix form as in equation \ref{eq:CtransMatrix}.
 
 % ************************** Park Transformation ***********************************
 \subsubsection{Park Transform}
-To convert the one rotating vector in the alpha-beta frame to a static vector in the rotating dp-frame, the Park transformation is used. The park transformation is performed with equtation \ref{eq:park_transformation}.
+To convert the one rotating vector in the alpha-beta frame to a static vector in the rotating dp-frame, the Park transformation is used. The park transformation is performed with equation \ref{eq:park_transformation}.
 
 \begin{equation}
-    i_{d} = cos(\varphi) \cdot i_{\alpha} + sin(\varphi) \cdot i_{\beta}
+    i_{d} = cos(\omega t) \cdot i_{\alpha} + sin(\omega t) \cdot i_{\beta}
     , \hspace{1cm}
-    i_{q} = -sin(\varphi) \cdot i_{\alpha} + cos(\varphi) \cdot i_{\beta}
+    i_{q} = -sin(\omega t) \cdot i_{\alpha} + cos(\omega t) \cdot i_{\beta}
     \label{eq:park_transformation}
 \end{equation}
 
-Where
-$\omega t = \varphi$
+$\omega t$ is the angle of the electrical field, based on the angle of the rotor.
+The Park transformation can be seen on matrix form in equation \ref{eq:PtransMatrix}.
+
 
 \begin{equation}
     \centering
@@ -66,6 +67,7 @@ $\omega t = \varphi$
         i_{\alpha} \\ 
         i_{\beta}
     \end{bmatrix}
+    \label{eq:PtransMatrix}
 \end{equation}
 
 
