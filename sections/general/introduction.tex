@@ -1,6 +1,6 @@
 \section{Introduction}
 \label{sec:introduction}
-One of the most important and useful motor types in modern electronics is the BLDC (Brushless DC Motor) / PMAC (Permanent Magnet Motor). The motor achieves this status by being highly versatile, robust, low noise with a high torque. The project focuses on the controlling of a ME1117 Brush less PMAC motor for an electrical go kart. \\
+One of the most important and useful motor types in modern electronics is the BLDC (Brushless DC Motor) / PMAC (Permanent Magnet Motor). The motor achieves this status by being highly versatile, robust, have low noise with a high torque. The project focuses on the controlling of a ME1117 Brushless PMAC motor for an electrical go kart. \\
 
 The project designs the hardware shown in the green square on figure \ref{fig:Possiblesolution}. The figure show a simplified motor controller consisting of a three-phase inverter controlled by a Zynq-7000 controller.
 
@@ -14,7 +14,7 @@ The project designs the hardware shown in the green square on figure \ref{fig:Po
   \label{fig:Possiblesolution}
 \end{figure}
 
-The illustration shows how the main connections between elements could look. On the right side is the motor itself with an encoder attached to measure the rotor angle. The motor is driven by the three-phase inverter developed in this project as can be seen in the middle. Below the inverter in the green square is the Zynq controller on a Zybo training board which controls the inverter. By receiving a range of sensor signals the controller handles the control needed for the inverter to run the motor at the requested torque.
+The illustration shows how the main connections between elements should look. On the right side is the motor itself with an encoder attached to measure the rotor angle. The motor is driven by the three-phase inverter developed in this project as can be seen in the middle. Below the inverter in the green square is the Zynq controller on a Zybo training board which controls the inverter. By receiving a range of sensor signals the controller handles the control needed for the inverter to run the motor at the requested torque.
 
 % The hardware parts is in the 3-phase inverter and a small analog board, with the software being written on a Zybo board micro-controller. The interface board is a component all ready done, it is not designed but the group, but a tool for the communication between hardware and software.
 

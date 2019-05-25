@@ -1,5 +1,5 @@
 \\
-The objective is to design a two level three phase inverter to drive the go karts PMSM motor. This basically consist of six switches and some capacitance on the DC-link. On figure \ref{fig:Sketch_PowerBoard} a simple model of the Power board is shown.
+The objective is to design a two level three-phase inverter to drive the Permanent Magnet Synchronous Motor (PMSM). The simple model of the inverter consist of six switches and some capacitance on the DC-link. On figure \ref{fig:Sketch_PowerBoard} a simple model of the Power board is shown.
 
     \begin{figure}[H]
 		\centering
@@ -8,13 +8,14 @@ The objective is to design a two level three phase inverter to drive the go kart
 		\label{fig:Sketch_PowerBoard}
 	\end{figure} 
 	
-This means that a switch component needs to be selected. The switch component has a great impact on the inverter design, due to the fact that it's main source of losses in the inverter. It is therefore important to choose a good transistor for switching. Besides the transistor choice, a good PCB layout and design is needed, because of heat transmission from the transistors.
+It means that a switch component needs to be selected. The switch component has great impact on the inverter design, due to the fact that it is the main source of losses in the inverter. It is therefore important to choose a good transistor for switching. Besides the transistor choice, a good PCB layout and design is needed, to avoid electrical problems and to have good heat transmission from the transistors.
 
 \subsubsection{Switching frequency} \label{switching_frequency}
-When deciding a switching frequency for the inverter, the rotation frequency of the motor is need to ensure, a high enough frequency. It is known from the motor parameters \ref{Motor_parameters_list}, that the maximum rotation speed  is $5000 rpm$ and it has 8 poles that equals to 4 pole pairs. From this the maximum frequency of the electrical field be determined.
+When deciding a switching frequency for the inverter, the rotation frequency of the motor  is  need  to  ensure,  a  high  enough  frequency. 
+It is known from the motor parameters in table \ref{Motor_parameters_list}, that the maximum rotation speed  is $5000 rpm$ and it has 8 poles that equals to 4 pole pairs. From this the maximum frequency of the electrical field be determined.
 
 \begin{equation}
-    f = \frac{v_{rpm} \cdot P}{60}
+    f = \frac{v_{rpm} \cdot P}{60} = \frac{5000 \cdot 4}{60} = 333.33 Hz
     \label{eq:max_frequency}
 \end{equation}
 
@@ -25,21 +26,31 @@ It is desired to have between 10 and 20 switch periods per period of the electri
 
 
 \subsubsection{PCB selection}   \label{PCB_selection}
-Two types of PCB's has been considered, a ordinary multi-layer PCB and a single-layer aluminum PCB. There is of course pros and cons for both options. With the ordinary PCB there is better opportunities for conducting the heat away from the switch components. On the other hand it's not possible to use SMD components, due to the heat not being able to transfer away from the components. SMD components can result in a better and more compact layout. This is because SMD components are smaller and are available with multiple source legs, which minimize the common source for the switch components. The Use of SMD components will be possible with the aluminum PCB. Due to that the SMD components have a smaller area, and the heat has to transfer through the aluminum PCB, the cooling of the components is a harder task. With the aluminum PCB it is not possible to use through hole components, which can have some cons when it comes to the mounting of the large capacitors for the DC-link. 
+Two types of PCB's has been considered, a ordinary multi-layer PCB and a single-layer aluminum PCB. Both types have their pros and cons. With the ordinary PCB there is better opportunities for conducting the heat away from the switch components. 
+On the other hand it's not possible to use SMD components, due to the heat not being able to transfer away from the components. 
+SMD components can result in a better and more compact layout because of their smaller footprint and are available with multiple source legs, which minimize the common source for the switch components. 
+The use of SMD components will be possible with the aluminum PCB, due to the high heat transfer through the aluminum PCB.
+With the aluminum PCB it is not possible to use through hole components, which can give some problems when it comes to the mounting of the large capacitors for the DC-link. 
 
-The ordinary PCB has also the benefit, that is has multiple layers. This could make it easier to layout a good power board. On the other hand, due to the budget, it will not be possible to get a PCB with much more than 2 layers anyways, maybe 4 layers. It is of course better than the single layer on the aluminum PCB. It is possible to get the aluminum PCB with two layers, but it will result in a  too high thermal resistance and price.
+The ordinary PCB has the benefit of having multiple layers which makes it easier to route the layout of the board. 
+% On the other hand, due to the budget, it will not be possible to get a PCB with much more than 2 layers anyways, maybe 4 layers. It is of course better than the single layer on the aluminum PCB. It is possible to get the aluminum PCB with two layers, but it will result in a  too high thermal resistance and price.
 
 Based on these considerations, an aluminum PCB has been choosen,
 %it is chosen to use the aluminum PCB, 
-because the benefits of the SMD components is weighted higher than the cons.
+because of the benefits gains by using SMD components.
 
 
 \subsubsection{Transistor selection}
-Transistor selection is an important aspect in the design of the inverter. This is because that the transistors has great affect on the power loss in the system and thus the heat dissipation which set limitations on design. Transistor selection is made from a couple of factors. First of all the needed ratings necessary for the system. The Drain to Source current has to be minimum rated for $300 A$ if no parallel devices is used. It is chosen that the rated Drain to Source voltage should be around $100 V$. This is due to the battery in the go kart has a maximum voltage of $57.6V$, plus some safety margin for voltage spikes. The maximum battery voltage is found based on the cell voltage of a $LiFePO_4$: $3.6 V$, multiplied with the number of cells, which is 16. The transistor has to have a fall time of less than $250ns$ and rise time of less than $50ns$. The transistor also has to have the lowest possible on-resistance, to minimize conduction losses, which is very significance when conducting a current of $300A$.
+Transistor selection is an important aspect in the design of the inverter because the transistors have great affect on the power loss in the system and thus the heat dissipation which set limitations on design. 
+A couple of different transistors characteristics have been the major factors used in the transistor selection.
+% The transistor selection is done from a couple of factors. 
+% First of all the needed ratings necessary for the system. 
+The transistor has to be rated for the minimum drain-source current of $300 A$ if no parallel devices is used. It is chosen that the rated drain-source voltage should be around $100 V$ due to the battery in the go kart has a maximum voltage of $57.6V$, plus some safety margin for voltage spikes. 
+The maximum battery voltage is found based on the cell voltage of a $LiFePO_4$: $3.6 V$, multiplied with the number of cells, which is 16. The transistor has to have a fall time of less than $250ns$ and rise time of less than $50ns$. The transistor also has to have the lowest possible on-resistance, to minimize conduction losses, which is very significance when conducting a current of $300A$.
 
-The Transistor with these specifications and the lowest possible Drain-Source on resistance, to a affordable price, was a MOSFET. The MOSFET have the benefit of having a low current needed for turn on, the ability to handle high current needed for the motor and fast enough for the switching frequency. Since price is everything, when it comes to choice of components, then some sort of compromise will be made \\
+The transistor with these specifications and the lowest possible drain-source on-resistance, to a affordable price, was a MOSFET. The MOSFET has the benefit of having a low current needed for turning on, the ability to handle high current needed for the motor and fast enough for the switching frequency. Since price is everything, when it comes to choice of components, then some sort of compromise will be made. \\
 
-The MOSFET chosen is an Infineon "IPB017N10N5". Some of the important specifications is listed in the table below.
+The MOSFET chosen is an \textit{Infineon "IPB017N10N5"}. Some of the important specifications are listed in the table below.
 \begin{table} [H]
 \centering
  \begin{tabular}{|c|c|c|} 
@@ -65,25 +76,31 @@ The MOSFET chosen is an Infineon "IPB017N10N5". Some of the important specificat
  Fall time & $27$ & $ns$ \\
  \hline
 \end{tabular}
-\caption{Transistor parameters taken from the "IPB017N10N5" datasheet}
+\caption{Transistor parameters taken from the \textit{IPB017N10N5} datasheet}
 \end{table}
 
-When looking at the parameters, a couple of things need to be considered. From the top it can be seen that the Drain-Source voltage is $100 V$, so it is able to handle the kart's battery voltage with safety. Next the [$I_D$] is not $300 A$ or above, which leads to a design choice of having two or more in parallel. Having more transistors in parallel has the benefit of splits the current up between them, lowering the conduction power loss. Having lower power loss decreases the amount of heat generated, which leads to less risk of overheating. The gate charge is the amount of charge that needs to be delivered to the transistor gate from the driver circuit, in order to turn the transistor on. This parameter needs to be as low as possible, same as the Drain-Source resistance, but normally with a low resistance comes higher gate charge and vise versa. In this case is it more important that the Drain-Source on resistance is low rather than the Gate charge is low. This is the case because speed of the turning on and off of the MOSFET is reduced anyway. Looking at the increased in driver power losses, the loss will not be as significant as the increase in power losses in a MOSFET with higher Drain-Source on resistance.\\ 
+When looking at the parameters, a couple of things need to be considered. From the top it can be seen that the drain-source voltage is $100 V$, so it is able to handle the battery voltage and have a reasonable safety margin. 
+Next the [$I_D$] is not $300 A$ or above, which leads to a design choice of having two or more in parallel. Having more transistors in parallel has the benefit of splits the current up between them, lowering the conduction power loss. 
+Having lower power loss decreases the amount of heat generated, which leads to lower risk of overheating. 
+The gate charge is the amount of charge that needs to be delivered to the transistor gate from the driver circuit, in order to turn the transistor on. 
+The lower gate charge the better but normally with low drain-source resistance comes higher gate charge.
+% The parameter needs to be as low as possible, same as the drain-source resistance, but normally with a low resistance comes higher gate charge and vise versa. 
+For an inverter it is more important to have low drain-source on-resistance then than low gate charge because speed of the turning on and off of the MOSFET is reduced anyway. Looking at the increased in driver power losses, the loss will not be as significant as the increase in power losses in a MOSFET with higher drain-source on-resistance.\\ 
 
 
 \subsubsection{Power and heat dissipation in the transistors}
-There are two types of power losses in the transistors. One is conduction losses, which is caused by the intern resistance in MOSFET between the Drain and the Source, when the MOSFET is conducting. The other one is switching losses, which appears when the MOSFETs is turning on and off. Based on the power loss calculations the expected heat increase of the MOSFETs can be estimated, which will be used to decide, how many MOSFETs in parallel is needed.
+There are two types of power losses in the transistors. One is conduction losses, which is caused by the internal resistance in the MOSFET between the drain and the source, when it is conducting. The other one is switching losses, which appears when the MOSFET is turning on and off. Based on the power loss calculations the expected heat increase of the MOSFET's can be estimated, which will be used to decide, how many MOSFET's in parallel is needed.
 
 \paragraph{Conduction power loss}
-When a MOSFET is conducting there will be a power dissipation due to the internal Drain-Source on resistance in the MOSFET. Thus the conduction power loss in the MOSFETs is calculated in the same way as the power loss in a resistor. Equation \ref{eq:ConductionLossMOSFET} describes the conduction power loss for one MOSFET, $P_{con/MOSFET}$.
+When a MOSFET is conducting there will be a power dissipation due to the internal drain-source on-resistance in the transistor. Thus the conduction power loss in a transistor is calculated in the same way as the power loss in a resistor. Equation \ref{eq:ConductionLossMOSFET} describes the conduction power loss for one MOSFET, $P_{con/MOSFET}$.
 
     \begin{equation}
         P_{con/MOSFET} = \bigg( \frac{I}{N \cdot 2} \bigg) ^2 \cdot R_{DS-ON}
         \label{eq:ConductionLossMOSFET}
     \end{equation}
 
-$I$ is the peak current, $N$ is the number of transistors in parallel per switch, and $R_{DS-ON}$ is the Drain-Source on resistance of the MOSFET.
-The peak current is divided by the number of transistors in parallel, to get the current in one MOSFET. Because the current is sinusoidal and the average duty cycle of the PWM over a period is $50 \% $, it is also divided by two to get the current one transistor is conducting.
+$I$ is the peak current, $N$ is the number of transistors in parallel per switch, and $R_{DS-ON}$ is the drain-source on-resistance of the MOSFET.
+The peak current is divided by the number of transistors in parallel, to get the current in one MOSFET. The current is sinusoidal and the average duty cycle of the PWM over a period is $50 \% $, it is therefore divided by two to get the current that one transistor is conducting.
 
 To calculate the conduction power loss for all the transistors, it is then multiplied with the number of parallel MOSFETs per switch, two for taking both the high and low side into account, and the number of legs in the inverter, which is three.
 
@@ -97,16 +114,16 @@ On figure \ref{fig:ConductionLoss} the relationship between conduction power los
     \begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Conduction_loss.png}
-		\caption{Conduction power loss versus the number of parallel MOSFETs in parallel per switch. The blue curve describes the power loss per MOSFET and the red describes the total power loss}
+		\caption{Conduction power loss versus the number of MOSFET's in parallel per switch. The blue curve describes the power loss per MOSFET and the red describes the total power loss}
 		\label{fig:ConductionLoss}
 	\end{figure} 
 
-For figure \ref{fig:ConductionLoss} the peak current, $I$, is set to $300 A$, and the Drain-Source on resistance, $R_{DSon}$, is set to ${1.9 m \Omega}$, which is value at $80 \degree C$. \todo{ref to data sheet}
+For figure \ref{fig:ConductionLoss} the peak current, $I$, is set to $300 A$, and the drain-source on-resistance, $R_{DSon}$, is set to ${1.9 m \Omega}$, which is value at $80 \degree C$. \todo{ref to data sheet}
 
-On figure \ref{fig:ConductionLoss} it can be seen that the more MOSFETs there are placed in parallel per switch, the conduction power losses reduces exponentially, for both each MOSFET and for the hole inverter.
+On figure \ref{fig:ConductionLoss} it can be seen that when the number of MOSFETs in parallel per switch increase the conduction power losses reduces exponentially, both for each individual MOSFET and for the whole inverter.
 
 \paragraph{Switching power loss}
-The other cause of power loss in the MOSFETs is the switching power loss. The switching power losses is caused by the period, when switching, where both the voltage over and the current through the MOSFET is not zero. This is called hard switching. Soft switching is when the MOSFET switching on or off without the voltage and current overlaps. This will not cost any power loss. This is illustrated on figure \ref{fig:HardSoftSwitch}.
+The other cause of power loss in a MOSFET is the switching power loss. The switching power losses is caused by the period, when switching, where both the voltage over and the current through the MOSFET is not zero which is called hard switching. The counterpart to hard switching is soft switching which is when the MOSFET switches on or off without the voltage and current overlapping. Soft switching does not result in any power loss. The switcing types are illustrated on figure \ref{fig:HardSoftSwitch}.
 
     \begin{figure}[H]
 		\centering
@@ -115,7 +132,7 @@ The other cause of power loss in the MOSFETs is the switching power loss. The sw
 		\label{fig:HardSoftSwitch}
 	\end{figure} 
 
-When running the motor, the motor current has a positive and a negative half cycle. During the positive half period the current going into the motor, and in the negative half period the current going from the motor into the inverter. In the positive half period the low-side switch gets soft turned on and the high-side switch gets hard turned on. Opposite in the negative half period the low-side switch is hard turned on and the high-side switch is soft turned on. This means One transistor will only hard switch $50 \%$ of the time.
+When running the motor, the motor current has a positive and a negative half cycle. During the positive half cycle the current going into the motor, and in the negative half cycle the current going from the motor into the inverter. In the positive half cycle the low-side switch gets soft switched and the high-side switch gets hard switched. Opposite in the negative half cycle the low-side switch is hard switched and the high-side switch is soft switched. This results in each transistor hard switch $50 \%$ of the time.
 
 The switching power is calculated as the area under the green line on figure \ref{fig:HardSoftSwitch} multiplied with the switching frequency. This is multiplied with a half because the switches is only hard switched $50 \%$ of the time, and therefore the Power loss is the half. 
 
@@ -125,14 +142,14 @@ The switching power is calculated as the area under the green line on figure \re
     \end{equation}
 
 Where $V_{batt}$ is the battery voltage, $t_{on}$ is the turn on time, $t_{off}$ is the turn off time and $f_{s}$ is the switching frequency of the transistors.
-Equation \ref{eq:sw_loss_MOSFET} is the switching power loss per MOSFET. To get the switching power loss for all of the MOSFETs in the inverter, this has to be multiplied with the number of parallel MOSFETs, two to take both the high- and low-side into to account, and the number of phases, which is three.
+Equation \ref{eq:sw_loss_MOSFET} is the switching power loss per MOSFET. To get the switching power loss for all of the MOSFET's in the inverter, this has to be multiplied with the number of parallel MOSFET's, which makes 2 when taking both the high- and low-side into account, together with the number of phases.
 
     \begin{equation}
         P_{sw} = 0.5 \cdot 0.5 \cdot V_{batt} \cdot \frac{I}{N} \cdot (t_{on}+t_{off}) \cdot f_{sw} \cdot N \cdot 2 \cdot 3
         \label{eq:sw_loss}
     \end{equation}
     
-From this equation, a curve of the switching power loss in one MOSFET and in all the MOSFETs versus the number of the parallel MOSFETs, is made.
+From this equation, a curve of the switching power loss in one MOSFET and in all the MOSFET's versus the number of the parallel MOSFET's, is made.
 
     \begin{figure}[H]
 		\centering
@@ -141,7 +158,7 @@ From this equation, a curve of the switching power loss in one MOSFET and in all
 		\label{fig:sw_loss}
 	\end{figure}
 	
-Again is the peak current, $I$, is set to $300 A$. The battery voltage, $V_{batt}$, is set to $57.6 V$ and the switching frequency is set to the chosen frequency: $10 kHz$. The turn on time, $t_{on}$, and the turn off time, $t_{off}$, is calculated with the following equations.
+Where $I$ is the peak current that is set to $300 A$. The battery voltage, $V_{batt}$, is set to $57.6 V$ and the switching frequency is set to the chosen frequency: $10 kHz$. The turn on time, $t_{on}$, and the turn off time, $t_{off}$, are calculated with the following equations.
 
     \begin{equation}
         t_{on} = \frac{Q_{sw}}{I_{GSource}}
@@ -151,13 +168,13 @@ Again is the peak current, $I$, is set to $300 A$. The battery voltage, $V_{batt
         t_{off} = \frac{Q_{sw}}{I_{GSink}}
     \end{equation}
     
-Where $Q_{sw}$ is the switching charge of the MOSFET, which is stated in the Data sheet.\cite{mosfet}
-$I_{GSource}$ and $I_{GSink}$ is respectively the current the driver deliverers to the Gate of the MOSFET when turning the MOSFET on and off. These are calculated in section \ref{sec:DriverDesign}. The turn on and off end up being $75 ns$ and $375 ns$, which could be faster, but is chosen to be limited to this. This is due to reducing high-frequency ringing when switching the MOSFETs. This results in a higher switching power loss, but because the switching loss does not have that big of an impact on the total power loss, due to the low switching frequency, it is not considered a problem.
+Where $Q_{sw}$ is the switching charge of the MOSFET, which is stated in the data sheet.\cite{mosfet}
+$I_{GSource}$ and $I_{GSink}$ are respectively the current the driver deliverers to the gate of the MOSFET when turning it on and off. These are calculated in section \ref{sec:DriverDesign}. The turn on and off end up being $75 ns$ and $375 ns$, which could be faster, but is chosen to be limited to this. Due to reducing high-frequency ringing when switching the MOSFET's. The result in a higher switching power loss, but because the switching loss does not have that big of an impact on the total power loss, due to the low switching frequency, it is not considered a problem.
 
 On figure \ref{fig:sw_loss} it can be seen that the switching power loss of each MOSFET is reduced with number of parallel MOSFETs, but the over all power loss of the inverter is the same independent of the number of parallel MOSFETs.
 
 \paragraph{Heat dissipation}
-When the conduction power loss and switching power loss is determined compared to the number of MOSFETs, the total power losses is known. From the total power loss in the transistors, the heat dissipation can depending on the number of MOSFETs, be determined.
+When the conduction power loss and switching power loss is determined compared to the number of transistors, the total power losses is known. From the total power loss in the transistors, the heat dissipation can be determined by the number used.
 
 When determining the heat dissipation of the inverter, all the thermal resistances between the junction of the MOSFET and the ambient has to be specified.
 First of all there is the internal junction to case resistance for the MOSFET.

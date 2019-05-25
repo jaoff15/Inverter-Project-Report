@@ -3,7 +3,7 @@
 
 The project goes through the steps needed to design a three-phase inverter with motor controller needed to drive a Sevcon gen4 motor for an electric go kart. 
 % The motor is a PMAC motor which have high torque and efficiency but the control is more complex than other motor types.
-The inverter is designed to run the motor at 4.5kW continuous and 14kW peak. The inverter hardware consist of 4 separate PCB's. A main interface board that was acquired as part of the get-started material for the project, an analog interface board that handles the analog signals, a power board for each phase handling the high power components needed to drive each phase and a driver board for each phase driving the power boards. 
+The inverter is designed to run the motor at 4.5kW continuous and 14kW peak. The inverter hardware consist of 4 separate PCB's. A main interface board that was acquired as part of the get-started material for the project, an analog interface board that handles the analog signals, a power board for each phase handling the high power components needed for each phase and a driver board for each phase driving the power boards. 
 
 The inverter is controlled by a Xilinx Zybo Zynq-7000 ARM/FPGA Training Board. The controller measures rotor angle, phase currents and torque pedal position and controls the motor with Field Orientated Control to output the requested torque. 
 
