@@ -1,6 +1,6 @@
 
 \subsection{Clarke and Park Transformations}
-With Clarke and Park transformations it is possible to convert 
+With Clarke and Park transformations it is possible to convert three rotating phase current into a static vector in a rotating frame. When controlling the motor, it makes it more simple to control a single vector in a rotating frame, rather that three rotating vectors.
 
 
 
@@ -15,6 +15,7 @@ The Clarke transformation converts three rotating phase currents to one rotating
     \label{eq:clarke_transformation}
 \end{equation}
 
+$i_a$, $i_b$ and $i_c$ are the three rotating phase currents, and $i_\alpha$ and $i_\beta$ are the two components of the rotating vector in the alpha-beta frame.
 It can also be written in matrix form as in equation \ref{eq:CtransMatrix}. 
 
 \begin{equation}
@@ -48,7 +49,7 @@ To convert the one rotating vector in the alpha-beta frame to a static vector in
     \label{eq:park_transformation}
 \end{equation}
 
-$\omega t$ is the angle of the electrical field, based on the angle of the rotor.
+$i_d$ and $i_q$ is the components of the static vector in the rotating dq-frame. $\omega t$ is the angle of the electrical field, based on the angle of the rotor.
 The Park transformation can be seen on matrix form in equation \ref{eq:PtransMatrix}.
 
 
@@ -76,7 +77,17 @@ The Park transformation can be seen on matrix form in equation \ref{eq:PtransMat
 
 % ************************** Inverse Park Transformation ***********************************
 \subsubsection{Inverse Park Transform}
-Converts a static vector in a rotating dq-frame into a rotating vector in a alpha-beta frame.
+With the inverse Park transformation a static vector in a rotating dq-frame can be converted back into a rotating vector in a alpha-beta frame. This is done with equation \ref{eq:inverse_park_transformation}.
+
+
+\begin{equation}
+    i_{\alpha} = cos(\varphi) \cdot i_{d} - sin(\varphi) \cdot i_{q}
+    , \hspace{1cm}
+    i_{\beta} = sin(\varphi) \cdot i_{d} + cos(\varphi) \cdot i_{q}
+    \label{eq:inverse_park_transformation}
+\end{equation}
+
+Equation \ref{eq:invPtransMatrix} is the inverse Park transformation in matrix form.
 
 \begin{equation}
     \centering
@@ -93,21 +104,22 @@ Converts a static vector in a rotating dq-frame into a rotating vector in a alph
         i_{d} \\ 
         i_{q}
     \end{bmatrix}
+    \label{eq:invPtransMatrix}
 \end{equation}
-
-Where
-$\omega t = \varphi$
-
-\begin{equation}
-    i_{\alpha} = cos(\varphi) \cdot i_{d} - sin(\varphi) \cdot i_{q}
-    , \hspace{1cm}
-    i_{\beta} = sin(\varphi) \cdot i_{d} + cos(\varphi) \cdot i_{q}
-    \label{eq:inverse_park_transformation}
-\end{equation}
-
 % ************************** Inverse Clarke Transformation ***********************************
 \subsubsection{Inverse Clarke Transform}
-Converts a rotating vector in the alpha-beta frame into three phase signals. 
+The inverse Clarke transformation converts a rotating vector in the alpha-beta frame into three phase signals. The equation for this transformation is equation \ref{eq:inverse_clarke_transformation}.
+
+\begin{equation}
+    i_{a} = i_{\alpha}
+    , \hspace{1cm}
+    i_{b} = -\frac{1}{2} \cdot i_{\alpha} + \frac{\sqrt{3}}{2} \cdot i_{\beta}
+    , \hspace{1cm}
+    i_{c} = -\frac{1}{2} \cdot i_{\alpha} - \frac{\sqrt{3}}{2} \cdot i_{\beta}
+    \label{eq:inverse_clarke_transformation}
+\end{equation}
+
+The matrix form of the inverse Clarke transformation can be seen in equation \ref{eq:invCtransMatrix}.
 
 \begin{equation}
     \centering
@@ -126,14 +138,7 @@ Converts a rotating vector in the alpha-beta frame into three phase signals.
         i_{\alpha} \\ 
         i_{\beta}
     \end{bmatrix}
+    \label{eq:invCtransMatrix}
 \end{equation}
 
 
-\begin{equation}
-    i_{a} = i_{\alpha}
-    , \hspace{1cm}
-    i_{b} = -\frac{1}{2} \cdot i_{\alpha} + \frac{\sqrt{3}}{2} \cdot i_{\beta}
-    , \hspace{1cm}
-    i_{c} = -\frac{1}{2} \cdot i_{\alpha} - \frac{\sqrt{3}}{2} \cdot i_{\beta}
-    \label{eq:inverse_clarke_transformation}
-\end{equation}

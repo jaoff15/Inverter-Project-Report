@@ -1,6 +1,30 @@
 \section{Hardware}
 \label{sec:hardware}
 
+\subsection{Motor}
+The motor used in the go kart is a \textit{Motenergy ME1117 PMAC Motor}. Its parameters can be seen in table \ref{Motor_parameters_list}. 
+
+\begin{table} [H]
+    \centering
+    \begin{tabular}{|l|l|} \cline{1-2}
+        Pole pair                   & $4\ pairs\ (8\ poles)$        \\ \cline{1-2}
+        Maximum rotational speed    & $5000 RPM$                    \\ \cline{1-2}
+        Voltage rating              & $0-76 V$                      \\ \cline{1-2}
+        Continuous current          & $100\ A$                      \\ \cline{1-2}
+        Peak Current for 1 min      & $300\ A$                      \\ \cline{1-2}
+        Torque constant             & $0.13 Nm/A$                   \\ \cline{1-2}
+        Phase to Phase Resistance   & $0.013\ohm$                   \\ \cline{1-2}
+        Phase to Phase Inductance   & $0.1$ mH                      \\ \cline{1-2}
+        Armature Inertia            & $52\ kg/cm^2$                 \\ \cline{1-2}
+    \end{tabular} \\
+    \caption{Motor parameters specifying the motor \textit{Motenergy ME1117 PMAC} \cite{Motor_Parameters}.}
+    \label{Motor_parameters_list}
+\end{table} 
+
+
+% All of these specifications are what makes up the motor, and will be written into the model motor. It will also be used in order to calculate framework of the controller. Before diving in to the specifics of how and why, certain methods is used. A quick overview of the base model, will help visualize how the final model was made.\\
+
+
 \subsection{Main interface board}
 
 \subsubsection{Encoder}
@@ -15,7 +39,7 @@ The decoding and translation of the encoder signal are done in the Zybo which is
 \input{sections/hardware/analogboard/Analog_Interface_Board.tex}
 
 \subsection{Power board}
-The inverter is divided into two PCB's, one for the high power part, the Power board and one for the driver part, the Driver board. The following section will described how the Power board for the inverters is designed and what considerations have been made. It will describe what kind of PCB and which components has been used and why. The layout of the PCB's will also be described and what considerations has been made. \\
+The inverter is divided into two PCB's, one for the high power part, the Power board and one for the driver part, the Driver board. The following section describes how the Power board for the inverters are designed and what considerations have been made. It will describe what kind of PCB and which components have been used and why. The layout of the PCBs will also be described and what considerations has been made. \\
 \input{sections/hardware/powerboard/Power_Board.tex}
 % \input{sections/hardware/powerboard/design.tex}
 % \input{sections/hardware/powerboard/implementation.tex}
@@ -26,4 +50,5 @@ The section describes the theoretical background, the design considerations take
 \input{sections/hardware/driverboard/design.tex}
 
 \subsection{Power and Driver board layout}
+This section describes the considerations taken when designing the layout of both boards.
 \input{sections/hardware/driverboard/layout.tex}
