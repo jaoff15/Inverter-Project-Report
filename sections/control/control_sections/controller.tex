@@ -14,8 +14,24 @@ Because a transfer function only can have one input and one output, the two equa
 \end{equation}
 
 As seen in the two equations, \ref{eq:d_direction3} and \ref{eq:q_direction3}, the parts in the equations depending on other variables than the current is neglected. 
-This Laplace transformed and converted to the transfer functions for the two systems.
+The equations is Laplace transformed and converted to the transfer functions for the two systems.
 
 \begin{equation}
-    \frac{I_d(s)}{V_d(s)} = \frac{ \frac{1}{ \frac{L_d}{R_s} } }{ \frac{R_s}{ \frac{L_d}{R_s} } + R_s s }
+    \label{eq:transfer_d}
+    G_q = \frac{I_d(s)}{V_d(s)} = \frac{ \frac{1}{ \frac{L_d}{R_s} } }{ R_s \bigg(\frac{1}{ \frac{L_d}{R_s} } + s \bigg) }
 \end{equation}
+
+\begin{equation}
+    \label{eq:transfer_q}
+    G_q = \frac{I_q(s)}{V_q(s)} = \frac{ \frac{1}{ \frac{L_q}{R_s} } }{ R_s \bigg(\frac{1}{ \frac{L_q}{R_s} } + s \bigg) }
+\end{equation}
+
+Equation \ref{eq:transfer_d} and \ref{eq:transfer_q} is the transfer functions for the motor.
+
+To set the PI-controller the cut off frequency is determined. The cut off frequency, $\omega_{cutoff}$, is determined from the time constant of the motor.
+
+\begin{equation}
+    \omega_{cutoff} = \frac{1}{\tau}
+\end{equation}
+
+$\tau$ is the 

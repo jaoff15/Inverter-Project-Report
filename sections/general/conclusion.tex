@@ -5,6 +5,7 @@
 To minimize the size of the power and driver PCB's and improve the modularity the PCB's are made to only handle one phase and three boards will then be used to handle the three-phases.
 For power board an aluminum PCB was used to have a high heat conductivity which allows for the use of SMD MOSFET's as the high power transistors. The driver board was build to be mounted directly on top of the power board to minimize driver signal transmission paths and stray inductance's.
 
-The motor is controlled on the Zynq with a PI controller in a field orientated way. Each phase it controlled by a dual PWM module with dead time between the two PWM signals.
+The motor is controlled on the Zynq with a PI controller in a field orientated way. Each phase is controlled by a dual PWM module with dead time between the two PWM signals.
 The angle out of the encoder has a low resolution so a more accurate angle is approximated at low speeds with the use of a linear interpolation algorithm. 
 
+There can further concluded that since no construction was done, some of the project requirements aren't able to be proven. It can be stated that in theory the driver would work, but without test data it's more of a statement than evidence. The theoretical motor controller should be able to control the \textit{ME1117 PMAC motor}, the controller has been made on a Zynq FPGA and a inverter has been designed with control. The Zynq FPGA design is able give relevant data through communication interface on a computer. All this is done with out change any of the existing components, but without a finished build the cost requirement also left unchecked.

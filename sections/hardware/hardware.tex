@@ -1,6 +1,8 @@
 \section{Hardware}
 \label{sec:hardware}
-This section of the report will focus on the electrical hardware of the motor driver. What components goes into a driver like this, what all ready existing hardware must be considered when designing. Further more each part of inverter will be explained individually, starting from what motor kind needs that is being worked with, the interface board and the encoder which is static and wont be redesigned or replaced. Going in depth with the 3 different boards needed designing analog, power and driver board, what kind of transistors and gate drives are needed in order to drive the motor, and what kind of losses are present, with a look at the heat dissipation. With the end being about, how the physical construction of the inverter would like.
+The section goes through the design of the hardware for the motor driver. It includes a walk-through of the provided material for the project which includes an encoder interface.
+Then the analog board is designed which handles all analog signals. The power board handling high power components and driver board handling driver signals are designed and then a combined section about how they fit together.
+% The power board includes heat dissipation. how the physical construction of the inverter would like.
 
 
 \subsection{Motor specifications}
@@ -59,5 +61,12 @@ The section describes the theoretical background, the design considerations take
 \input{sections/hardware/driverboard/design.tex}
 
 \subsection{Power and Driver board layout}
-This section describes the considerations taken when designing the layout of both boards.
+This section describes the design and layout considerations for both boards.
 \input{sections/hardware/driverboard/layout.tex}
+
+\subsection*{Subconclusion}
+An analog interface that scales the current transducer and torque sensors signals has been made and a PCB produced. 
+A power board for each phase is designed with four SMD MOSFET's used per phase which is made possible by the PCB's being of aluminum. 
+A driver board is then designed to sit on top of the power board and switch the transistors. The board has cut-outs for the DC-link capacitors.
+
+

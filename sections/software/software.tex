@@ -47,6 +47,6 @@ All the high level control and communication is placed on the processing system 
 % Computer inteface
 \input{sections/software/ps/uart.tex}
 
-\subsubsection*{Subconclusions}
+\subsubsection*{Subconclusion}
 A short ISR is developed to simply trigger the actual control loop in the processor. When the control is triggered it runs Clarke and Park Transformations, angle interpolation, and two PI controllers. The controller output is then converted back into PWM thresholds with an Inverse Park and Inverse Clarke transformation and the result is put into block RAM for the PL to use.
 

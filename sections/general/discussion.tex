@@ -1,10 +1,12 @@
 \section{Discussion}
 \label{sec:discussion}
 
-The section will go into details of individual parts of the project and discuss test result and possible problems with some solutions. 
-A crucial factor of the project was that testing never became an option due to time constraints which leads to the conclusion that theoretically the project should work, but there is no test data to back it up. 
-It could have lead to better understanding of the current setup and potential problems when implementing it in a physical environment. 
-Especially the lack of testing and tweaking parameters on the motor control is a big setback. 
+The section will discuss the few test result gathered throughout the project but mostly go into detail with areas where problems might come up.
+A crucial factor of the project was that the inverter never was build due to time constraints and therefore it was never tested. Which results in some solutions only being backed up by calculations and simulations and not physical tests.
+% This reason is mainly theoretical and not that make tests to back it up.
+
+% It could have lead to better understanding of the current setup and potential problems when implementing it in a physical environment. 
+% Especially the lack of testing and tweaking parameters on the motor control is a big setback. 
 
 First the discussion will go through the possible problems with the hardware. Then the control and thermal characteristics are discussed and lastly the embedded system.
 
@@ -19,10 +21,23 @@ When it come to any component the correct one isn't picked on first try. The pic
 To more precisely comment, a better way to compare the different components would have given a better result. Such a comparison could have been done in a Matlab script, that runs the choices through the same calculations, and puts out the important factors up against each others. \\
 
 \subsection{Power board}
-Placing bulk capacitors on the busbars is rather difficult without burning the caps and reflowing the whole assembly. It should be substituted with a more prototype-friendly solution. Finding out if the capacitance built in is enough to smooth out everything is also still left to be tested.
+% Placing bulk capacitors on the busbars is rather difficult without burning the caps and reflowing the whole assembly. It should be substituted with a more prototype-friendly solution. 
+\subsubsection{Construction}
+Constructing the inverter in the intended way might turn out difficult. While mounting the bus bars across all three phase PCB's and mounting the capacitors directly on top of the bus bar might be a good idea electrically, it can turn out to be near impossible in practice.
+
+The bus bars are made of solid copper which have a high thermal conductivity and therefore soldering anything directly to the bars are difficult. Heating up all the PCB's and the bus bar in an oven or heating plate is the only option. 
+Getting all phase PCB's to align and solder correctly to the bus bars requires high precision and it might not be feasibly to use the same PCB's for a round two if something goes wrong.
+On top of mounting the bus bars to the PCB's the capacitors has to be mounted at the same time. 
+
+A compromise with a bit worse electrical characteristics but better construction might need to be used.
+
+If the budget would allow, a larger heat sink would be a better choice. Being able to fix the output cables to the heat sink could help with improving the mechanical stability of the assembly and prevent breaking of the output screw terminals.
+
+\subsubsection{Capacitors}
+Finding out if the capacitance built in is enough to smooth out everything is still left to be tested.
 
 \subsection{Driver board}
-Due to miscommunication, only one of the split gate resistors was placed in the schematic. The ones closer to the gate should be placed, too. Using an SMD diode could also lead to a better layout, but utilizing components from the stock to save money was a concern.
+A mistake has caused only one of the split gate resistors being placed in the schematic. A resistor closer to the gate should also have been placed. Using an SMD diode could also lead to a better layout, but utilizing components from the stock was chosen to keep down the cost.
 
 \subsection{Control}
 \rework{Are there any problems with the control?}
@@ -32,15 +47,15 @@ Due to miscommunication, only one of the split gate resistors was placed in the 
 \rework{How does the thermal analysis look? Could something be made better?}
 
 
-\subsection{Construction}
-% Mechanical problems. Construction problems. Others?
-Constructing the inverter in the intended way might turn out difficult. While mounting the bus bars across all three phase PCBs and mounting the capacitors directly on top of the bus bar might be a good idea electrically, it can turn out to be near impossible in practice.
+% \subsection{Construction}
+% % Mechanical problems. Construction problems. Others?
+% Constructing the inverter in the intended way might turn out difficult. While mounting the bus bars across all three phase PCBs and mounting the capacitors directly on top of the bus bar might be a good idea electrically, it can turn out to be near impossible in practice.
 
-The bus bars are made of solid copper which have a high thermal conductivity and therefore soldering anything directly to the bars are difficult. Heating up all the PCBs and the bus bar in an oven or heating plate is the only option. 
-Getting all phase PCBs to align and solder correctly to the bus bars requires high precision and it might not be feasibly to use the same PCBs for a round two if something goes wrong.
-On top of mounting the bus bars to the PCBs the capacitors has to be mounted at the same time. 
+% The bus bars are made of solid copper which have a high thermal conductivity and therefore soldering anything directly to the bars are difficult. Heating up all the PCBs and the bus bar in an oven or heating plate is the only option. 
+% Getting all phase PCBs to align and solder correctly to the bus bars requires high precision and it might not be feasibly to use the same PCBs for a round two if something goes wrong.
+% On top of mounting the bus bars to the PCBs the capacitors has to be mounted at the same time. 
 
-A compromise with a bit worse electrical characteristics but better construction might need to be used.
+% A compromise with a bit worse electrical characteristics but better construction might need to be used.
 
 \subsection{Embedded software}
 \subsubsection{PWM module}
