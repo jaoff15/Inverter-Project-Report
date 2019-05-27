@@ -29,7 +29,7 @@ On figure \ref{fig:software_flow} the flowchart of the control loop implemented 
 	\label{fig:software_flow}
 \end{figure}
 
-When the run command is received it is first reset to get ready for the next command. Then the current measurements from the two ADC's are read into the system as well as the rotor angle from the encoder. A Clarke and a Park transformation is performed. The torque pedal position is read and the two PI controllers as discussed in section \ref{sec:control_system} perform the control. The result from the controllers are then transformed with an Inverse Park and an Inverse Clarke Transformation which produces three control signals. These signals are then linearly mapped to the range $0 \rightarrow 100$, which is what the PWM generators are compatible with. 
+When the run command is received it is first reset to get ready for the next command. Then the current measurements from the two ADC's are read into the system as well as the rotor angle from the encoder. A Clarke and a Park Transformation is performed. The torque pedal position is read and the two PI controllers as discussed in section \ref{sec:control_system} perform the control. The result from the controllers are then transformed with an Inverse Park and an Inverse Clarke Transformation which produces three control signals. These signals are then linearly mapped to the range $0 \rightarrow 100$, which is what the PWM generators are compatible with. 
 The thresholds are then written to a piece of block RAM shared between the PS and the PL. The PS will then wait for the next run command.
 
 

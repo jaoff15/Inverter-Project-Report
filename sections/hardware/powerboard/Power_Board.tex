@@ -109,7 +109,7 @@ To calculate the conduction power loss for all the transistors, it is then multi
         \label{eq:ConductionLossTot}
     \end{equation}
 
-On figure \ref{fig:ConductionLoss} the relationship between conduction power loss per MOSFET, equation \ref{eq:ConductionLossMOSFET}, and for all the MOSFETs, equation \ref{eq:ConductionLossTot}, is plotted as a function of the number of MOSFETs in parallel. 
+On figure \ref{fig:ConductionLoss} the relationship between conduction power loss per MOSFET, equation \ref{eq:ConductionLossMOSFET}, and for all the MOSFET's, equation \ref{eq:ConductionLossTot}, is plotted as a function of the number of MOSFET's in parallel. 
 
     \begin{figure}[H]
 		\centering
@@ -120,9 +120,10 @@ On figure \ref{fig:ConductionLoss} the relationship between conduction power los
 
 For figure \ref{fig:ConductionLoss} the peak current, $I$, is set to $300 A$, and the drain-source on-resistance, $R_{DSon}$, is set to ${1.9 m \Omega}$, which is value at $80 \degree C$. \cite{mosfet}
 
-On figure \ref{fig:ConductionLoss} it can be seen that when the number of MOSFETs in parallel per switch increase the conduction power losses reduces exponentially, both for each individual MOSFET and for the whole inverter.
+On figure \ref{fig:ConductionLoss} it can be seen that when the number of MOSFET's in parallel per switch increase the conduction power losses reduces exponentially, both for each individual MOSFET and for the whole inverter.
 
 \paragraph{Switching power loss}
+\label{sec:switching_power_loss}
 The other cause of power loss in a MOSFET is the switching power loss. The switching power losses is caused by the period, when switching, where both the voltage over and the current through the MOSFET is not zero which is called hard switching. The counterpart to hard switching is soft switching which is when the MOSFET switches on or off without the voltage and current overlapping. Soft switching does not result in any power loss. The switcing types are illustrated on figure \ref{fig:HardSoftSwitch}.
 
     \begin{figure}[H]
@@ -154,7 +155,7 @@ From this equation, a curve of the switching power loss in one MOSFET and in all
     \begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{pictures/hardware/Power_Board/Switch_loss.png}
-		\caption{Switching power loss versus the number of parallel MOSFETs in parallel per switch. The blue curve describes power loss per MOSFET and the red describes the total power loss.}
+		\caption{Switching power loss versus the number of parallel MOSFET's in parallel per switch. The blue curve describes power loss per MOSFET and the red describes the total power loss.}
 		\label{fig:sw_loss}
 	\end{figure}
 	
@@ -169,9 +170,9 @@ Where $I$ is the peak current that is set to $300 A$. The battery voltage, $V_{b
     \end{equation}
     
 Where $Q_{sw}$ is the switching charge of the MOSFET, which is stated in the data sheet.\cite{mosfet}
-$I_{GSource}$ and $I_{GSink}$ are respectively the current the driver deliverers to the gate of the MOSFET when turning it on and off. These are calculated in section \ref{sec:DriverDesign}. The turn on and off end up being $75 ns$ and $375 ns$, which could be faster, but is chosen to be limited to this. Due to reducing high-frequency ringing when switching the MOSFETs. The result in a higher switching power loss, but because the switching loss does not have that big of an impact on the total power loss, due to the low switching frequency, it is not considered a problem.
+$I_{GSource}$ and $I_{GSink}$ are respectively the current the driver deliverers to the gate of the MOSFET when turning it on and off. These are calculated in section \ref{sec:DriverDesign}. The turn on and off end up being $75 ns$ and $375 ns$, which could be faster, but is chosen to be limited to this. Due to reducing high-frequency ringing when switching the MOSFET's. The result in a higher switching power loss, but because the switching loss does not have that big of an impact on the total power loss, due to the low switching frequency, it is not considered a problem.
 
-On figure \ref{fig:sw_loss} it can be seen that the switching power loss of each MOSFET is reduced with number of parallel MOSFETs, but the over all power loss of the inverter is the same independent of the number of parallel MOSFETs.
+On figure \ref{fig:sw_loss} it can be seen that the switching power loss of each MOSFET is reduced with number of parallel MOSFET's, but the over all power loss of the inverter is the same independent of the number of parallel MOSFET's.
 
 \paragraph{Heat dissipation}
 When the conduction power loss and switching power loss is determined compared to the number of transistors, the total power loss is known. From the total power loss in the transistors, the heat dissipation can be determined by the number used.
@@ -237,7 +238,7 @@ The temperature difference over the heat sink can then be calculated with equati
         \label{Theatsink}
     \end{equation}
 
-The $P_{Avg}$ is the average power loss for all the MOSFETs and $R_{HA}$ is the thermal resistance of the heat sink. 
+The $P_{Avg}$ is the average power loss for all the MOSFET's and $R_{HA}$ is the thermal resistance of the heat sink. 
 
 The final temperature difference from ambient to the junction of one MOSFET is then:
 
@@ -246,10 +247,12 @@ The final temperature difference from ambient to the junction of one MOSFET is t
         \label{Theatsink}
     \end{equation}
     
-Where the $T_A$ is the ambient temperature. It should be noted that the temperature difference over the heat sink  depends on the total power loss, and the temperature difference from the paste to the junction of a MOSFET depends on the power loss for one MOSFET. 
-Due to the thermal resistance of the heat sink is common for all MOSFETs and there is a parallel thermal resistance for each MOSFET from the paste to the junction.
+Where the $T_A$ is the ambient temperature. 
+It should be noted that the temperature difference over the heat sink depends on the total power loss. 
+The temperature difference from the paste to the junction of a MOSFET depends on the power loss for one MOSFET, due to the thermal resistance of the heat sink that is common for all MOSFET's.
+There is also a parallel thermal resistance for each MOSFET from the paste to the junction.
 
-On figure \ref{fig:junctionTemp} is the relationship between the junction temperature of the MOSFETs and the number of MOSFETs in parallel showed. 
+On figure \ref{fig:junctionTemp} is the relationship between the junction temperature of the MOSFET's and the number of MOSFET's in parallel showed. 
 
     \begin{figure}[H]
 		\centering
@@ -258,4 +261,4 @@ On figure \ref{fig:junctionTemp} is the relationship between the junction temper
 		\label{fig:junctionTemp}
 	\end{figure}
 
-Based on figure \ref{fig:junctionTemp} it is decided to use two MOSFETs in parallel per switch. Because the Power board only got one layer, it is preferred to have as few MOSFETs as possible, to avoid making the layout of the Power board too complicated. From figure \ref{fig:junctionTemp} it can be seen that the junction temperature of the MOSFETs are going to be $118 \degree C$ which is a bit high, but considering it being the worst case, this is determined acceptable.
+Based on figure \ref{fig:junctionTemp} it is decided to use two MOSFET's in parallel per switch. Because the Power board only got one layer, it is preferred to have as few MOSFET's as possible, to avoid making the layout of the Power board too complicated. From figure \ref{fig:junctionTemp} it can be seen that the junction temperature of the MOSFET's are going to be $118 \degree C$ which is a bit high, but considering it being the worst case, this is determined acceptable.
