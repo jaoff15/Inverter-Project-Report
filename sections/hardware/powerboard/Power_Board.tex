@@ -21,8 +21,8 @@ It is known from the motor parameters in table \ref{Motor_parameters_list}, that
 
 Where $v_{rpm}$ is the rotational speed in $rpm$ and $P$ is the number of pole pairs in the motor.
 From equation \ref{eq:max_frequency} the maximum frequency of the electrical field is $333.3 Hz$.
-It is desired to have between 10 and 20 switch periods per period of the electrical field. 20 switch periods per electrical field period results in a switching frequency of $6666 Hz$. It is not necessary to switch faster than the $6666 Hz$, but it's decided to use a switching frequency of $10 kHz$. This choice gives the possibility of having smaller capacitors, a higher frequency would decrease the switching loss, but didn't seem necessary. 
-%This is done to make the use of smaller capacitors possible and because already so low frequency it is not a problem to increase it a bit. It is decided not to increase the switching frequency to more than $10 kHz$ to reducing the switching losses.
+It is desired to have between 10 and 20 switch periods per period of the electrical field. 20 switch periods per electrical field period results in a switching frequency of $6.67kHz$. It is not necessary to switch faster than the $6.67 kHz$, but it's decided to use a switching frequency of $10 kHz$. Choosing $10kHz$ over $6.67 kHz$ gives a bit higher switching loss but also results in the need for smaller capacitors. 
+
 
 
 \subsubsection{PCB selection}   \label{PCB_selection}
