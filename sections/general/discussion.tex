@@ -14,11 +14,12 @@ First the discussion will go through the possible problems with the hardware. Th
 
 
 \subsection{Components}
-\rework{Are there any problems with the component choice?}
-\rework{What would be something to look for in other components?}
-When it come to any component the correct one isn't picked on first try. The pick for the transistor and the gate driver, was the fourth suggestion and need to be picked in order to continue work on the PCB design. Since the construction and testing wasn't completed, more time could have been allocated, if an earlier decision had been made. \\
+% When it come to any component the correct one isn't picked on first try. The pick for the transistor and the gate driver, was the fourth suggestion and need to be picked in order to continue work on the PCB design. Since the construction and testing wasn't completed, more time could have been allocated, if an earlier decision had been made. \\
 
-To more precisely comment, a better way to compare the different components would have given a better result. Such a comparison could have been done in a Matlab script, that runs the choices through the same calculations, and puts out the important factors up against each others. \\
+% To more precisely comment, a better way to compare the different components would have given a better result. Such a comparison could have been done in a Matlab script, that runs the choices through the same calculations, and puts out the important factors up against each others. \\
+
+
+
 
 \subsection{Power board}
 % Placing bulk capacitors on the busbars is rather difficult without burning the caps and reflowing the whole assembly. It should be substituted with a more prototype-friendly solution. 
@@ -64,8 +65,10 @@ As can be seen in the end of section \ref{sec:pwm} where the PWM modules are tes
 \subsubsection{Minimizing the dead time in the PWM module}
 The dead time between the high-side and low-side PWM's are $\sim 53$ times longer than the turn off time of the transistors used. The dead time is mainly limited by the resolution of the internal counter in the PWM module. By increasing the counter limits to $1000$ instead of $100$ the resolution would become $10$ times higher. The dead time resolution would also become $10$ times higher which would bring the minimum dead time down to $400ns$ only $\sim 5.3$ times larger than necessary.
 
-\subsubsection{Quantifying the benefit from the linear interpolation}
-The linear interpolation do have compromises and it is difficult to quantify the expected benefit from having it. As shown in section \ref{sec:linear_interpolation} a more precise rotor angle can be achieved for speeds less than $1185RPM$ for moments with low to no acceleration or deceleration. The error caused by acceleration and deceleration is not analyzed, only a static simulation has been made. To precisely determine how big of an advantage or disadvantage the interpolation can have in a real scenario, the algorithm would need to be dynamically tested.
+\subsubsection{Linear interpolation}
+% The angle interpolation works to limit the encoder angle error for speeds under $1185RPM$ but speeds over $1185RPM$ the interpolation just follows the normal encoder angle error.
+
+The linear interpolation use a couple of assumptions and it is difficult to quantify the expected benefit from having it. As shown in section \ref{sec:linear_interpolation} a more precise rotor angle can be achieved for speeds less than $1185RPM$ for moments with low to no acceleration or deceleration. The error caused by acceleration and deceleration is not analyzed, only a static simulation has been made. To precisely determine how big of an advantage or disadvantage the interpolation can have in a real scenario, the algorithm would need to be dynamically tested.
 
 \subsubsection{Waste of block RAM}
 Section \ref{sec:com_pl_ps} describes how the communication of PWM thresholds are send from the processing system to the logic through a piece of block RAM. Only $0.08\%$ of the total block RAM is actually in use which is a terrible waste. The interface between the two systems should have been done using the AXI interface instead.

@@ -1,10 +1,9 @@
 \section{Abstract}
-% As a SDU semester project, needs a go karts it motor driver replaced. With a new inverter with its own regulation, that is control with an Zynq FPGA, that can controls the go karts own motor. An inverter design has been achieved with an Infineon "IPB017N10N5" MOSFET, that has it own gate driver from Silicon Labs "SI8261BAC-C-IS[7]". It was decided not to build the inverter, but design to mechanical construction has been made and documented. All this is controlled through a Xilinx Zybo FPGA, controls the various aspect need to regulate the motor. The code has been test and it's able to drive an Elcon PM5100, as a test motor........
-% \textit{ME1117 Brushless PMAC motor}
-The project goes through the steps needed to design a three-phase inverter with motor controller for an electric go kart. 
+The project goes through the steps needed to design a three-phase inverter with a build-in motor controller for an electric go kart.
 % The motor is a PMAC motor which have high torque and efficiency but the control is more complex than other motor types.
-The inverter is designed to run the \textit{ME1117 Brushless PMAC motor} at 4.5kW continuous and 14kW peak. The inverter hardware consist of four separate PCB's. A main interface board that was provided as material for the project, an analog interface board that handles the analog signals, a power board for each phase handling the high power components needed for each phase and a driver board for each phase driving the power transistors. 
+The inverter is designed to run the \textit{ME1117 Brushless PMAC motor} at 4.5kW continuous and 14kW peak. The inverter hardware consist of four separate PCB's. A main interface board that was provided as material for the project, an analog interface board that handles the analog signals, a power board on an aluminum PCB for each phase handling the four SMD MOSFET's for each leg and lastly the driver boards driving each power board. 
 
 The inverter is controlled by a Xilinx Zybo Zynq-7000 ARM/FPGA Training Board. The controller measures rotor angle, phase currents and torque pedal position and controls the motor with Field Orientated Control to output the requested torque. 
+At low speeds a more accurate rotor angle than the one out of the encoder is approximated with linear interpolation to make the motor run smoother.
 
 % In the end was construction not finished do to time constrains. That leaves the project without conclusive evidence that the project was a success. The project has further discussion going into depths of what factors could have been done differently.
