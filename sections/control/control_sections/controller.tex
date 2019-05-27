@@ -1,0 +1,21 @@
+\subsection{PI-controller}
+
+To set the PI-controller the transfer functions for the d- and q-direction is determined, with the voltages as input and the current as output. This is done based on the equations for the voltages in the d- and q-direction, equation \ref{eq:d_direction} and \ref{eq:q_direction}.
+Because a transfer function only can have one input and one output, the two equation, \ref{eq:d_direction} and \ref{eq:q_direction}, is shortened. The new equation can be seen in equation \ref{eq:d_direction3} and \ref{eq:q_direction3}.
+
+\begin{equation}
+    \label{eq:d_direction3}
+    v_d = L_d \frac{d i_d}{dt} + R_s i_d
+\end{equation}
+
+\begin{equation}
+    \label{eq:q_direction3}
+    v_q = L_q \frac{d i_q}{dt} + R_s i_q
+\end{equation}
+
+As seen in the two equations, \ref{eq:d_direction3} and \ref{eq:q_direction3}, the parts in the equations depending on other variables than the current is neglected. 
+This Laplace transformed and converted to the transfer functions for the two systems.
+
+\begin{equation}
+    \frac{I_d(s)}{V_d(s)} = \frac{ \frac{1}{ \frac{L_d}{R_s} } }{ \frac{R_s}{ \frac{L_d}{R_s} } + R_s s }
+\end{equation}

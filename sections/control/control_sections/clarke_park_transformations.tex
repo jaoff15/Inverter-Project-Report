@@ -1,11 +1,11 @@
 
-\subsection{Clarke and Park Transformations}
+\subsubsection{Clarke and Park Transformations}
 With Clarke and Park transformations it is possible to convert three rotating phase current into a static vector in a rotating frame. When controlling the motor, it makes it more simple to control a single vector in a rotating frame, rather that three rotating vectors.
 
 
 
 % ************************** Clarke Transformation ***********************************
-\subsubsection{Clarke Transformation}
+\paragraph{Clarke Transformation}
 The Clarke transformation converts three rotating phase currents to one rotating vector in the alpha-beta frame. The Clarke transformation is performed by using the two equations \ref{eq:clarke_transformation}.
 
 \begin{equation}
@@ -39,7 +39,7 @@ It can also be written in matrix form as in equation \ref{eq:CtransMatrix}.
 
 
 % ************************** Park Transformation ***********************************
-\subsubsection{Park Transform}
+\paragraph{Park Transform}
 To convert the one rotating vector in the alpha-beta frame to a static vector in the rotating dp-frame, the Park transformation is used. The park transformation is performed with equation \ref{eq:park_transformation}.
 
 \begin{equation}
@@ -76,8 +76,8 @@ The Park transformation can be seen on matrix form in equation \ref{eq:PtransMat
 
 
 % ************************** Inverse Park Transformation ***********************************
-\subsubsection{Inverse Park Transform}
-With the inverse Park transformation a static vector in a rotating dq-frame can be converted back into a rotating vector in a alpha-beta frame. This is done with equation \ref{eq:inverse_park_transformation}.
+\paragraph{Inverse Park Transform}
+With the inverse Park transformation a static vector in a rotating dq-frame can be converted back into a rotating vector in a alpha-beta frame and can be done with equation \ref{eq:inverse_park_transformation}.
 
 
 \begin{equation}
@@ -107,7 +107,7 @@ Equation \ref{eq:invPtransMatrix} is the inverse Park transformation in matrix f
     \label{eq:invPtransMatrix}
 \end{equation}
 % ************************** Inverse Clarke Transformation ***********************************
-\subsubsection{Inverse Clarke Transform}
+\paragraph{Inverse Clarke Transform}
 The inverse Clarke transformation converts a rotating vector in the alpha-beta frame into three phase signals. The equation for this transformation is equation \ref{eq:inverse_clarke_transformation}.
 
 \begin{equation}

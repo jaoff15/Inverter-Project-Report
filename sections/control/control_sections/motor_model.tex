@@ -1,8 +1,8 @@
 \subsection{Motor model}
-A model of the motor needs to made for the system model. The motor is a PMSM,  which means that it is driven by three phase currents. To simplify the model, the equivalent circuit for the d- and q-direction is drawn, and a model is made, based on those. In that way the PMSM can be controlled like an DC-machine.
+A model of the motor needs to be made for the system model. The motor is a PMSM,  which means that it is driven by three phase currents. To simplify the model, the equivalent circuit for the d- and q-directions are drawn, and a model is made, based on those. In that way the PMSM can be controlled like an DC-machine.
 
-\subsubsection{d-direction}
-The equivalent circuit for the d-direction voltage $v_d$ of the PMSM is shown on figure \ref{fig:vd}
+\subsubsection{Motor model in the d-direction}
+The equivalent circuit for the d-direction voltage $v_d$ of the PMSM is shown on figure \ref{fig:vd}.
 
 \begin{figure}[H]
 	\centering
@@ -12,7 +12,7 @@ The equivalent circuit for the d-direction voltage $v_d$ of the PMSM is shown on
 \end{figure}
 
 
-From the equivalent diagram the d-direction voltage can be described as in equation \ref{eq:d_direction}
+From the equivalent diagram the d-direction voltage can be described as in equation \ref{eq:d_direction}.
 
 \begin{equation}
     \label{eq:d_direction}
@@ -23,9 +23,9 @@ From the equivalent diagram the d-direction voltage can be described as in equat
 % v_{d} = \frac{d \varphi_{rq}}{dt} + R_s i_d - \omega \varphi_{rq}
 % \end{equation}
 
-$L_d$ and $L_q$ are respectively the d- and q-direction equivalent stator inductance for the motor, $i_d$ and $i_q$ are respectively the d- an q-direction current,$R_s$ is the stator resistance for the motor, and $\omega$ is the rotational speed of the rotor.
+$L_d$ and $L_q$ are respectively the d- and q-direction equivalent stator inductances for the motor, $i_d$ and $i_q$ are respectively the d- an q-direction currents, $R_s$ is the stator resistance for the motor, and $\omega$ is the rotational speed of the rotor.
 
-If $i_d$ from the $L_d \frac{di_d}{dt}$ -part is isolated and Laplace transformed it result in equation \ref{eq:d_direction}.
+If $i_d$ from the $L_d \frac{di_d}{dt}$ part is isolated and Laplace transformed it result in equation \ref{eq:d_direction}.
 
 \begin{equation}
     \label{eq:d_direction2}
@@ -43,8 +43,8 @@ From equation \ref{eq:d_direction2} the model of the d-direction of the motor is
 
 
 
-\subsubsection{q-direction}
-The equivalent circuit for the q-direction voltage $v_q$ is shown on figure \ref{fig:vq}
+\subsubsection{Motor model in the q-direction}
+The equivalent circuit for the q-direction voltage $v_q$ is shown on figure \ref{fig:vq}.
 
 \begin{figure}[H]
 	\centering
@@ -68,7 +68,7 @@ The voltage in the q-direction can be described from equation \ref{eq:q_directio
 
 $\lambda_m$ is the flux linkage.
 
-The $i_q$ from the $L_q \frac{di_q}{dt}$ -part is isolated and Laplace transformed. This results in equation \ref{eq:d_direction}.
+The $i_q$ from the $L_q \frac{di_q}{dt}$ part is isolated and Laplace transformed. This results in equation \ref{eq:d_direction}.
 
 \begin{equation}
     \label{eq:q_direction2}

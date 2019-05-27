@@ -1,15 +1,11 @@
 \subsubsection{Controller}
-
+\label{sec:embedded_control}
 The PI-controller is implemented in \textit{c} on the processing system in a object orientated way where each of the two controllers are defined together with their gains. When the system is booted up the controllers are initialized with the values and prepared for usage. The code for this can be seen in code sample \ref{code:pi_controller1}.
 
 \begin{lstlisting}[style=c, caption=Initialization of PI-controller., label=code:pi_controller1]
 /* Declare controllers */
-Controller cQ;
-Controller cD;
-f32 kpQ = 1;
-f32 kiQ = 1;
-f32 kpD = 1;
-f32 kiD = 1;
+Controller cQ, cD;
+static f32 kpQ = 1, kiQ = 1, kpD = 1, kiD = 1;
 
 void initControllers(){
     /* Initialize controllers with gains */

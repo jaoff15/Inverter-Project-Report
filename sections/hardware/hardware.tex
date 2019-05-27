@@ -1,7 +1,9 @@
 \section{Hardware}
 \label{sec:hardware}
+This section of the report will focus on the electrical hardware of the motor driver. What components goes into a driver like this, what all ready existing hardware must be considered when designing. Further more each part of inverter will be explained individually, starting from what motor kind needs that is being worked with, the interface board and the encoder which is static and wont be redesigned or replaced. Going in depth with the 3 different boards needed designing analog, power and driver board, what kind of transistors and gate drives are needed in order to drive the motor, and what kind of losses are present, with a look at the heat dissipation. With the end being about, how the physical construction of the inverter would like.
 
-\subsection{Motor}
+
+\subsection{Motor specifications}
 The motor used in the go kart is a \textit{Motenergy ME1117 PMAC Motor}. Its parameters can be seen in table \ref{Motor_parameters_list}. 
 
 \begin{table} [H]
@@ -26,6 +28,13 @@ The motor used in the go kart is a \textit{Motenergy ME1117 PMAC Motor}. Its par
 
 
 \subsection{Main interface board}
+Part of the material provided to start the project is the main interface board. The board contains a range of smaller circuits and acts as the interface between the hardware and the embedded controller. 
+
+The circuits include a pre-charge circuit, high motor temperature detection circuit, battery voltage measurement circuit, relay control, encoder interface, interface to buttons and switches and some voltage references and supplies. 
+
+The section contains a short introduction to the encoder interface, all other modules will be references when they are used.
+
+
 
 \subsubsection{Encoder}
 

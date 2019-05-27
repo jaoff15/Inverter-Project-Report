@@ -48,16 +48,18 @@ The rotor position is returned as an 8 bit value from the encoder module, and be
     \label{eq:angle_mapping}
 \end{equation}
 
+The code for reading in the encoder angle can be found in appendix \ref{app:readRotorAngle}.
 
 
-\begin{lstlisting}[style=c, caption=Function to read an angle from the encoder. The angle is returned in degrees., label=code:encoder_angle_function]
-f32 getRotorAngle(){
-    u8 position = RM28MD_POSITION & 0x000000FF;     // Only the first byte is valid
-    f32 angle   = 359/255 * position;       	      // Map position (0->255) to 
-                                                    // angle (0->359)
-    return angle;                                   // Return angle
-}
-\end{lstlisting}
+% \begin{lstlisting}[style=c, caption=Function to read an angle from the encoder. The angle is returned in degrees., label=code:encoder_angle_function]
+% /* Read the rotor angle */
+% f32 getRotorAngle(){
+%     u8 position = RM28MD_POSITION & 0x000000FF;     // Only the first byte is valid
+%     f32 angle   = 359/255 * position;       	      // Map position (0->255) to 
+%                                                     // angle (0->359)
+%     return angle;                                   // Return angle
+% }
+% \end{lstlisting}
 
 
 \paragraph{Improve angle accuracy with linear interpolation}
@@ -167,6 +169,7 @@ Line $17$ to $29$ handle the actual running algorithm. The sample counter is inc
 The step width is calculated as well as the step size which results in all the variable ready to calculate the interpolated angle on line $28$ as per equation \ref{eq:linear_interpolation}.
 
 \begin{lstlisting}[style=c, caption=Interpolation algorithm implemented on the embedded system., label=code:interpolation_algorithm]
+/* Linear Interpolation Algorithm */
 f32 interpolateAngle(f32 angle){
 	time++;								                 // Keep track of time
 	f32 angleInterpolated = angle;		     // Default value of angle
@@ -200,7 +203,7 @@ f32 interpolateAngle(f32 angle){
 }
 \end{lstlisting}
 
-To measure the improvement of the interpolated angle compared to the encoder angle a sweep of the motor speed from 1RPM to 5000RPM has been performed. The sweep was done with the algorithm implemented in Matlab. The results are shown on figure \ref{fig:interpolation_error}. The interpolated error is smaller for speeds less than $1185RPM$ otherwise the interpolation error is the same as the general error.
+To measure the improvement of the interpolated angle compared to the encoder angle a sweep of the motor speed from 1RPM to 5000RPM has been performed. The sweep was done with the algorithm implemented in Matlab and the error between the interpolated angle and the actual angle calculated. The results are shown on figure \ref{fig:interpolation_error}. The interpolated error is smaller for speeds less than $1185RPM$ otherwise the interpolation error is the same as the general error.
 
 
 \begin{figure}[H]

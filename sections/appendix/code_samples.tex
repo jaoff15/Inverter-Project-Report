@@ -4,7 +4,7 @@ The appendix contains code samples from various important and interesting sectio
 
 % ************************** Clarke Transformation ***********************************
 \subsection{Clarke / Park Transformations}
-\subsubsection{Clarke Transformation}
+\subsubsection*{Clarke Transformation}
 \label{app:clark}
 The embedded implementation of the Clarke Transformation.
 
@@ -17,7 +17,7 @@ void clarke(f32 *iAlpha, f32 *iBeta, f32 iA, f32 iB, f32 iC){
 \end{lstlisting}
 
 % ************************** Park Transformation ***********************************
-\subsubsection{Park Transformation}
+\subsubsection*{Park Transformation}
 \label{app:park}
 The embedded implementation of the Park Transformation.
 \begin{lstlisting}[style=c, caption=Embedded Park Transformation., label=app:code:park]
@@ -32,7 +32,7 @@ void park(f32 *iD, f32 *iQ, f32 iAlpha, f32 iBeta, f32 angle){
 
 
 % ************************** Inverse Park Transformation ***********************************
-\subsubsection{Inverse Park Transformation}
+\subsubsection*{Inverse Park Transformation}
 \label{app:inverse_park}
 The embedded implementation of the Inverse Park Transformation.
 
@@ -49,7 +49,7 @@ void invPark(f32 *iAlpha, f32 *iBeta, f32 iD, f32 iQ, f32 angle){
 
 
 % ************************** Inverse Clarke Transformation ***********************************
-\subsubsection{Inverse Clarke Transformation}
+\subsubsection*{Inverse Clarke Transformation}
 \label{app:inverse_clarke}
 The embedded implementation of the Inverse Clarke Transformation.
 
@@ -59,5 +59,107 @@ void invClarke(f32 *iA, f32 *iB, f32 *iC, f32 iAlpha, f32 iBeta){
 	*iA = iAlpha;
 	*iB = -HALF * iAlpha + SQRT_THREE_OVER_TWO * iBeta;
 	*iC = -HALF * iAlpha - SQRT_THREE_OVER_TWO * iBeta;
+}
+\end{lstlisting}
+
+
+\subsection{Encoder}
+\subsubsection{Read rotor angle}
+The code in to read out a rotor position and convert it to degrees.
+\label{app:readRotorAngle}
+\begin{lstlisting}[style=c, caption=Function to read an angle from the encoder. The angle is returned in degrees. label=app:code:getRotorAngle]
+/* Read the rotor angle */
+f32 getRotorAngle(){
+    u8 position = RM28MD_POSITION & 0x000000FF;     // Only the first byte is valid
+    f32 angle   = 359/255 * position;       	      // Map position (0->255) to 
+                                                    // angle (0->359)
+    return angle;                                   // Return angle
+}
+\end{lstlisting}
+
+\subsubsection{Linear Interpolation}
+The linear interpolation algorithm as discussed in section \ref{sec:linear_interpolation}. The algorithm takes in low resolution encoder angles and depending on the time between encoder angle changes the readings are used to approximate a more accurate angle.
+\begin{lstlisting}[style=c, caption=Implemetation of angle intepolation algorithm., label=app:code:interpolateAngle]
+/* Linear Interpolation Algorithm */
+f32 interpolateAngle(f32 angle){
+	time++;								                 // Keep track of time
+	f32 angleInterpolated = angle;		     // Default value of angle
+	/* First time used */
+	if(t1 == 0){
+		t1 = time;						               // Update time of t1
+		t1v = angle;					               // Update angle of t1
+	}
+	/* If t2 has not been updated for the first time yet */
+	if(t2 == 0){
+		if(angle != t1v){				             // Check if first step happens
+			t2 = time;					               // If so update time for t2
+			t2v = angle;				               // Update angle of t2
+		}
+	}
+	/* For all other steps than the first two */
+	if(t1 != 0 && t2 != 0){				         // Do the actual interpolation
+		nSamples++;						               // Keep track of samples on current step
+		if(angle != t2v){				             // If new step happens
+			t1 = t2;					                 // Move t2 to t1
+			t1v = t2v;					               // Update value of t1
+			t2 = time;					               // Update t2 to current time
+			t2v = angle;				               // Update value of t2 to current angle
+			nSamples = 0;				               // Reset number of samples on step
+		}
+ 		u32 nStep = t2 - t1;				         // Get time on last step (approximation)
+		f32 angleStep = t2v-t1v;	           // Get angle step
+		angleInterpolated = nSamples/nStep * angleStep + angle; // Calculate new angle
+	}
+	return angleInterpolated;			         // Return new angle
+}
+\end{lstlisting}
+
+\newpage
+\subsection{Control}
+\subsubsection{PI Controller}
+The code for determining the next output value of the PI controller. The function takes in a controller, a target value and an input. It then calculates the controller output from its gains and integrator. The function includes integrator windup limitation. The section discussing the controller can be found in section \ref{sec:embedded_control}.
+\begin{lstlisting}[style=c, caption=Implementation of the embedded PI controller., label=app:code:sineAndCosine]
+/* Function to get the next output of a controller with a new input */
+f32 getOutput(Controller *c, f32 target, f32 input){
+	f32 error = target - input;                         // Calculate error
+	
+	// Collect controller data
+	const f32 kp  = getKp(c);
+	const f32 ki  = getKi(c);
+	addToIntegrator(c, error);
+	const f32 integrator = getIntegrator(c);
+
+	f32 output =  (kp * error) + (ki * integrator);     // Calculate new output
+	
+	// Anti integrator windup. Limit the output to within set limits
+	if(output > MAX_OUTPUT){                            // Check upper limit
+		output = MAX_OUTPUT;                              // Limit output
+	}
+	if(output < MIN_OUTPUT){                            // Check lower limit
+		output = MIN_OUTPUT;                              // Limit output
+	}	
+	return output;                                      // Return new output
+}
+\end{lstlisting}
+
+
+\subsubsection{Sine and Cosine}
+\label{app:sineCosine}
+The implemented version of sine and cosine. The two functions are implemented with the help of a look-up table. The section discussing these can be found in section \ref{sec:sine_cosine}.
+\begin{lstlisting}[style=c, caption=Sine and cosine implemented with look-up tables., label=app:code:sineAndCosine]
+/* Sine lookup table */
+#define SIN_N 		360	 // Number of data points in the sine constant array
+const f32 sineValues[] = {0,0.0174524064372835,0.0348994967025010,...};
+
+/* Function that returns sin(angle) */
+f32 fastSin(f32 angle){
+	unsigned int index = (unsigned int)angle;       // Truncate decimals
+	return (f32)sineValues[index % SIN_N];      // 
+}	
+
+/* Function that returns cos(angle) */
+f32 fastCos(f32 angle){
+	f32 newAngle = (f32)((int)(angle + 90) % (int)360);
+	return (f32)fastSin(newAngle);
 }
 \end{lstlisting}

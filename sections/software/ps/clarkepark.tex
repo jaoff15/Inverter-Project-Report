@@ -47,22 +47,22 @@ The largest error is where the sine/cosine has the largest slope, and this is wh
 	\label{fig:sinus_lookup_error}
 \end{figure}
 
+The code to perform the sine and cosine can be found in appendix \ref{app:sineCosine}.
 
+% \begin{lstlisting}[style=c, caption=Sine and cosine implemented with look-up tables., label=code:lookup_table]
+% /* Sine lookup table */
+% #define SIN_N 		360	 // Number of data points in the sine constant array
+% const f32 sineValues[] = {0,0.0174524064372835,0.0348994967025010,...};
 
-\begin{lstlisting}[style=c, caption=Sine and cosine implemented with look-up tables., label=code:lookup_table]
-/* Sine lookup table */
-#define SIN_N 		360	 // Number of data points in the sine constant array
-const f32 sineValues[] = {0,0.0174524064372835,0.0348994967025010,...};
+% /* Function that returns sin(angle) */
+% f32 fastSin(f32 angle){
+% 	unsigned int index = (unsigned int)angle;       // Truncate decimals
+% 	return (f32)sineValues[index % SIN_N];      // 
+% }	
 
-/* Function that returns sin(angle) */
-f32 fastSin(f32 angle){
-	unsigned int index = (unsigned int)angle;       // Truncate decimals
-	return (f32)sineValues[index % SIN_N];      // 
-}	
-
-/* Function that returns cos(angle) */
-f32 fastCos(f32 angle){
-	f32 newAngle = (f32)((int)(angle + 90) % (int)360);
-	return (f32)fastSin(newAngle);
-}
-\end{lstlisting}
+% /* Function that returns cos(angle) */
+% f32 fastCos(f32 angle){
+% 	f32 newAngle = (f32)((int)(angle + 90) % (int)360);
+% 	return (f32)fastSin(newAngle);
+% }
+% \end{lstlisting}

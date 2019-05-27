@@ -49,6 +49,20 @@
 \fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
 \pagestyle{fancy}
 
+% Huge page
+\usepackage{pdfpages}
+\newenvironment{hugepage}%
+ {\clearpage
+  %\changepage{297mm}{420mm}{25mm}{25mm}{5mm}{}{}{}{}} % switch to A3
+  \changepage{}{210mm}{}{}{}{}{}{}{}}
+ {\addtocounter{page}{-0} % decrement "page" counter variable by 1
+  \clearpage
+  \changepage{160mm}{247mm}{25mm}{25mm}{}{}{}{}{}} % back to A4
+\usepackage{afterpage}
+\usepackage{changepage}
+
+
+
 % Import 'subsubsubsection' as 'paragraph'
 \usepackage{titlesec}
 \setcounter{secnumdepth}{4}
