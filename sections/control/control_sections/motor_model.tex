@@ -1,5 +1,5 @@
 \subsection{Motor model}
-A model of the motor needs to be made for the system model. The motor is a PMSM,  which means that it is driven by three phase currents. To simplify the model, the equivalent circuit for the d- and q-directions are drawn, and a model is made, based on those. In that way the PMSM can be controlled like an DC-machine.
+A model of the motor needs to be made for the system model. The motor is a PMSM,  which means it is driven by three phase currents. To simplify the model, the equivalent circuit for the d- and q-directions are drawn, and a model is made, based on these. In that way the PMSM can be controlled like an DC-machine.
 
 \subsubsection{Motor model in the d-direction}
 The equivalent circuit for the d-direction voltage $v_d$ of the PMSM is shown on figure \ref{fig:vd}.
@@ -7,7 +7,7 @@ The equivalent circuit for the d-direction voltage $v_d$ of the PMSM is shown on
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{pictures/control/vd}
-	\caption{D-dierection equivalent circuit for the PMSM}
+	\caption{D-dierection equivalent circuit for the PMSM.}
 	\label{fig:vd}
 \end{figure}
 
@@ -25,7 +25,7 @@ From the equivalent diagram the d-direction voltage can be described as in equat
 
 $L_d$ and $L_q$ are respectively the d- and q-direction equivalent stator inductances for the motor, $i_d$ and $i_q$ are respectively the d- an q-direction currents, $R_s$ is the stator resistance for the motor, and $\omega$ is the rotational speed of the rotor.
 
-If $i_d$ from the $L_d \frac{di_d}{dt}$ part is isolated and Laplace transformed it result in equation \ref{eq:d_direction}.
+If $i_d$ from the $L_d \frac{di_d}{dt}$ part is isolated and Laplace transformed it result in equation \ref{eq:d_direction2}.
 
 \begin{equation}
     \label{eq:d_direction2}
@@ -36,8 +36,8 @@ From equation \ref{eq:d_direction2} the model of the d-direction of the motor is
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{pictures/control/simulink_d_direction.PNG}
-	\caption{Simulink model of the d-direction of the motor model}
+	\includegraphics[width=1\linewidth]{pictures/control/simulink_d_direction.PNG}
+	\caption{Simulink model of the d-direction of the motor model.}
 	\label{fig:simulink_d_direction}
 \end{figure}
 
@@ -49,7 +49,7 @@ The equivalent circuit for the q-direction voltage $v_q$ is shown on figure \ref
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{pictures/control/vq.png}
-	\caption{Q-direction equivalent circuit for the PMSM}
+	\caption{Q-direction equivalent circuit for the PMSM.}
 	\label{fig:vq}
 \end{figure}
 
@@ -68,7 +68,7 @@ The voltage in the q-direction can be described from equation \ref{eq:q_directio
 
 $\lambda_m$ is the flux linkage.
 
-The $i_q$ from the $L_q \frac{di_q}{dt}$ part is isolated and Laplace transformed. This results in equation \ref{eq:d_direction}.
+The $i_q$ from the $L_q \frac{di_q}{dt}$ part is isolated and Laplace transformed which results in equation \ref{eq:q_direction2}.
 
 \begin{equation}
     \label{eq:q_direction2}
@@ -79,8 +79,8 @@ From equation \ref{eq:q_direction2} the q-direction model can be produced. The m
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{pictures/control/simulink_q_direction.PNG}
-	\caption{Simulink model of the q-direction of the motor model}
+	\includegraphics[width=0.95\linewidth]{pictures/control/simulink_q_direction.PNG}
+	\caption{Simulink model of the q-direction of the motor model.}
 	\label{fig:simulink_q_direction}
 \end{figure}
 
@@ -97,7 +97,7 @@ Where $P$ is the number of pole pairs.
 
 Because $L_q$ is higher than $L_d$, it can be seen from equation \ref{eq:torque_equation} the current running in the d-direction produces negative torque and is therefore reducing the output torque. 
 
-The total torque at shaft of the motor, will be the sum of the torque the electrical field produces, the torque produces by the friction in the motor, and a possible external load torque. The total torque can be set equal to the inertia of the system multiplied with the acceleration. As seen in equation \ref{eq:total_torque}.
+The total torque at the shaft of the motor, will be the sum of the torque that the electrical field produces, the torque produced by the friction in the motor, and maybe an external load torque. The total torque can be set equal to the inertia of the system multiplied with the acceleration. As seen in equation \ref{eq:total_torque}.
 
 \begin{equation}
     \label{eq:total_torque}
@@ -105,30 +105,30 @@ The total torque at shaft of the motor, will be the sum of the torque the electr
 \end{equation}
 
 $J$ is the inertia, $B$ is the friction coefficient, and $T_{load}$ is the torque from the external load.
-Equation \ref{eq:total_torque} is rewritten and combined with equation \ref{eq:torque_equation} to a equation for the rotational speed. This is Laplace transformed, and the result is equation \ref{eq:omega}.
+Equation \ref{eq:total_torque} is rewritten and combined with equation \ref{eq:torque_equation} to a equation for the rotational speed. The resulting equation is Laplace transformed, and the result is equation \ref{eq:omega}.
 
 \begin{equation}
     \label{eq:omega}
     \omega = \frac{1}{S} \frac{1}{J} \bigg( \frac{3P}{2} \big( \lambda_m I_q + (L_d - L_q) I_q I_d \big) - B\omega - T_{load} \bigg)
 \end{equation}
 
-From equation \ref{eq:omega} can a model with the torque, rotational speed, and the angle of the motor as output, and the d- and q-current as inputs. This model can be seen on figure \ref{fig:torque}.
+From equation \ref{eq:omega} a model can be created with the torque, rotational speed, the angle of the motor as output, and the d- and q-current as inputs. The model can be seen on figure \ref{fig:torque_model}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{pictures/control/torque.PNG}
-	\caption{Simulink model of the motor with torque, rotational speed and the position of the rotor as output and the the d- and q-current as input}
-	\label{fig:torque}
+	\caption{Simulink model of the motor with torque, rotational speed and the position of the rotor as output and the the d- and q-current as input.}
+	\label{fig:torque_model}
 \end{figure}
 
 \subsubsection{Complete motor model}
-The three models, for the d-direction, the q-direction and the mechanical part, are put into subsystems and connected. This can be seen on figure \ref{fig:motor}
+The three models, for the d-direction, the q-direction and the mechanical part, are put into subsystems and connected as can be seen on figure \ref{fig:motor}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{pictures/control/motor_model.PNG}
-	\caption{Simulink model of the full motor model}
+	\caption{Simulink model of the full motor model.}
 	\label{fig:motor}
 \end{figure}
 
-Because the motor model is in the dq-frame, the three rotational phases voltages is converted to the dq-frame in the beginning of the model. The model outputs the d- and q-current, the torque, speed and angle of the motor. The rotational speed outputted from the motor model is the mechanical speed, and is therefore converted to the electrical speed before it is inputted to the d- and q-models. 
+The motor model is in the dq-frame which means the three rotational phases voltages are converted to the dq-frame in the beginning of the model. The model outputs the d- and q-current, the torque, speed and angle of the motor. The rotational speed out of the motor model is the mechanical speed, and is therefore converted to the electrical speed before it is put into to the d- and q-models. 

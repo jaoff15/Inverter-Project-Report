@@ -1,7 +1,7 @@
 \subsection{PI-controller}
 
-To set the PI-controller the transfer functions for the d- and q-direction is determined, with the voltages as input and the current as output. This is done based on the equations for the voltages in the d- and q-direction, equation \ref{eq:d_direction} and \ref{eq:q_direction}.
-Because a transfer function only can have one input and one output, the two equation, \ref{eq:d_direction} and \ref{eq:q_direction}, is shortened. The new equation can be seen in equation \ref{eq:d_direction3} and \ref{eq:q_direction3}.
+To set the PI-controller the transfer functions for the d- and q-direction is determined, with the voltages as input and the currents as output. This is done based on the equations for the voltages in the d- and q-direction, equation \ref{eq:d_direction} and \ref{eq:q_direction}.
+A transfer function can only have one input and one output and therefore the two equations, \ref{eq:d_direction} and \ref{eq:q_direction}, are shortened. The new equations can be seen in equation \ref{eq:d_direction3} and \ref{eq:q_direction3}.
 
 \begin{equation}
     \label{eq:d_direction3}
@@ -14,7 +14,7 @@ Because a transfer function only can have one input and one output, the two equa
 \end{equation}
 
 As seen in the two equations, \ref{eq:d_direction3} and \ref{eq:q_direction3}, the parts in the equations depending on other variables than the current is neglected. 
-The equations is Laplace transformed and converted to the transfer functions for the two systems.
+The equations are Laplace transformed and converted to the transfer functions for the two systems.
 
 \begin{equation}
     \label{eq:transfer_d}
@@ -26,15 +26,15 @@ The equations is Laplace transformed and converted to the transfer functions for
     G_q = \frac{I_q(s)}{V_q(s)} = \frac{ \frac{1}{ \frac{L_q}{R_s} } }{ R_s \bigg(\frac{1}{ \frac{L_q}{R_s} } + s \bigg) }
 \end{equation}
 
-Equation \ref{eq:transfer_d} and \ref{eq:transfer_q} is the transfer functions for the motor.
+Equation \ref{eq:transfer_d} and \ref{eq:transfer_q} are the transfer functions for the motor.
 
-To set the PI-controller the cut off frequency is determined. The cut off frequency, $\omega_{cutoff}$, is determined from the time constant of the motor.
+To set the PI-controller the cutoff frequency is determined. The cutoff frequency, $\omega_{cutoff}$, is found from the time constant of the motor.
 
 \begin{equation}
     \omega_{cutoff} = \frac{1}{\tau}
 \end{equation}
 
-$\tau$ is the time constant of motor. The time constant of the motor in the d- and q-direction is described in equation \ref{eq:tau}.
+Where $\tau$ is the time constant of motor. The time constant of the motor in the d- and q-direction is described in equation \ref{eq:tau}.
 
 \begin{equation}
     \label{eq:tau}
@@ -43,11 +43,11 @@ $\tau$ is the time constant of motor. The time constant of the motor in the d- a
     \tau_q = \frac{L_q}{R_s}
 \end{equation}
 
-From the cut off frequency the cross over frequency is determined.
+From the cut off frequency the crossover frequency is determined.
 
 \begin{equation}
     \label{eq:crossover}
-     \omega_c = k_1 \omega_{cutoff}
+     \omega_c = k_1 \cdot \omega_{cutoff}
 \end{equation}
 
 Where $k_1$ is a constant which can be changed when tuning the controller.
@@ -65,7 +65,7 @@ The proportional part of the PI-controller is then found from the gain margin, $
     K_p = \frac{1}{GM} 
 \end{equation}
 
-The $k_1$ is tuned, so that the system gets a phase margin around $70 \degree$. $70 \degree$ phase margin is desired because it results in the fastest response without given any overshoot. At this requirements the $K_p$ is found to be $0.78 \cdot 10^{-3}$ for the d-direction and $0.83 \cdot 10^{-3}$ for the q-direction. The phase margin is $74.1$ for the d-direction and $72.3$ for the q-direction.
+The $k_1$ is tuned, so that the system gets a phase margin around $70 \degree$. This amount of phase margin is desired because it results in the fastest response without given any overshoot. From this requirement the $K_p$ is found to be $0.78 \cdot 10^{-3}$ for the d-direction and $0.83 \cdot 10^{-3}$ for the q-direction. The phase margin is $74.1$ for the d-direction and $72.3$ for the q-direction.
 A step response for the PI-controller on the motor can be seen figure \ref{fig:step}.
 
 \begin{figure}[H]
