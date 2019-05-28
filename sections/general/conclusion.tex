@@ -7,7 +7,7 @@ The three-phase inverter was designed with the requirements of an electric go-ka
 
 As price was the primary concern the smallest possible PCB area was desirable which brought other trade-offs. 
 To minimize the size of the power and driver boards and in turn improve the overall modularity, the PCB's were made to only handle one phase and three boards were then used to handle the three-phases.
-For power board an aluminum PCB was used to have a high heat conductivity which allows for the use of SMD MOSFET's as the high power transistors. The driver board was build to be mounted directly on top of the power board to minimize driver signal path lengths and stray inductances.
+For power board an aluminum PCB was used to have a high heat conductivity which allows for the use of SMD MOSFET's as the high power transistors. The driver board was build to be mounted directly on top of the power board to minimize driver signal path lengths and parasitic inductances.
 
 The motor is controlled on the Zynq with a PI controller in a field orientated way. Each phase is controlled with a dual PWM module with deadtime between the two PWM signals implemented in the FPGA.
 The angle out of the encoder has a low resolution so a more accurate angle is approximated at low speeds with the use of a linear interpolation algorithm. 

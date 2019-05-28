@@ -167,6 +167,7 @@ Line $10$ to $15$ handles the interpolation until the right edge of $n_{step}$ i
 Line $17$ to $29$ handle the actual running algorithm. The sample counter is incremented. If a new step is reached the left edge is set the the last right edge, $t\textunderscore 1 = t\textunderscore 2$, and the new right edge is updated, $t\textunderscore 2 = angle$.
 
 The step width is calculated as well as the step size which results in all the variable ready to calculate the interpolated angle on line $28$ as per equation \ref{eq:linear_interpolation}.
+\newpage
 
 \begin{lstlisting}[style=c, caption=Interpolation algorithm implemented on the embedded system., label=code:interpolation_algorithm]
 /* Linear Interpolation Algorithm */

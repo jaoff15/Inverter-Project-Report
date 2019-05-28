@@ -2,16 +2,13 @@
 
 To measure the phase currents once per PWM cycle and also the torque reference from the torque pedal an ADC is used. The Zynq has two 12 bit ADC's which enables it to sample two signals simultaneously. It is important to sample the phase currents at the same time to avoid distortion by having a small time delay between current samples. 
 
-Due to the symmetry between the three phases only two of the phases needs to be measured and the last can be caltulated with equation \ref{eq:third_phase}.
-\begin{equation}
-    I_C = -(I_A + I_B)
-    \label{eq:third_phase}
-\end{equation}
+Due to the symmetry between the three phases only two of the phases needs to be measured and the last can be calculated with: $I_C = -(I_A + I_B)$.
 The calculation of the last phase is done in the processing system.
 
 To control the ADC the IP block \textit{XADC} is used which can be seen on figure \ref{fig:adc_module}. 
 
 \begin{figure}[H]
+    \vspace{-0.5cm}
 	\centering
 	\includegraphics[width=0.35\textwidth]{pictures/software/adc.png}
 	\caption{IP core to handle the two ADC in the Zynq.}
@@ -23,6 +20,7 @@ The block is configured to be triggered by an external signal which is connected
 While the phase currents are measured the torque pedal position is also measured. When all signals are measured the signal end-of-sequence, \textit{eos\textunderscore out}, outputs a pulse. The \textit{eos} signal is used to trigger the interrupt on the processing system as can be seen on figure \ref{fig:adc_block_diagram}.
 
 \begin{figure}[H]
+    \vspace{-0.5cm}
 	\centering
 	\includegraphics[width=0.5\textwidth]{pictures/software/adc_block_diagram.png}
 	\caption{Function diagram showing the signals in and out of the ADC module.}

@@ -1,14 +1,14 @@
 \subsubsection{PWM module}
 \label{sec:pwm}
 Each phase of the inverter is controlled by a PWM signal for the high-side and low-side of each leg.
-
-The module shown on figure \ref{fig:pwm_module} is made to control a whole leg. Three instances of the module can be used to control all three phases.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5 \textwidth]{pictures/software/pwm_module.png}
 	\caption{The PWM module made to control both high-side and low-side transistors of a leg in the inverter.}
 	\label{fig:pwm_module}
 \end{figure}
+The module shown on figure \ref{fig:pwm_module} is made to control a whole leg. Three instances of the module can be used to control all three phases.
+
 The module takes in a clock signal and a target duty cycle. The module then output two PWM signals inverse of each other and two pulse signals each sending out a pulse in the middle of their respective PWM signal.
 
 
@@ -25,8 +25,6 @@ A counter is used for implementing the PWM. For every rising edge of the input c
 The resolution of the PWM duty cycle is chosen to be $1\%$ which means the counter takes $100$ steps from minimum to maximum. The PWM is made as a phase correct PWM which means it will have the same phase no matter the duty cycle. Therefore the counter counts both up and down per period which results in $200$ steps per period. 
 
 The signal out of the PWM generator should be the same frequency as the inverter components are designed for in the earlier sections which is $10kHz$. The input clock is already prescaling the output frequency by the number of counter steps but this is not enough and therefore in order for the PWM to have the correct frequency an additional prescaler is added. The prescaler value is found with equation \ref{eq:additional_prescaler}.
-
-The prescaler is constructed with a counter counting up a value, $x$. When the value is reached the output clock is flipped and the counter is reset. Such a prescaler has a build in prescaling of 2 which is added besides the additional prescaler leading to equation \ref{eq:additional_prescaler1}.
 
 
 
@@ -49,6 +47,8 @@ The prescaler is constructed with a counter counting up a value, $x$. When the v
     \end{align}
 \end{subequations}
 
+The prescaler is constructed with a counter counting up a value, $x$. When the value is reached the output clock is flipped and the counter is reset. Such a prescaler has a build in prescaling of 2 which is added besides the additional prescaler leading to equation \ref{eq:additional_prescaler1}. 
+
 Where $f_{s}$ is the output frequency of the PWM signal, $c_{steps}$ is the number of counter steps in a period, $f_{pl}$ is the logic clock which is $125MHz$ and $x$ is the additional prescaler.
 
 With the additional prescaler the PWM module outputs PWM signals with a frequency of $10.08kHz$.
@@ -68,6 +68,8 @@ To handle both a high-side PWM and low-side PWM each of the signals have a thres
 The high-side PWM is high when the counter is below the high-side threshold, $counter < th_{high}$, otherwise it is low. 
 
 The low-side PWM is high when the counter is above the low-side threshold, $counter > th_{low}$ otherwise it is low.
+
+\newpage
 
 The VHDL code can be seen below.
 

@@ -48,7 +48,6 @@ A couple of different transistors characteristics have been the major factors us
 The transistor has to be rated for the minimum drain-source current of $300 A$ if no parallel devices are used. It is chosen that the rated drain-source voltage should be around $100 V$ due to the battery in the go kart has a maximum voltage of $57.6V$, plus some safety margin for voltage spikes. 
 The maximum battery voltage is found based on the cell voltage of a $LiFePO_4$: $3.6 V$, multiplied with the number of cells, which is 16. The transistor has to have a fall time of less than $250ns$ and rise time of less than $50ns$. The transistor also has to have the lowest possible on-resistance, to minimize conduction losses, which are very significant when conducting a current of $300A$.
 
-The transistor with these specifications and the lowest possible drain-source on-resistance, for an affordable price, was a MOSFET. The MOSFET has the benefit of having a low current needed for turning on, the ability to handle high current needed for the motor and fast enough for the switching frequency. Since price is of serious concern when it comes to choice of components, then some sort of compromise will be made. \\
 
 The MOSFET chosen is an \textit{Infineon "IPB017N10N5"}. Some of the important specifications are listed in the table below.
 \begin{table} [H]
@@ -78,6 +77,11 @@ The MOSFET chosen is an \textit{Infineon "IPB017N10N5"}. Some of the important s
 \end{tabular}
 \caption{Transistor parameters taken from the \textit{IPB017N10N5} datasheet}
 \end{table}
+
+
+The transistor with these specifications and the lowest possible drain-source on-resistance, for an affordable price, was a MOSFET. The MOSFET has the benefit of having a low current needed for turning on, the ability to handle high current needed for the motor and fast enough for the switching frequency. Since price is of serious concern when it comes to choice of components, then some sort of compromise will be made. \\
+
+
 
 When looking at the parameters, a couple of things need to be considered. From the top it can be seen that the drain-source voltage is $100 V$, so it is able to handle the battery voltage and have a reasonable safety margin. 
 Next the [$I_D$] is not $300 A$ or above, which leads to a design choice of having two or more in parallel. Having more transistors in parallel has the benefit of splitting the current up between them, lowering the conduction power loss. 
