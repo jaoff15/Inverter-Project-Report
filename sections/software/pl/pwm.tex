@@ -117,12 +117,9 @@ To avoid compromising the required deadtime at edge cases where one of the thres
 
 When the high-side threshold is greater than the counter minimum plus half of the deadtime it is placed half of the deadtime below the threshold.
 \begin{equation}
-    th_{duty \ cycle} \geq  c_{min} + \frac{t_{dead \ time}}{2}
+    th_{duty \ cycle} \geq  c_{min} + \frac{t_{dead \ time}}{2} \Rightarrow
     \label{eq:threshold_high_condition}
 \end{equation}
-\begin{center}
-    $\Downarrow$    
-\end{center}
 \begin{equation}
    th_{high} = th_{duty \ cycle} - \frac{t_{dead \ time}}{2}  
    \label{eq:threshold_high_equation}
@@ -135,12 +132,9 @@ If the threshold comes too close to the edge the threshold will be clamped and t
 
 The low-side threshold is placed half of the deadtime above the threshold when the duty cycle is at least half of the deadtime below the counter max.
 \begin{equation}
-    th_{duty \ cycle}\leq c_{max} - \frac{t_{dead \ time}}{2}
+    th_{duty \ cycle}\leq c_{max} - \frac{t_{dead \ time}}{2} \Rightarrow
     \label{eq:threshold_low_condition}
 \end{equation}
-\begin{center}
-    $\Downarrow$
-\end{center}
 \begin{equation}
   th_{low} = th_{duty \ cycle} + \frac{t_{dead \ time}}{2}  
   \label{eq:threshold_low_equation}
