@@ -44,26 +44,13 @@ A mistake has caused only one of the split gate resistors being placed in the sc
 \rework{Are there any problems with the control?}
 \rework{If yes, how could they be fixed?}
 
-\subsection{Thermal characteristics}
-\rework{How does the thermal analysis look? Could something be made better?}
-
-
-% \subsection{Construction}
-% % Mechanical problems. Construction problems. Others?
-% Constructing the inverter in the intended way might turn out difficult. While mounting the bus bars across all three phase PCBs and mounting the capacitors directly on top of the bus bar might be a good idea electrically, it can turn out to be near impossible in practice.
-
-% The bus bars are made of solid copper which have a high thermal conductivity and therefore soldering anything directly to the bars are difficult. Heating up all the PCBs and the bus bar in an oven or heating plate is the only option. 
-% Getting all phase PCBs to align and solder correctly to the bus bars requires high precision and it might not be feasibly to use the same PCBs for a round two if something goes wrong.
-% On top of mounting the bus bars to the PCBs the capacitors has to be mounted at the same time. 
-
-% A compromise with a bit worse electrical characteristics but better construction might need to be used.
 
 \subsection{Embedded software}
 \subsubsection{PWM module}
 As can be seen in the end of section \ref{sec:pwm} where the PWM modules are tested. The module work and it can produce a sine curve at the selected frequency. Three module instances can be used phase shifted $120^\circ$ resulting in a three-phase signal.
 
-\subsubsection{Minimizing the dead time in the PWM module}
-The dead time between the high-side and low-side PWM's are $\sim 53$ times longer than the turn off time of the transistors used. The dead time is mainly limited by the resolution of the internal counter in the PWM module. By increasing the counter limits to $1000$ instead of $100$ the resolution would become $10$ times higher. The dead time resolution would also become $10$ times higher which would bring the minimum dead time down to $400ns$ only $\sim 5.3$ times larger than necessary.
+\subsubsection{Minimizing the deadtime in the PWM module}
+The deadtime between the high-side and low-side PWM's are $\sim 53$ times longer than the turn off time of the transistors used. The deadtime is mainly limited by the resolution of the internal counter in the PWM module. By increasing the counter limits to $1000$ instead of $100$ the resolution would become $10$ times higher. The deadtime resolution would also become $10$ times higher which would bring the minimum deadtime down to $400ns$ only $\sim 5.3$ times larger than necessary.
 
 \subsubsection{Linear interpolation}
 % The angle interpolation works to limit the encoder angle error for speeds under $1185RPM$ but speeds over $1185RPM$ the interpolation just follows the normal encoder angle error.

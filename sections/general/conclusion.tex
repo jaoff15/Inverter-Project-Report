@@ -2,13 +2,17 @@
 \label{sec:conclusion}
 
 
-To minimize the size of the power and driver boards and improve the modularity, the PCB's are made to only handle one phase and three boards will then be used to handle the three-phases.
+
+The three-phase inverter was designed with the requirements of an electric go-kart in mind. 
+
+As price was the primary concern the smallest possible PCB area was desirable which brought other trade-offs. 
+To minimize the size of the power and driver boards and in turn improve the overall modularity, the PCB's were made to only handle one phase and three boards were then used to handle the three-phases.
 For power board an aluminum PCB was used to have a high heat conductivity which allows for the use of SMD MOSFET's as the high power transistors. The driver board was build to be mounted directly on top of the power board to minimize driver signal path lengths and stray inductances.
 
-The motor is controlled on the Zynq with a PI controller in a field orientated way. Each phase is controlled by a FPGA dual PWM module with dead time between the two PWM signals.
+The motor is controlled on the Zynq with a PI controller in a field orientated way. Each phase is controlled with a dual PWM module with deadtime between the two PWM signals implemented in the FPGA.
 The angle out of the encoder has a low resolution so a more accurate angle is approximated at low speeds with the use of a linear interpolation algorithm. 
 
-Since the inverter was not constructed it is not possible to back up the theoretical work.
+Since the inverter was not built it is not possible to back up the theoretical work.
 
 % The theoretical motor controller should be able to control the \textit{ME1117 PMAC motor}, the controller has been made on a Zynq FPGA and a inverter has been designed with control. 
 % The Zynq FPGA design is able give relevant data through communication interface on a computer. 

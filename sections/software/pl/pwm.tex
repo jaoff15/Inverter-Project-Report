@@ -56,12 +56,12 @@ With the additional prescaler the PWM module outputs PWM signals with a frequenc
 \subsubsection*{PWM}
 
 
-To handle both a high-side PWM and low-side PWM each of the signals have a threshold and the output signal changes from high to low or opposite when the counter crosses the threshold as can be seen in figure \ref{fig:counter_with_pwm}. The two thresholds are spaced out with a static dead time between them which is discussed later in this section. The dead time on figure \ref{fig:counter_with_pwm} has been exaggerated to make it more visible.
+To handle both a high-side PWM and low-side PWM each of the signals have a threshold and the output signal changes from high to low or opposite when the counter crosses the threshold as can be seen in figure \ref{fig:counter_with_pwm}. The two thresholds are spaced out with a static deadtime between them which is discussed later in this section. The deadtime on figure \ref{fig:counter_with_pwm} has been exaggerated to make it more visible.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.85 \textwidth]{pictures/software/counter_with_pwm.eps}
-	\caption{The top shows the target duty-cycle together with the thresholds compared to the PWM counter. The bottom shows the output PWM signals. The dead time is exaggerated to make it more visible.}
+	\caption{The top shows the target duty-cycle together with the thresholds compared to the PWM counter. The bottom shows the output PWM signals. The deadtime is exaggerated to make it more visible.}
 	\label{fig:counter_with_pwm}
 \end{figure}
 
@@ -82,38 +82,38 @@ pwm_low  <= HIGH when (counter > threshold_low) else LOW;
 \end{center}
 
 
-To avoid shorting the supply dead time is inserted between turning off one transistor and turning on the other.
+To avoid shorting the supply deadtime is inserted between turning off one transistor and turning on the other.
 
-On figure \ref{fig:turn_off_time1} the conducted current for each transistor is drawn next to the PWM signals with dead time being bigger than the transistor turn off time, $dead \ time > t_{turn \ off}$, which results in one transistor turning completely off before the other turns on. 
+On figure \ref{fig:turn_off_time1} the conducted current for each transistor is drawn next to the PWM signals with deadtime being bigger than the transistor turn off time, $dead \ time > t_{turn \ off}$, which results in one transistor turning completely off before the other turns on. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8 \textwidth]{pictures/software/turn_off_time1.eps}
-	\caption{PWM with dead time and transistor conduction curves for systems with $dead \ time > t_{turn \ off}$}
+	\caption{PWM with deadtime and transistor conduction curves for systems with $dead \ time > t_{turn \ off}$}
 	\label{fig:turn_off_time1}
 \end{figure}
 
-On figure \ref{fig:turn_off_time2} the conducted current for each transistor is drawn next to the PWM signals but this time the dead time is smaller than the transistor turn off time, $dead \ time < t_{turn \ off}$, which results in both transistors conducting at the same time.
+On figure \ref{fig:turn_off_time2} the conducted current for each transistor is drawn next to the PWM signals but this time the deadtime is smaller than the transistor turn off time, $dead \ time < t_{turn \ off}$, which results in both transistors conducting at the same time.
 When both transistors conduct the supply is shorted which should be avoided especially when the supply consist of batteries.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8 \textwidth]{pictures/software/turn_off_time2.eps}
-	\caption{PWM with dead time and transistor conduction curves for systems with $dead \ time < t_{turn \ off}$}
+	\caption{PWM with deadtime and transistor conduction curves for systems with $dead \ time < t_{turn \ off}$}
 	\label{fig:turn_off_time2}
 \end{figure}
 
-It is therefore important to choose the dead time big enough to avoid shorting but also not so big that the systems performance is unnecessarily reduced.
+It is therefore important to choose the deadtime big enough to avoid shorting but also not so big that the systems performance is unnecessarily reduced.
 \bigskip
 
 
-To avoid compromising the required dead time at edge cases where one of the thresholds tries to move above $100 \%$ or  below $0 \%$ the thresholds are found in two different ways.
+To avoid compromising the required deadtime at edge cases where one of the thresholds tries to move above $100 \%$ or  below $0 \%$ the thresholds are found in two different ways.
 
 
 
 
 
-When the high-side threshold is greater than the counter minimum plus half of the dead time it is placed half of the dead time below the threshold.
+When the high-side threshold is greater than the counter minimum plus half of the deadtime it is placed half of the deadtime below the threshold.
 \begin{equation}
     th_{duty \ cycle} \geq  c_{min} + \frac{t_{dead \ time}}{2}
     \label{eq:threshold_high_condition}
@@ -131,7 +131,7 @@ If the threshold comes too close to the edge the threshold will be clamped and t
 
 
 
-The low-side threshold is placed half of the dead time above the threshold when the duty cycle is at least half of the dead time below the counter max.
+The low-side threshold is placed half of the deadtime above the threshold when the duty cycle is at least half of the deadtime below the counter max.
 \begin{equation}
     th_{duty \ cycle}\leq c_{max} - \frac{t_{dead \ time}}{2}
     \label{eq:threshold_low_condition}
@@ -148,7 +148,7 @@ Otherwise the threshold is clamped to the top counter edge.
 The VHDL code to find the two thresholds can be seen below. The variable \textit{duty\textunderscore cycle} is parsed into the PWM module. \textit{DEADTIME}, \textit{HALF\textunderscore DEADTIME}, \textit{COUNT\textunderscore MIN} and \textit{COUNT\textunderscore MAX} are all constants.
 
 \begin{minted}[frame=single,framesep=2mm,baselinestretch=1.2,linenos,fontsize=\footnotesize]{vhdl}
--- Get half of dead time
+-- Get half of deadtime
 HALF_DEADTIME(6 downto 0) <= DEADTIME(7 downto 1);
 -- Find the threshold for the high-side PWM
 threshold_high <= duty_cycle - HALF_DEADTIME when 
@@ -164,8 +164,8 @@ threshold_low  <= duty_cycle + HALF_DEADTIME when
 
 
 The turn off times for the transistors was found in section \ref{sec:switching_power_loss} to be $75ns$.
-The way dead time is implemented it has to be defined as some even amount of ticks at the PWM frequency.
-The minimum dead time step, $dt_{res}$, in this system is calculated with equation \ref{eq:minimum_deadtime_resolution}.
+The way deadtime is implemented it has to be defined as some even amount of ticks at the PWM frequency.
+The minimum deadtime step, $dt_{res}$, in this system is calculated with equation \ref{eq:minimum_deadtime_resolution}.
 
 \begin{subequations}
     \begin{align}
@@ -182,7 +182,7 @@ The minimum dead time step, $dt_{res}$, in this system is calculated with equati
     \label{eq:minimum_deadtime_resolution}
 \end{subequations}
 
-Which gives the system a safety margin of $\sim 53$ on the dead time between the two PWM signals.
+Which gives the system a safety margin of $\sim 53$ on the deadtime between the two PWM signals.
 
 
 \subsubsection*{ADC Pulses}
