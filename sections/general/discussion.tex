@@ -41,13 +41,15 @@ Finding out if the capacitance built in is enough to smooth out everything is st
 A mistake has caused only one of the split gate resistors being placed in the schematic. A resistor closer to the gate should also have been placed. Using an SMD diode could also lead to a better layout, but utilizing components from the stock was chosen to keep down the cost.
 
 \subsection{Control}
-\rework{Are there any problems with the control?}
-It was not achieved to make a model of the system, that fully acted as expected. 
-At what point did the model act as expected. When the load on the motor was increased the amplitude of the three phased current increased too. This can be seen on figure \ref{fig}  A higher demand of current was expected when a bigger load is put on the motor.
+A fully working model of the system was not achieved.
+In some cases the model works as expected one of these being when the load on the motor increases resulting in an increase in amplitude of the three phase currents. As can be seen on figure \ref{fig:iabc} in section \ref{sec:simulation}.
 
+When the load of the motor increases the torque of the motor drops, and then stabilizes at zero again after around $40 ms$ to $50 ms$. When the load changes the torque momentarily drops the same amount and then returns back to zero. As can be seen on figure \ref{fig:torque} in section \ref{sec:simulation}.
 
+On figure \ref{fig:speed} in section \ref{sec:simulation} the speed of the motor can be seen. It can be seen that the speed is negative which is caused by the torque being divided by the inertia, before it is integrated into the speed. This results in the speed dropping when the load of the motor is changed.
+Combining that with the speed not increasing fast enough between the acceleration drops. The speed should not be negative when the torque produced by the electrical field is more than the load of the motor.
 
-\rework{If yes, how could they be fixed?}
+Figure \ref{fig:idq} in section \ref{sec:simulation} shows the d- and q-currents. There it can be seen that the q-current is not going towards the set reference. It can also be seen that the d-current is going towards zero but slowly. This suggest that the PI-controller is not set correctly, or there is an error in the model. 
 
 
 \subsection{Embedded software}
@@ -58,7 +60,6 @@ As can be seen in the end of section \ref{sec:pwm} where the PWM modules are tes
 The deadtime between the high-side and low-side PWM's are $\sim 53$ times longer than the turn off time of the transistors used. The deadtime is mainly limited by the resolution of the internal counter in the PWM module. By increasing the counter limits to $1000$ instead of $100$ the resolution would become $10$ times higher. The deadtime resolution would also become $10$ times higher which would bring the minimum deadtime down to $400ns$ only $\sim 5.3$ times larger than necessary.
 
 \subsubsection{Linear interpolation}
-% The angle interpolation works to limit the encoder angle error for speeds under $1185RPM$ but speeds over $1185RPM$ the interpolation just follows the normal encoder angle error.
 
 The linear interpolation use a couple of assumptions and it is difficult to quantify the expected benefit from having it. As shown in section \ref{sec:linear_interpolation} a more precise rotor angle can be achieved for speeds less than $1185RPM$ for moments with low to no acceleration or deceleration. The error caused by acceleration and deceleration is not analyzed, only a static simulation has been made. To precisely determine how big of an advantage or disadvantage the interpolation can have in a real scenario, the algorithm would need to be dynamically tested.
 
